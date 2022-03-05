@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yosoyapp
+  namespace: default
+  labels:
+    app: yosoyapp
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yosoyapp
+  template:
+    metadata:
+      labels:
+        app: yosoyapp
+    spec:
+      containers:
+        - name: yosoyapp
+          image: 301002166745.dkr.ecr.us-east-1.amazonaws.com/yosoyapp:latest
+          ports:
+            - name: web
+              containerPort: 80
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "200m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"

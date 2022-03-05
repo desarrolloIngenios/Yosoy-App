@@ -1,0 +1,22 @@
+name: Development
+
+on:
+  push:
+    branches: [ dev ]
+
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Build and deploy on development
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Run deploy script over SSH
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        key: ${{ secrets.EC2_KEY }}
+        username: ubuntu
+        port: 22
+        script: sh /home/ubuntu/Authentic/yosoyapp.sh
