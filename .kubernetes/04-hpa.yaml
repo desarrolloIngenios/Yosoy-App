@@ -7,7 +7,7 @@ metadata:
     app: yosoyapp
 spec:
   minReplicas: 1
-  maxReplicas: 6
+  maxReplicas: 10
   metrics:
     - resource:
         name: cpu
