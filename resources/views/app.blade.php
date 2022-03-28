@@ -7,7 +7,11 @@
         <div class="page">
 
 			<!-- main-sidebar -->
-			@include('partials/left_sidebar')
+			@if(session('role') == 'ADMIN')
+				@include('partials/left_sidebar_admin')
+			@else
+				@include('partials/left_sidebar')
+			@endif
 			<!-- main-sidebar -->
 
 			<!-- main-content -->

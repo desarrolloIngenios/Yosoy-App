@@ -48,6 +48,10 @@ Route::get('delete_experiencia_laboral/{id}', [App\Http\Controllers\Web\Experien
 Route::post('educacion', [App\Http\Controllers\Web\EducacionController::class, 'store'])->name('educacion.post');
 Route::get('delete_educacion/{id}', [App\Http\Controllers\Web\EducacionController::class, 'delete'])->name('educacion.delete');
 
+Route::get('user/list', [App\Http\Controllers\Web\UserController::class, 'index'])->name('user_list');
+
+Route::get('offer/index', [App\Http\Controllers\Web\OfertaController::class, 'index'])->name('offer.index');
+Route::post('offer', [App\Http\Controllers\Web\OfertaController::class, 'store'])->name('offer.post');
 
 //Route::post('profile', [App\Http\Controllers\Web\ProfileController::class, 'store'])->name('profile.post');
 Route::get('oferta/create', [App\Http\Controllers\Web\OfertaController::class, 'create'])->name('oferta.create');
