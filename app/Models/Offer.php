@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Offer extends Model
+{
+    use HasFactory;
+
+    protected $table = 'offer';
+
+    protected $fillable = [
+                            'description',
+                            'cargo_id',
+                            'sector_id',
+                            'ciudad_id',
+                            'nivel_educativo_id',
+                            'tiempo_experiencia_id',
+                        ];
+    
+    public function cargo() {
+        return $this->belongsTo(\App\Models\Base\Cargo::class, 'cargo_id');
+    }
+
+    public function sector() {
+        return $this->belongsTo(\App\Models\Base\Sector::class, 'sector_id');
+    }
+
+    public function ciudad() {
+        return $this->belongsTo(\App\Models\Base\Ciudad::class, 'ciudad_id');
+    }
+
+    public function nivel_educativo() {
+        return $this->belongsTo(\App\Models\Base\NivelEducativo::class, 'nivel_educativo_id');
+    }
+
+    public function tiempo_experiencia() {
+        return $this->belongsTo(\App\Models\Base\TiempoExperiencia::class, 'tiempo_experiencia_id');
+    }
+
+    public function tipo_contrato()
+    {
+        return $this->belongsToMany(\App\Models\Base\TipoContrato::class, 'offer_tipo_contrato', 'offer_id', 'tipo_contrato_id');
+    }
+    
+
+    
+
+}

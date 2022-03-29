@@ -10,7 +10,7 @@
                 <p class="mb-2"></p>
             </div>
             <div class="card-body pt-0">
-                <form action="{{ route('profile.post') }}" method="post">
+                <form action="{{ route('offer.post') }}" method="post">
                     @csrf
 
                     <div class="row row-sm">
@@ -66,7 +66,8 @@
                             </select>
                         </div> 
                         <div class="col-lg-6 mg-b-12 mg-lg-b-6">
-                            <p class="mg-b-10">Tipo de contrato / Servicio que esta buscando</p><select class="form-control select2" multiple="multiple" placeholder="Hola">
+                            <p class="mg-b-10">Tipo de contrato / Servicio que esta buscando</p>
+                            <select class="form-control select2" name="tipo_contrato[]" multiple="multiple" placeholder="Hola">
                                 @foreach($tipo_contrato as $item)
                                     <option value=""></option>
                                     @if(isset($perfil['tipo_contrato_id']) && $perfil['tipo_contrato_id'] == $item['id'])
@@ -84,87 +85,16 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="descripcion">Descripción</label>
-                                <textarea name="descripcion" placeholder="Resume brevemente el perfil o servicio que estás buscando." rows="4" class="form-control" required></textarea>
+                                <textarea name="description" placeholder="Resume brevemente el perfil o servicio que estás buscando." rows="4" class="form-control" required></textarea>
                             </div>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary mt-3 mb-0">Actualizar</button>
+                    <button type="submit" class="btn btn-primary mt-3 mb-0">Guardar</button>
                 </form>
             </div>
         </div>
     </div>
-
-    <div class="col-xl-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped mg-b-0 text-md-nowrap">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Cargo</th>
-                                <th>Tiempo Experiencia</th>
-                                <th>Sector</th>
-                                <th>Ciudad</th>
-                                <th>Nivel Educativo</th>
-                                <th>Tipo Contrato</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Cargo</td>
-                                <td>Tiempo Experiencia</td>
-                                <td>Sector</td>
-                                <td>Ciudad</td>
-                                <td>Nivel Educativo</td>
-                                <td>Tipo Contrato</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Cargo</td>
-                                <td>Tiempo Experiencia</td>
-                                <td>Sector</td>
-                                <td>Ciudad</td>
-                                <td>Nivel Educativo</td>
-                                <td>Tipo Contrato</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Cargo</td>
-                                <td>Tiempo Experiencia</td>
-                                <td>Sector</td>
-                                <td>Ciudad</td>
-                                <td>Nivel Educativo</td>
-                                <td>Tipo Contrato</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <td>Cargo</td>
-                                <td>Tiempo Experiencia</td>
-                                <td>Sector</td>
-                                <td>Ciudad</td>
-                                <td>Nivel Educativo</td>
-                                <td>Tipo Contrato</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">5</th>
-                                <td>Cargo</td>
-                                <td>Tiempo Experiencia</td>
-                                <td>Sector</td>
-                                <td>Ciudad</td>
-                                <td>Nivel Educativo</td>
-                                <td>Tipo Contrato</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div><!-- bd -->
-            </div><!-- bd -->
-        </div><!-- bd -->
-    </div>
-
-
 </div>
 
 

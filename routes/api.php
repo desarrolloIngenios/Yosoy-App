@@ -35,6 +35,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('nivel_educativo', [App\Http\Controllers\Api\NivelEducativoController::class, 'index'])->name('api.nivel_educativo');
     Route::get('titulo_educativo', [App\Http\Controllers\Api\TituloEducativoController::class, 'index'])->name('api.titulo_educativo');
     Route::get('institucion_educativa', [App\Http\Controllers\Api\InstitucionEducativaController::class, 'index'])->name('api.institucion_educativa');
+    Route::get('user_list', [App\Http\Controllers\Api\UserController::class, 'index'])->name('api.user_list');
     
     Route::post('perfil_laboral', [App\Http\Controllers\Api\ProfileController::class, 'storePerfilLaboral'])->name('api.peril_labora_perfil.store');
     Route::delete('perfil_laboral/{id}', [App\Http\Controllers\Api\ProfileController::class, 'deletePerfilLaboral'])->name('api.peril_labora_perfil.delete');
@@ -45,6 +46,8 @@ Route::middleware('auth:api')->group(function () {
     Route::post('educacion', [App\Http\Controllers\Api\EducacionController::class, 'store'])->name('api.educacion.store');
     Route::delete('educacion/{id}', [App\Http\Controllers\Api\EducacionController::class, 'delete'])->name('api.educacion.delete');
 
+    Route::post('offer/post', [App\Http\Controllers\Api\OfferController::class, 'store'])->name('api.offer.store');
+    Route::get('offer/get', [App\Http\Controllers\Api\OfferController::class, 'index'])->name('api.offer.index');
     
 
     

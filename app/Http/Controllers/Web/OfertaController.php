@@ -55,9 +55,6 @@ class OfertaController extends Controller
         $message = $response->json()['message'];
         $data['tipo_contrato'] = $tipo_contrato;
 
-       
-
-
         return view('oferta/create', $data);
     }
 
@@ -69,6 +66,32 @@ class OfertaController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->input());
+       
+        $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.offer.store'), $request->input());
+        //dd($response->json());
+        $success = $response->json()['success'];
+        $data = $response->json()['data'];
+        $message = $response->json()['message'];
+       
+
+        if(!$success){
+            return redirect()->back()->withInput($request->only('email'))->with('status', 'Error!');
+        }
+        return redirect()->back();
+    }
+
+    public function index(Request $request)
+    {
         
+        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.offer.index'), []);
+        //dd($response->json());
+        $success = $response->json()['success'];
+        $offers = $response->json()['data'];
+        $message = $response->json()['message'];
+        $data['offers'] = $offers;
+        //$data['offers'] = [];
+        //dd($data);
+        return view('oferta/index', $data);
     }
 }
