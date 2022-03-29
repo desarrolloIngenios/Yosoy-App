@@ -56,6 +56,7 @@ RUN touch /var/log/php/errors.log && chmod 777 /var/log/php/errors.log
 
 # Deployment steps
 RUN composer install --optimize-autoloader --no-dev
+RUN composer require league/flysystem-aws-s3-v3 "^1.0"
 RUN chmod +x /var/www/docker/run.sh
 
 EXPOSE 80
