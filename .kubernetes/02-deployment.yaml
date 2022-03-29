@@ -63,5 +63,4 @@ spec:
           lifecycle:
             postStart:
               exec:
-                command: ["/bin/sh", "-c", "php artisan migrate --force"]
-                command: ["/bin/sh", "-c", "php artisan passport:install"]
+                command: ["/bin/sh", "-c", "php artisan migrate --force && php artisan passport:install"]
