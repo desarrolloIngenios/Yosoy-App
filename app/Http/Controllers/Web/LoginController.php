@@ -34,7 +34,7 @@ class LoginController extends Controller
             'email' => $email,
             'password' => $password,
         ]);
-        //dd($response->json());
+        dd($response->json());
         $success = $response->json()['success'];
         $data = $response->json()['data'];
         $message = $response->json()['message'];
