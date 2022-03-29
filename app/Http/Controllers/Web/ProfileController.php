@@ -128,7 +128,6 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-
         $fecha_nacimiento_sin_formato = $request->input('fecha_nacimiento');
         $date = \Carbon\Carbon::createFromFormat('m/d/Y', $fecha_nacimiento_sin_formato);
         $fecha_con_formato = $date->format('Y-m-d 00:00:00');
@@ -138,7 +137,7 @@ class ProfileController extends Controller
         ]);
 
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.profile'), $request->input());
-        dd($request->input());
+       // dd($request->input());
 
         $success = $response->json()['success'];
         $data = $response->json()['data'];

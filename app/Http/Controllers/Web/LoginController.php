@@ -44,7 +44,11 @@ class LoginController extends Controller
         }
         $token = $data['token'];
         $request->session()->forget('token');
-        session(['token' => $token]);   
+        session(['token' => $token]);  
+        
+        $role = $data['role'];
+        $request->session()->forget('role');
+        session(['role' => $role]);   
         // 'Accept' => 'application/json',
         // 'Authorization' => 'Bearer '.$accessToken,
         return redirect()->route('profile.get');

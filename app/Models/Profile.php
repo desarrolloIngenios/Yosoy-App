@@ -28,6 +28,12 @@ class Profile extends Model
                             'is_empirico',
                             'foto_perfil_url',
                         ];
+    
+    protected $appends = ['full_name'];
+
+    public function getFullNameAttribute($value) {
+        return $this->name . ' ' . $this->last_name;
+    }
 
     public function perfiles_laborales()
     {
@@ -43,6 +49,19 @@ class Profile extends Model
     {
         return $this->hasMany(ProfileEducacion::class, 'profile_id');
     }
+
+    public function ciudad_residencia() {
+        return $this->belongsTo(\App\Models\Base\Ciudad::class, 'ciudad_residencia_id');
+    }
+
+    public function genero() {
+        return $this->belongsTo(\App\Models\Base\Genero::class, 'genero_id');
+    }
+
+    public function tipo_documento() {
+        return $this->belongsTo(\App\Models\Base\TipoDocumento::class, 'tipo_documento_id');
+    }
+    
 
     
 
