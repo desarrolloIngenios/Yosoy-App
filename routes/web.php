@@ -16,7 +16,7 @@ if(env('WEB_FLAG')){
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::get('login', [App\Http\Controllers\Web\LoginController::class, 'index'])->name('login');
