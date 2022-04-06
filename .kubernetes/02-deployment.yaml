@@ -68,8 +68,8 @@ spec:
               memory: "64Mi"
               cpu: "400m"
             limits:
-              memory: "250Mi"
-              cpu: "1800m"
+              memory: "700Mi"
+              cpu: "950m"
           lifecycle:
             postStart:
               exec:
