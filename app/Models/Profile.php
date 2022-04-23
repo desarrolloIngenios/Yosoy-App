@@ -61,6 +61,10 @@ class Profile extends Model
     public function tipo_documento() {
         return $this->belongsTo(\App\Models\Base\TipoDocumento::class, 'tipo_documento_id');
     }
+
+    public function user() {
+        return $this->belongsTo(\App\Models\User::class, 'user_id');
+    }
     
 
     

@@ -16,7 +16,8 @@ class UserController extends BaseController
             'genero', 
             'tipo_documento', 
             'perfiles_laborales.nivel_experiencia', 
-            'perfiles_laborales.cargo'
+            'perfiles_laborales.cargo',
+            'user'
             )->get();
         //dd($profile);
         return $this->sendResponse($profile, 'profile');

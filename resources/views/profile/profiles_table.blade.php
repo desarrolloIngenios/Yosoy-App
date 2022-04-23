@@ -21,14 +21,22 @@
                     @endif
                 </td>
                 <td>
-                    {{ $user['full_name'] }} 
+                    @if(trim($user['full_name']) == "")
+                        {{ $user['user']['name'] }} 
+                    @else
+                        {{ $user['full_name'] }} 
+                    @endif
                     <br>
                     {{ $user['ciudad_residencia'] ? $user['ciudad_residencia']['pais_departamento_ciudad']:'-' }}
                 </td>
                 <td>
                     {{ $user['numero_contacto_1'] }} - {{ $user['numero_contacto_2'] }} 
                     <br>
-                    {{ $user['email'] }}
+                    @if(trim($user['email']) == "")
+                        {{ $user['user']['email'] }} 
+                    @else
+                        {{ $user['email'] }} 
+                    @endif
                 </td>
                 <td>
                     @foreach($user['perfiles_laborales'] as $perfil_laboral)
