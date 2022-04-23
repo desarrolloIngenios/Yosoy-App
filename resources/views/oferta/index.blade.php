@@ -5,7 +5,7 @@
 <div class="row row-sm">
 
 @foreach($offers as $offer)
-    <div class="col-12 col-sm-6 col-lg-6">
+    <div class="col-12 col-sm-12 col-lg-12">
         <div class="card card-primary">
             <div class="card-header pb-0">
                 <h5 class="card-title ">{{$offer['cargo']['nombre']}} - {{$offer['sector']['nombre']}}  - {{$offer['tiempo_experiencia']['nombre']}}  </h5>
@@ -19,9 +19,34 @@
             <div class="card-body text-primary">
                 {{$offer['description']}}
             </div>
-            <div class="card-footer">
+            <div class="card-footer" >
                 {{ $offer['ciudad']['pais_departamento_ciudad'] }}
+                <div class="row row-sm">
+                    @if(session('role') == 'ADMIN')
+                    <div class="col-sm-6 col-lg-6">
+                        <a href="{{ route('offer.show_public', $offer['id']) }}" target="_blank">
+                            <button class="btn btn-info btn-icon"><i class="typcn typcn-arrow-back-outline"></i></button>
+                        </a>
+                        <a href="{{ route('offer.show', $offer['id']) }}">
+                            <button class="btn btn-primary "><i class="typcn typcn-plus-outline"> Listado de Postulados</i></button>
+                        </a>
+                    </div>
+                    @endif
+
+                    <div class="col-sm-6 col-lg-6">
+                    @if(!in_array($offer['id'], $offers_apply_ids))
+                        <a href="{{ route('offer.apply', $offer['id']) }}">
+                            <button class="btn btn-primary "><i class="typcn typcn-plus-outline"> Aplicar</i></button>
+                        </a>
+                        
+                    @else
+                        <button class="btn btn-success "><i class="typcn typcn-input-checked"> Aplicado</i></button>
+                    @endif
+                    </div>
+
+                </div>     
             </div>
+
         </div>
     </div>
 @endforeach

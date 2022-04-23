@@ -44,6 +44,19 @@ class Offer extends Model
     {
         return $this->belongsToMany(\App\Models\Base\TipoContrato::class, 'offer_tipo_contrato', 'offer_id', 'tipo_contrato_id');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'offer_user', 'offer_id', 'user_id')
+                ->with('profile.ciudad_residencia',
+                      'profile.genero',
+                      'profile.tipo_documento',
+                      'profile.genero',
+                      'profile.perfiles_laborales.nivel_experiencia',
+                      'profile.perfiles_laborales.cargo',
+                    
+                    );
+    }
     
 
     

@@ -90,8 +90,61 @@ class OfertaController extends Controller
         $offers = $response->json()['data'];
         $message = $response->json()['message'];
         $data['offers'] = $offers;
+
+        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.offer.apply'), []);
+        //dd($response->json());
+        $success = $response->json()['success'];
+        $offers_apply = $response->json()['data'];
+        $message = $response->json()['message'];
+        $offers_apply_ids = [];
+        foreach($offers_apply as $offer_apply){
+            $offers_apply_ids[] = $offer_apply['id'];
+        }
         //$data['offers'] = [];
-        //dd($data);
+       // dd($offers_apply_ids);
+        $data['offers_apply_ids'] = $offers_apply_ids;
+
         return view('oferta/index', $data);
     }
+
+    public function show_public(Request $request, $id)
+    {
+        //dd($id);
+        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.offer.show_public', ['id' => $id]), []);
+        //dd($response->json());
+        $success = $response->json()['success'];
+        $offer = $response->json()['data'];
+        $message = $response->json()['message'];
+        $data['offer'] = $offer;
+        //$data['offers'] = [];
+        //dd($data);
+        return view('oferta/show_public', $data);
+    }
+
+    public function apply(Request $request, $offer_id)
+    {
+        $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.offer.apply'), ['offer_id' => $offer_id]);
+        return redirect()->route('offer.index');
+    }
+
+    public function show(Request $request, $offer_id)
+    {
+        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.offer.show', ['offer_id' => $offer_id]), []);
+        //dd($response->json());
+        $success = $response->json()['success'];
+        $offer = $response->json()['data'];
+        $message = $response->json()['message'];
+        $data['offer'] = $offer;
+
+        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.offer.profile.appply', ['offer_id' => $offer_id]), []);
+        //dd($response->json());
+        $success = $response->json()['success'];
+        $profiles = $response->json()['data'];
+        $message = $response->json()['message'];
+        $data['users'] = $profiles;
+        //$data['offers'] = [];
+        //dd($data);
+        return view('oferta/show', $data);
+    }
+
 }
