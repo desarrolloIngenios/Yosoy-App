@@ -136,8 +136,8 @@ class ProfileController extends Controller
             'fecha_nacimiento' => $fecha_con_formato,
         ]);
 
-        $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.profile'), $request->input());
-       // dd($request->input());
+        $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.profile_post'), $request->input());
+        //dd($response);
 
         $success = $response->json()['success'];
         $data = $response->json()['data'];
@@ -158,7 +158,7 @@ class ProfileController extends Controller
 
     public function save_soy_tecnico(Request $request)
     {
-        $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.profile'), ['is_empirico' => false]);
+        $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.profile_post'), ['is_empirico' => false]);
         //dd($response->json());
 
         $success = $response->json()['success'];
@@ -171,7 +171,7 @@ class ProfileController extends Controller
 
     public function save_soy_empirico(Request $request)
     {
-        $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.profile'), ['is_empirico' => true]);
+        $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.profile_post'), ['is_empirico' => true]);
         //dd($response->json());
 
         $success = $response->json()['success'];
@@ -193,7 +193,7 @@ class ProfileController extends Controller
      
         $path = \Storage::disk('s3')->put('images', $request->image);
         // Guardar path en base de datos
-        $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.profile'), ['foto_perfil_url' => $path]);
+        $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.profile_post'), ['foto_perfil_url' => $path]);
         //\Storage::disk('s3')->setVisibility($path, 'public');
         $path = \Storage::disk('s3')->url($path);
         //\Storage::disk('s3')->setVisibility($path, 'public');

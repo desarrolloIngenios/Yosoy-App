@@ -62,11 +62,14 @@ class LoginController extends Controller
     public function registro_post(Request $request)
     {
         $response = Http::accept('application/json')->post(route('api.register'), $request->input());
-        //dd($response->json());
-        if(!\Illuminate\Support\Arr::has($response->json(), 'success')){
-            return redirect()->back()->withInput($request->all())->with('status', 'Error al crear la cuenta!');
-        }
+        //sdd($response->json());
+        // if(!\Illuminate\Support\Arr::has($response->json(), 'success')){
+        //     return redirect()->back()->withInput($request->all())->with('status', 'El Correo electrónico ya se encuentra en uso!');
+        // }
         $success = $response->json()['success'];
+        if(!$success){
+            return redirect()->back()->withInput($request->all())->with('status', 'El Correo electrónico ya se encuentra en uso!');
+        }
         //return dd($success);
         $data = $response->json()['data'];
         $message = $response->json()['message'];

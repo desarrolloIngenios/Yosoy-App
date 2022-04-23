@@ -55,7 +55,7 @@ spec:
             - name: AWS_SECRET_ACCESS_KEY
               value: "lDP9Nfw0hJRosxR8Z0111MZS6aoQs5xNjtNfWvGt"
             - name: AWS_DEFAULT_REGION
-              value: "us"-east-2"
+              value: "us-east-2"
             - name: AWS_BUCKET
               value: "authenticlibreria"
             - name: AWS_USE_PATH_STYLE_ENDPOINT
@@ -68,7 +68,7 @@ spec:
               memory: "64Mi"
               cpu: "400m"
             limits:
-              memory: "128Mi"
+              memory: "700Mi"
               cpu: "950m"
           lifecycle:
             postStart:

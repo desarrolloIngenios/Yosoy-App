@@ -26,6 +26,7 @@ class ProfileController extends BaseController
         $profile = $request->user()->profile;
         //return $request->user()->id;
         //return $request->except(['_token']);
+       // dd($profile);
         if(is_null($profile)){
             $profile = new Profile();
         }
@@ -33,6 +34,7 @@ class ProfileController extends BaseController
         $profile->user_id = $request->user()->id;
         $profile->pais_residencia_id = 0;
         $profile->save();
+        return $this->sendResponse($profile, 'Perfil');
     }
 
     public function show(Request $request)

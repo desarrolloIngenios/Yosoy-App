@@ -52,6 +52,10 @@ Route::get('user/list', [App\Http\Controllers\Web\UserController::class, 'index'
 
 Route::get('offer/index', [App\Http\Controllers\Web\OfertaController::class, 'index'])->name('offer.index');
 Route::post('offer', [App\Http\Controllers\Web\OfertaController::class, 'store'])->name('offer.post');
+Route::get('offer/public/{id}', [App\Http\Controllers\Web\OfertaController::class, 'show_public'])->name('offer.show_public');
+Route::get('offer/apply/{offer_id}', [App\Http\Controllers\Web\OfertaController::class, 'apply'])->name('offer.apply');
+Route::get('offer/detail/{offer_id}', [App\Http\Controllers\Web\OfertaController::class, 'show'])->name('offer.show');
+
 
 //Route::post('profile', [App\Http\Controllers\Web\ProfileController::class, 'store'])->name('profile.post');
 Route::get('oferta/create', [App\Http\Controllers\Web\OfertaController::class, 'create'])->name('oferta.create');
