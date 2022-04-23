@@ -15,7 +15,7 @@ class OfferController extends BaseController
     public function index(Request $request)
     {
         //dd($request);
-        $offers = Offer::with(['cargo', 'sector', 'ciudad', 'nivel_educativo', 'tiempo_experiencia', 'tipo_contrato'])->get();
+        $offers = Offer::with(['cargo', 'sector', 'ciudad', 'nivel_educativo', 'tiempo_experiencia', 'tipo_contrato'])->orderBy('id', 'desc')->get();
         return $this->sendResponse($offers, 'Offers');
     }
      /**
@@ -34,29 +34,48 @@ class OfferController extends BaseController
         return $this->sendResponse($offer, 'Offer');
     }
 
-    // public function show(Request $request)
-    // {
-    //     //return $request->user();
-    //     //return \Auth::user();
-    //     //return $request;
-    //     //\Log::debug(print_r($request));
-    //     //dd($request->body());
-    //     $profile = $request->user()->profile;
-        
-    //     //$profile = Profile::find(1);
-    //     //dd(Auth::user());
-    //     if(!is_null($profile)){
-    //         $profile->perfiles_laborales = $profile->perfiles_laborales()->with(['cargo', 'nivel_experiencia', 'tiempo_experiencia'])->get();
-    //         $profile->experiencias_laborales = $profile->experiencias_laborales()->with(['cargo', 'sector', 'pais', 'ciudad'])->get();
-    //         $profile->educaciones = $profile->educaciones()->with(['nivel_educativo', 'titulo_educativo', 'ciudad', 'institucion_educativa'])->get();
-    //     } else {
-    //         $profile = new Profile();
-    //         $profile->perfiles_laborales = [];
-    //         $profile->experiencias_laborales = [];
-    //         $profile->educaciones = [];
-    //     }
-    //     return $this->sendResponse($profile, 'Perfil');
-    // }
+    public function show_public(Request $request, $id)
+    {
+        $offer = Offer::with(['cargo', 'sector', 'ciudad', 'nivel_educativo', 'tiempo_experiencia', 'tipo_contrato'])->where('id', $id)->first();
+        return $this->sendResponse($offer, 'Offer');
+    }
+
+    public function show(Request $request, $offer_id)
+    {
+        $offer = Offer::with(['cargo', 'sector', 'ciudad', 'nivel_educativo', 'tiempo_experiencia', 'tipo_contrato', 'users'])->where('id', $offer_id)->first();
+       
+        return $this->sendResponse($offer, 'Offer');
+    }
+
+    public function apply(Request $request)
+    {
+        $user = $request->user();
+        $offer_id = $request->input('offer_id');
+        $user->offers()->detach($offer_id);
+        $user->offers()->attach($offer_id);
+        return $this->sendResponse($user, 'Offer');
+    }
+
+    public function get_offers_apply(Request $request)
+    {
+        $user = $request->user();
+        $offers = $user->offers()->get();
+        return $this->sendResponse($offers, 'Offers');
+    }
+
+    public function get_profile_apply(Request $request, $offer_id)
+    {
+        $offer = Offer::with(['cargo', 'sector', 'ciudad', 'nivel_educativo', 'tiempo_experiencia', 'tipo_contrato', 'users'])->where('id', $offer_id)->first();
+        $profiles = [];
+        foreach($offer->users as $user){
+            
+            $profiles[] = $user->profile;
+        }
+        return $this->sendResponse($profiles, 'profiles');
+    }
+
+    
+    
 
     // public function storePerfilLaboral(Request $request)
     // {

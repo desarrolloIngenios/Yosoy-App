@@ -17,9 +17,10 @@ class LoginController extends BaseController
      */
     public function register(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'password' => 'required',
             //'c_password' => 'required|same:password',
         ]);
@@ -27,7 +28,7 @@ class LoginController extends BaseController
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
         }
-   
+
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);

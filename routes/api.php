@@ -18,13 +18,15 @@ if(env('API_FLAG')){
 Route::post('register', [App\Http\Controllers\Api\LoginController::class, 'register'])->name('api.register');
 Route::post('login', [App\Http\Controllers\Api\LoginController::class, 'login'])->name('api.login');
 
+Route::get('offer/public/{id}', [App\Http\Controllers\Api\OfferController::class, 'show_public'])->name('api.offer.show_public');
+
 Route::middleware('auth:api')->group(function () {
 
     Route::post('pais', [App\Http\Controllers\Api\PaisController::class, 'index'])->name('api.pais');
     Route::post('genero', [App\Http\Controllers\Api\GeneroController::class, 'index'])->name('api.genero');
     Route::post('tipo_documentos', [App\Http\Controllers\Api\TipoDocumentoController::class, 'index'])->name('api.tipo_documentos');
     Route::post('ciudades', [App\Http\Controllers\Api\CiudadController::class, 'index'])->name('api.ciudades');
-    Route::post('profile', [App\Http\Controllers\Api\ProfileController::class, 'store'])->name('api.profile');
+    Route::post('profile_post', [App\Http\Controllers\Api\ProfileController::class, 'store'])->name('api.profile_post');
     Route::get('profile', [App\Http\Controllers\Api\ProfileController::class, 'show'])->name('api.profile');
     Route::get('cargos', [App\Http\Controllers\Api\CargoController::class, 'index'])->name('api.cargos');
     Route::get('tiempo_experiencia', [App\Http\Controllers\Api\TiempoExperienciaController::class, 'index'])->name('api.tiempo_experiencia');
@@ -48,6 +50,13 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('offer/post', [App\Http\Controllers\Api\OfferController::class, 'store'])->name('api.offer.store');
     Route::get('offer/get', [App\Http\Controllers\Api\OfferController::class, 'index'])->name('api.offer.index');
+    Route::get('offer/show/{offer_id}', [App\Http\Controllers\Api\OfferController::class, 'show'])->name('api.offer.show');
+    Route::get('offer/get_profiles/apply/{offer_id}', [App\Http\Controllers\Api\OfferController::class, 'get_profile_apply'])->name('api.offer.profile.appply');
+
+    
+
+    Route::post('offer/apply', [App\Http\Controllers\Api\OfferController::class, 'apply'])->name('api.offer.apply');
+    Route::get('offer/apply', [App\Http\Controllers\Api\OfferController::class, 'get_offers_apply'])->name('api.offer.apply');
     
 
     
