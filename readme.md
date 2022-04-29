@@ -10,7 +10,7 @@ Yo soy project repository.
 - Workflow for ci cd is included in **.github/workflows/production** file.
 - For deploy, create a new pull request to main branch and check **Production** workflow in github actions tab.
 ### Development
-- [yosoyapp.ingeniosdev.tk](https://yosoyapp.ingeniosdev.tk/)
+- [app.yosoydev.tk](https://app.yosoydev.tk/)
 - Docker compose deployment in EC2 Instance.
 - Image built inside docker compose with **dockerfile** file.
 - Workflow for ci cd is included in **.github/workflows/development** file.
@@ -34,4 +34,4 @@ Local artisan server.
 - **EC2_KEY**
 ## DNS RECORDS
 - **app.yo-soy.co** pointing to ELB in Kubernetes cluster.
-- **yosoyapp.ingeniosdev.tk** pointing to EC2 Instance public ip.
+- **app.yosoydev.tk** pointing to EC2 Instance public ip.
