@@ -77,9 +77,42 @@ class LoginController extends Controller
         if($success){
             return redirect()->route('login')->with('success', 'Cuenta creada con éxito, Puedes Iniciar Sesión!');
         }
+    }
 
+    public function forgot()
+    {
+        return view('forgot_password');
+    }
 
-       // return redirect()->route('login');
+    public function forgot_post(Request $request)
+    {
+        $email = $request->input('email');
+        $response = Http::accept('application/json')->post(route('forgot_password.post'), [
+            'email' => $email,
+        ]);
+        //dd($response->json());
+        $success = $response->json()['success'];
+        $data = $response->json()['data'];
+        $message = $response->json()['message'];
+
+        if($message == "passwords.sent"){
+            return redirect()->back()->with('success', 'Revisa tu bandeja de entrada para continuar el proceso');
+        } else {
+            return redirect()->back()->withInput($request->only('email'))->with('status', 'Error al enviar el correo');
+        }
+    }
+
+    public function reset_password(Request $request)
+    {
+        $email = $request->input('email');
+        $password = $request->input('password');
+        $token = $request->input('token');
+        $response = Http::accept('application/json')->post(route('password.update'), [
+            'email' => $email,
+            'password' => $password,
+            'token' => $token,
+        ]);
+        return redirect()->route('login')->with('success', 'Contraseña actualizada! Puedes inicar sesión de nuevo');
     }
 
 
