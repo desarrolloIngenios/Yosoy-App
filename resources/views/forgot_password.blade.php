@@ -72,7 +72,7 @@
 											<div class="mb-5 d-flex"> <a href="{{ route('login') }}"><img src="../../images/Logo1.png" class="sign-favicon ht-40" alt="logo"></a></div>
 													<div class="card-sigin">
 														<div class="main-signup-header">
-															<h2>Yo Soy Usuario!</h2>
+															<h2>Olvidaste tu contraseña!</h2>
 															@if (session('status'))
 															<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
 																<span class="alert-inner--icon"><i class="fe fe-slash"></i></span>
@@ -91,38 +91,19 @@
 																</button>
 															</div>
 															@endif
-													<h5 class="font-weight-semibold mb-4">Inicia Sesión</h5>
+													<h5 class="font-weight-semibold mb-4">Por favor ingresa tu correo electrónico</h5>
 													
 													
-													<form action="{{ route('login.post') }}" method="post">
+													<form action="{{ route('forgot.post') }}" method="post">
 													@csrf
 														<div class="form-group">
 															<label>Correo Electrónico</label> <input name="email" class="form-control" placeholder="Ingresa tu correo electrónico" type="email" value="{{ old('email') }}" required>
 														</div>
-														<div class="form-group">
-															<label>Contraseña</label> <input id="password" name="password" class="form-control" placeholder="Ingresa tu contraseña" type="password" required>
-															<input id ="check" type="checkbox" onclick="(function(){
-			var x = document.getElementById('password');
-			if (x.type === 'password') {
-			  x.type = 'text';
-			} else {
-			  x.type = 'password';
-			}
-})();return false;">Mostrar Contraseña
-														</div>
-														<button type="submit" class="btn btn-main-primary btn-block">Ingresar</button>
-														<!-- <div class="row row-xs">
-															<div class="col-sm-6">
-																<button class="btn btn-block"><i class="fab fa-facebook-f"></i> Signup with Facebook</button>
-															</div>
-															<div class="col-sm-6 mg-t-10 mg-sm-t-0">
-																<button class="btn btn-info btn-block"><i class="fab fa-twitter"></i> Signup with Twitter</button>
-															</div>
-														</div> -->
+														<button type="submit" class="btn btn-main-primary btn-block">Recuperar contraseña</button>
+														
 													</form>
 													<div class="main-signin-footer mt-5">
-														<p><a href="{{ route('forgot') }}">Olvidaste la contraseña?</a></p>
-														<p>Todavía no tienes cuenta? <a href="{{ route('registro.get') }}">Crea una Cuenta</a></p>
+														<p>Todavía no tienes cuenta? <a href="{{ route('registro.get') }}">Crea una Cuenta</a> ó <a href="{{ route('login') }}">Inicia Sesión.</a></p>
 													</div>
 												</div>
 											</div>

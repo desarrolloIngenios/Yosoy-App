@@ -22,23 +22,21 @@
             <div class="card-footer" >
                 {{ $offer['ciudad']['pais_departamento_ciudad'] }}
                 <div class="row row-sm">
+                <div class="col-sm-12 col-lg-12">
+
                     @if(session('role') == 'ADMIN')
-                    <div class="col-sm-6 col-lg-6">
                         <a href="{{ route('offer.show_public', $offer['id']) }}" target="_blank">
                             <button class="btn btn-info btn-icon"><i class="typcn typcn-arrow-back-outline"></i></button>
                         </a>
                         <a href="{{ route('offer.show', $offer['id']) }}">
                             <button class="btn btn-primary "><i class="typcn typcn-plus-outline"> Listado de Postulados</i></button>
                         </a>
-                    </div>
                     @endif
 
-                    <div class="col-sm-6 col-lg-6">
                     @if(!in_array($offer['id'], $offers_apply_ids))
                         <a href="{{ route('offer.apply', $offer['id']) }}">
                             <button class="btn btn-primary "><i class="typcn typcn-plus-outline"> Aplicar</i></button>
                         </a>
-                        
                     @else
                         <button class="btn btn-success "><i class="typcn typcn-input-checked"> Aplicado</i></button>
                     @endif

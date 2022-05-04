@@ -22,6 +22,13 @@ Route::get('/', function () {
 Route::get('login', [App\Http\Controllers\Web\LoginController::class, 'index'])->name('login');
 Route::get('login_empresas', [App\Http\Controllers\Web\LoginController::class, 'index_empresas'])->name('login_empresas');
 Route::post('login', [App\Http\Controllers\Web\LoginController::class, 'login'])->name('login.post');
+Route::get('forgot', [App\Http\Controllers\Web\LoginController::class, 'forgot'])->name('forgot');
+Route::post('forgot', [App\Http\Controllers\Web\LoginController::class, 'forgot_post'])->name('forgot.post');
+Route::get('/reset-password/{token}', function ($token) {
+    return view('auth.reset-password', ['token' => $token]);
+})->middleware('guest')->name('password.reset');
+
+Route::post('reset_password', [App\Http\Controllers\Web\LoginController::class, 'reset_password'])->name('password.update.web');
 
 Route::get('terminos_condiciones', [App\Http\Controllers\Web\PaginasEstaticasController::class, 'terminos_condiciones'])->name('terminos_condiciones');
 Route::get('politica_privacidad', [App\Http\Controllers\Web\PaginasEstaticasController::class, 'politica_privacidad'])->name('politica_privacidad');

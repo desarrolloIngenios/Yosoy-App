@@ -72,7 +72,7 @@
 											<div class="mb-5 d-flex"> <a href="{{ route('login') }}"><img src="../../images/Logo1.png" class="sign-favicon ht-40" alt="logo"></a></div>
 													<div class="card-sigin">
 														<div class="main-signup-header">
-															<h2>Yo Soy Usuario!</h2>
+															<h2>Bienvenido de nuevo!</h2>
 															@if (session('status'))
 															<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
 																<span class="alert-inner--icon"><i class="fe fe-slash"></i></span>
@@ -91,12 +91,13 @@
 																</button>
 															</div>
 															@endif
-													<h5 class="font-weight-semibold mb-4">Inicia Sesión</h5>
+													<h5 class="font-weight-semibold mb-4">Crea tu nueva contraseña</h5>
 													
 													
-													<form action="{{ route('login.post') }}" method="post">
+													<form action="{{ route('password.update.web') }}" method="post">
 													@csrf
 														<div class="form-group">
+															<input name="token" class="form-control" placeholder="Ingresa tu correo electrónico" type="hidden" value="{{ $token }}" required>
 															<label>Correo Electrónico</label> <input name="email" class="form-control" placeholder="Ingresa tu correo electrónico" type="email" value="{{ old('email') }}" required>
 														</div>
 														<div class="form-group">
@@ -120,10 +121,6 @@
 															</div>
 														</div> -->
 													</form>
-													<div class="main-signin-footer mt-5">
-														<p><a href="{{ route('forgot') }}">Olvidaste la contraseña?</a></p>
-														<p>Todavía no tienes cuenta? <a href="{{ route('registro.get') }}">Crea una Cuenta</a></p>
-													</div>
 												</div>
 											</div>
 										</div>
