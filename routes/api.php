@@ -17,6 +17,8 @@ if(env('API_FLAG')){
 
 Route::post('register', [App\Http\Controllers\Api\LoginController::class, 'register'])->name('api.register');
 Route::post('login', [App\Http\Controllers\Api\LoginController::class, 'login'])->name('api.login');
+Route::post('forgot_password.post', [App\Http\Controllers\Api\LoginController::class, 'forgot_password'])->name('forgot_password.post');
+Route::post('/reset-password', [App\Http\Controllers\Api\LoginController::class, 'reset_password'])->middleware('guest')->name('password.update');
 
 Route::get('offer/public/{id}', [App\Http\Controllers\Api\OfferController::class, 'show_public'])->name('api.offer.show_public');
 

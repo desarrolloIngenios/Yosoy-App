@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use App\Models\Profile;
 use App\Models\Role;
-
+use Illuminate\Contracts\Auth\CanResetPassword;
 
 class User extends Authenticatable
 {
