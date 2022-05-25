@@ -83,8 +83,8 @@ class OfferController extends BaseController
 
     public function get_available_offer(Request $request)
     {
-       $avalible_offers = 0;
-       //$avalible_offers = 1;
+       //$avalible_offers = 0;
+       $avalible_offers = 1;
         return $this->sendResponse($avalible_offers, 'avalible_offers');
     }
 
