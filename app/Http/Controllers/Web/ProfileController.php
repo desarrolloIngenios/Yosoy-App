@@ -13,6 +13,10 @@ class ProfileController extends Controller
     {
         ini_set('memory_limit', '100M');
 
+        if(session('role') ==  'EMPRESARIO'){
+            return redirect()->route('dashboard.empresario');
+        }
+
         $response = Http::withToken(session('token'))->get(route('api.profile'));
         //dd($response->json());
         $success = $response->json()['success'];

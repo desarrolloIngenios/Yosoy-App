@@ -59,7 +59,10 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('offer/apply', [App\Http\Controllers\Api\OfferController::class, 'apply'])->name('api.offer.apply');
     Route::get('offer/apply', [App\Http\Controllers\Api\OfferController::class, 'get_offers_apply'])->name('api.offer.apply');
-    
+    Route::get('offer/available', [App\Http\Controllers\Api\OfferController::class, 'get_available_offer'])->name('api.get.available.offer');
+  
+
+    Route::post('empresa', [App\Http\Controllers\Api\CompanyController::class, 'store'])->name('api.empresa.store');
 
     
 });

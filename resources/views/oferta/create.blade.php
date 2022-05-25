@@ -12,7 +12,9 @@
             <div class="card-body pt-0">
                 <form action="{{ route('offer.post') }}" method="post">
                     @csrf
-
+                    @if(session('empresa'))
+                    <input type="hidden" id="company_id" name="company_id" value="{{session('empresa')}}">
+                    @endif
                     <div class="row row-sm">
                         <div class="col-lg-6 mg-b-12 mg-lg-b-6">
                             <p class="mg-b-10">Cargo</p><select class="form-control select2" name="cargo_id" placeholder="">

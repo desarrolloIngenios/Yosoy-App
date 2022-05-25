@@ -93,6 +93,11 @@
 													<div class="form-group">
 														<label>Contraseña</label> <input class="form-control" name="password" placeholder="Ingresa tu contraseña" type="password" required>
 													</div>
+													<div class="form-group">
+														<input type="hidden" name="is_empresario" value="0">
+														<input type="checkbox" name="is_empresario" value="1"> <label for="cbox2">Soy Empresario</label>
+													</div>
+													
 													
 													<div class="form-group mb-0 justify-content-end">
 														

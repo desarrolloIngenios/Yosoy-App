@@ -24,4 +24,6 @@ class EmpresaController extends Controller
         
         return view('empresa/create', $data);
     }
+
+   
 }
