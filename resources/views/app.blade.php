@@ -9,6 +9,8 @@
 			<!-- main-sidebar -->
 			@if(session('role') == 'ADMIN')
 				@include('partials/left_sidebar_admin')
+			@elseif(session('role') == 'EMPRESARIO')
+				@include('partials/left_sidebar_empresario')
 			@else
 				@include('partials/left_sidebar')
 			@endif

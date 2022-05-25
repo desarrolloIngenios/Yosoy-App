@@ -43,7 +43,6 @@ Route::get('seleccionar_tipo_usuario', [App\Http\Controllers\Web\ProfileControll
 Route::get('save_soy_tecnico.get', [App\Http\Controllers\Web\ProfileController::class, 'save_soy_tecnico'])->name('save_soy_tecnico.get');
 Route::get('save_soy_empirico.get', [App\Http\Controllers\Web\ProfileController::class, 'save_soy_empirico'])->name('save_soy_empirico.get');
 
-Route::get('empresa/create', [App\Http\Controllers\Web\EmpresaController::class, 'index'])->name('empresa.create');
 
 
 Route::post('profile_laboral', [App\Http\Controllers\Web\PerfilLaboralController::class, 'store'])->name('profile_laboral.post');
@@ -68,6 +67,15 @@ Route::get('offer/detail/{offer_id}', [App\Http\Controllers\Web\OfertaController
 Route::get('oferta/create', [App\Http\Controllers\Web\OfertaController::class, 'create'])->name('oferta.create');
 
 Route::get('pricing/index', [App\Http\Controllers\Web\PricingController::class, 'index'])->name('pricing.index');
+
+Route::get('empresario/dashboard', [App\Http\Controllers\Web\CompanyController::class, 'dashboard'])->name('dashboard.empresario');
+Route::get('empresario/empresa', [App\Http\Controllers\Web\CompanyController::class, 'empresa'])->name('empresa.empresario');
+Route::post('empresa/create', [App\Http\Controllers\Web\CompanyController::class, 'empresa_post'])->name('empresa_create.post');
+//Route::get('empresa/create', [App\Http\Controllers\Web\EmpresaController::class, 'index'])->name('empresa.create');
+
+
+
+
 
 Route::get('send-mail', function () {
    

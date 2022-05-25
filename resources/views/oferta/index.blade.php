@@ -24,7 +24,7 @@
                 <div class="row row-sm">
                 <div class="col-sm-12 col-lg-12">
 
-                    @if(session('role') == 'ADMIN')
+                    @if(session('role') == 'ADMIN' || session('role') == 'EMPRESARIO')
                         <a href="{{ route('offer.show_public', $offer['id']) }}" target="_blank">
                             <button class="btn btn-info btn-icon"><i class="typcn typcn-arrow-back-outline"></i></button>
                         </a>
@@ -34,9 +34,11 @@
                     @endif
 
                     @if(!in_array($offer['id'], $offers_apply_ids))
+                        @if(session('role') != 'EMPRESARIO')
                         <a href="{{ route('offer.apply', $offer['id']) }}">
                             <button class="btn btn-primary "><i class="typcn typcn-plus-outline"> Aplicar</i></button>
                         </a>
+                        @endif
                     @else
                         <button class="btn btn-success "><i class="typcn typcn-input-checked"> Aplicado</i></button>
                     @endif

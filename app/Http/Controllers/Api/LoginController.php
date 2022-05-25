@@ -21,7 +21,6 @@ class LoginController extends BaseController
      */
     public function register(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email|unique:users',
@@ -33,12 +32,15 @@ class LoginController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());       
         }
 
+       
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
         $success['token'] =  $user->createToken('MyApp')->accessToken;
         $success['name'] =  $user->name;
-   
+        if($input['is_empresario'] == 1){
+            $user->setRoleEmpresario();
+        }
         return $this->sendResponse($success, 'User register successfully.');
     }
    
@@ -69,7 +71,7 @@ class LoginController extends BaseController
             $success['token'] =  $user->createToken('MyApp')->accessToken; 
             $success['name'] =  $user->name;
             $success['role'] =  $user->roles->first()? $user->roles->first()->name : '';
-        
+            $success['empresa'] =  $user->empresa? $user->empresa->id : '';
             
             return $this->sendResponse($success, 'User login successfully.');
         } 

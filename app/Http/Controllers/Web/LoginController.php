@@ -48,7 +48,11 @@ class LoginController extends Controller
         
         $role = $data['role'];
         $request->session()->forget('role');
-        session(['role' => $role]);   
+        session(['role' => $role]);  
+
+        if($role == 'EMPRESARIO') {
+            session(['empresa' => $data['empresa']]);  
+        }
         // 'Accept' => 'application/json',
         // 'Authorization' => 'Bearer '.$accessToken,
         return redirect()->route('profile.get');
@@ -61,8 +65,9 @@ class LoginController extends Controller
 
     public function registro_post(Request $request)
     {
+        //dd($request->input());
         $response = Http::accept('application/json')->post(route('api.register'), $request->input());
-        //sdd($response->json());
+        //dd($response->json());
         // if(!\Illuminate\Support\Arr::has($response->json(), 'success')){
         //     return redirect()->back()->withInput($request->all())->with('status', 'El Correo electrónico ya se encuentra en uso!');
         // }
