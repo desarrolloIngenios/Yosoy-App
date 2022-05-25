@@ -11,8 +11,15 @@ class OfertaController extends Controller
 {
     public function create(Request $request)
     {
-
+        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.get.available.offer'), []);
+        //dd($response->json());
+        $success = $response->json()['success'];
+        $avalible_offers = $response->json()['data'];
+        $message = $response->json()['message'];
         $data = [];
+        if($avalible_offers == 0){
+            return redirect()->route('pricing.index');
+        }
 
         $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.cargos'));
         //dd($response->json());

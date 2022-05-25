@@ -18,6 +18,7 @@ class Offer extends Model
                             'ciudad_id',
                             'nivel_educativo_id',
                             'tiempo_experiencia_id',
+                            'company_id',
                         ];
     
     public function cargo() {

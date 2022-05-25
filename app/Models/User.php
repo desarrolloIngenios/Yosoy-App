@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use App\Models\Profile;
 use App\Models\Role;
+use App\Models\Empresa;
 use Illuminate\Contracts\Auth\CanResetPassword;
 
 class User extends Authenticatable
@@ -58,5 +59,18 @@ class User extends Authenticatable
     public function offers()
     {
         return $this->belongsToMany(Offer::class, 'offer_user', 'user_id', 'offer_id');
+    }
+
+    public function setRoleEmpresario()
+    {
+        $role = Role::where('name', 'like', 'EMPRESARIO')->first();
+        if(!is_null($role)){
+            $this->roles()->save($role);
+        }
+    }
+
+    public function empresa()
+    {
+        return $this->hasOne(Empresa::class);
     }
 }

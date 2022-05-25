@@ -11,7 +11,7 @@ class PerfilLaboralController extends Controller
 {
     public function store(Request $request)
     {
-       
+        
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.peril_labora_perfil.store'), $request->input());
         //dd($response->json());
         $success = $response->json()['success'];
