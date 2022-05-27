@@ -18,6 +18,7 @@ class Empresa extends Model
                             'descripcion',
                             'numero_contacto',
                             'ciudad_id',
+                            'email_factura_electronica',
                         ];
     
    

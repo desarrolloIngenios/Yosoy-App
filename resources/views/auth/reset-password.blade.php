@@ -72,7 +72,7 @@
 											<div class="mb-5 d-flex"> <a href="{{ route('login') }}"><img src="../../images/Logo1.png" class="sign-favicon ht-40" alt="logo"></a></div>
 													<div class="card-sigin">
 														<div class="main-signup-header">
-															<h2>Bienvenido de nuevo!</h2>
+															<h2>Crea tu nueva contraseña!</h2>
 															@if (session('status'))
 															<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
 																<span class="alert-inner--icon"><i class="fe fe-slash"></i></span>

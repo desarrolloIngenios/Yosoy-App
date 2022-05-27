@@ -24,7 +24,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="nit">Nit</label>
+                                    <label for="nit">Nit/Cédula</label>
                                     <input name="nit" class="form-control" value="{{isset($perfil['nit'])? $perfil['nit']:''}}" placeholder="Nit" type="text" required>
                                 </div>
                             </div>
@@ -66,7 +66,11 @@
                                     <input name="numero_contacto" class="form-control" value="{{isset($perfil['numero_contacto'])? $perfil['numero_contacto']:''}}" placeholder="Número contacto" name="numero_contacto_1" type="text"  required>
                                 </div>
                             </div>
-                           
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Correo para factura electrónica</label> <input class="form-control" name="email_factura_electronica" placeholder="Correo para factura electrónica" value="{{ old('email') }}" type="email" required>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row row-sm">

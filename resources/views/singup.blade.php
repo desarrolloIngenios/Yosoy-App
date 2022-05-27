@@ -91,8 +91,18 @@
 														<label>Correo Electrónico</label> <input class="form-control" name="email" placeholder="Ingresa tu Correo Electrónico" value="{{ old('email') }}" type="email" required>
 													</div>
 													<div class="form-group">
-														<label>Contraseña</label> <input class="form-control" name="password" placeholder="Ingresa tu contraseña" type="password" required>
+														<label>Contraseña</label> <input class="form-control" id="password" name="password" placeholder="Ingresa tu contraseña" type="password" required>
+														<input id ="check" type="checkbox" onclick="(function(){
+																	var x = document.getElementById('password');
+																	if (x.type === 'password') {
+																	x.type = 'text';
+																	} else {
+																	x.type = 'password';
+																	}
+														})();return false;">Mostrar Contraseña
+<br>
 													</div>
+													
 													<div class="form-group">
 														<input type="hidden" name="is_empresario" value="0">
 														<input type="checkbox" name="is_empresario" value="1"> <label for="cbox2">Soy Empresario</label>
