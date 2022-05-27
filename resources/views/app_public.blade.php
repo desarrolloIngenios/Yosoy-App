@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    @include('partials/head')
+    @include('partials/head_public_offer')
     <body class="main-body app sidebar-mini">
         @include('partials/loader')
 

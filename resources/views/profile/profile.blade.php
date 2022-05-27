@@ -94,7 +94,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="numero_contacto_1">Número de contacto</label>
+                                    <label for="numero_contacto_1">Número de contacto / Celular</label>
                                     <input class="form-control" value="{{isset($perfil['numero_contacto_1'])? $perfil['numero_contacto_1']:''}}" placeholder="Número contacto" name="numero_contacto_1" type="text"  required>
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
                         <div class="row row-sm">
                         <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="numero_contacto_2">Otro número de contacto</label>
+                                    <label for="numero_contacto_2">Otro número de contacto / Celular</label>
                                     <input class="form-control" value="{{isset($perfil['numero_contacto_2'])? $perfil['numero_contacto_2']:''}}" placeholder="Otro número contacto"  name="numero_contacto_2" type="text">
                                 </div>
                             </div>
