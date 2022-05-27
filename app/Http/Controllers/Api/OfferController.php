@@ -18,9 +18,11 @@ class OfferController extends BaseController
        
         $offers = Offer::with(['cargo', 'sector', 'ciudad', 'nivel_educativo', 'tiempo_experiencia', 'tipo_contrato']);
         $user = $request->user();
-        if($user->empresa){
-            $empresa_id =  $user->empresa->id;
-            $offers = $offers->where('company_id', $empresa_id);
+        if($user->roles->first()->name !== 'ADMIN'){
+            if($user->empresa){
+                $empresa_id =  $user->empresa->id;
+                $offers = $offers->where('company_id', $empresa_id);
+            }
         }
         $offers = $offers->orderBy('id', 'desc')->get();
         return $this->sendResponse($offers, 'Offers');

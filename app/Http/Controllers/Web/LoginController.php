@@ -101,7 +101,7 @@ class LoginController extends Controller
         $message = $response->json()['message'];
 
         if($message == "passwords.sent"){
-            return redirect()->back()->with('success', 'Revisa tu bandeja de entrada para continuar el proceso');
+            return redirect()->back()->with('success', 'Revisa tu bandeja de entrada para continuar el proceso. Si no logras encontrarlo, revisa tu bandeja de spam.');
         } else {
             return redirect()->back()->withInput($request->only('email'))->with('status', 'Error al enviar el correo');
         }

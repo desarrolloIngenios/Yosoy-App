@@ -98,7 +98,7 @@ class OfertaController extends Controller
         $message = $response->json()['message'];
         $data['offers'] = $offers;
 
-        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.offer.apply'), []);
+        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.offer.apply.get'), []);
         //dd($response->json());
         $success = $response->json()['success'];
         $offers_apply = $response->json()['data'];
