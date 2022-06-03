@@ -68,7 +68,7 @@
 										<div class="card-sigin">
 											<div class="mb-5 d-flex"> <a href="{{ route('login') }}"><img src="../../images/Logo1.png" class="sign-favicon ht-40" alt="logo"></a></div>
 											<div class="main-signup-header">
-												<h2 class="text-primary">Crea tu perfil</h2>
+												<h2 class="text-primary">Crea tu perfil de empresa</h2>
 												<h5 class="font-weight-normal mb-4">Solo te toma un minuto.</h5>
 												@if (session('status'))
 															<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
@@ -104,7 +104,7 @@
 													</div>
 													
 													<div class="form-group">
-														<input type="hidden" name="is_empresario" value="0">
+														<input type="hidden" name="is_empresario" value="1">
 													</div>
 													
 													
