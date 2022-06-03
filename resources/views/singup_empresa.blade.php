@@ -105,7 +105,7 @@
 													
 													<div class="form-group">
 														<input type="hidden" name="is_empresario" value="1">
-													</div>
+													</div> 
 													
 													
 													<div class="form-group mb-0 justify-content-end">
