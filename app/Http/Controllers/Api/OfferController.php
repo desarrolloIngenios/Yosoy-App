@@ -17,7 +17,7 @@ class OfferController extends BaseController
        
         $offers = Offer::with(['cargo', 'sector', 'ciudad', 'nivel_educativo', 'tiempo_experiencia', 'tipo_contrato']);
         $user = $request->user();
-        if($user->roles->first()->name === 'EMPRESARIO'){
+        if(!is_null($user->roles->first()) && $user->roles->first()->name === 'EMPRESARIO'){
             if(!is_null($user->empresa)){
 
                 $empresa_id =  $user->empresa->id;
