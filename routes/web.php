@@ -36,6 +36,9 @@ Route::get('politica_privacidad', [App\Http\Controllers\Web\PaginasEstaticasCont
 Route::get('registro', [App\Http\Controllers\Web\LoginController::class, 'registro_index'])->name('registro.get');
 Route::post('registro', [App\Http\Controllers\Web\LoginController::class, 'registro_post'])->name('registro.post');
 
+Route::get('registro_empresa', [App\Http\Controllers\Web\LoginController::class, 'registro_empresa'])->name('registro_empresa.get');
+Route::post('registro', [App\Http\Controllers\Web\LoginController::class, 'registro_post'])->name('registro.post');
+
 Route::post('profile', [App\Http\Controllers\Web\ProfileController::class, 'store'])->name('profile.post');
 Route::get('profile', [App\Http\Controllers\Web\ProfileController::class, 'index'])->name('profile.get');
 

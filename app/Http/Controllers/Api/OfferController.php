@@ -14,14 +14,16 @@ class OfferController extends BaseController
 
     public function index(Request $request)
     {
-        //dd($request);
        
         $offers = Offer::with(['cargo', 'sector', 'ciudad', 'nivel_educativo', 'tiempo_experiencia', 'tipo_contrato']);
         $user = $request->user();
-        if($user->roles->first()->name !== 'ADMIN'){
-            if($user->empresa){
+        if(!is_null($user->roles->first()) && $user->roles->first()->name === 'EMPRESARIO'){
+            if(!is_null($user->empresa)){
+
                 $empresa_id =  $user->empresa->id;
                 $offers = $offers->where('company_id', $empresa_id);
+            } else {
+                return $this->sendResponse([], 'Offers');
             }
         }
         $offers = $offers->orderBy('id', 'desc')->get();

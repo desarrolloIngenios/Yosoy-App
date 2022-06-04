@@ -39,9 +39,11 @@
 				<li class="slide">
 					<a class="side-menu__item" href="{{ route('offer.index') }}"><i class=" side-menu__icon fa fa-align-justify"></i><span class="side-menu__label">Mis Ofertas</span></a>
 				</li>
+				@if(session('empresa') > 0)
 				<li class="slide">
 					<a class="side-menu__item" href="{{ route('oferta.create') }}"><i class=" side-menu__icon fa fa-plus"></i><span class="side-menu__label">Crear Oferta</span></a>
 				</li>
+				@endif
 			</ul>
 		</div>
 	</aside>
