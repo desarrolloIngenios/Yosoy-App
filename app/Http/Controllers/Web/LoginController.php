@@ -70,7 +70,6 @@ class LoginController extends Controller
 
     public function registro_post(Request $request)
     {
-        dd($request->input());
         $response = Http::accept('application/json')->post(route('api.register'), $request->input());
         $success = $response->json()['success'];
         if(!$success){
