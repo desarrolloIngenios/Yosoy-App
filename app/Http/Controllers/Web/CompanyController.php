@@ -42,6 +42,10 @@ class CompanyController extends Controller
     {
 
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.empresa.store'), $request->input());
+        $empresa = $response->json()['data'];
+        if(session('role') == 'EMPRESARIO') {
+            session(['empresa' => $empresa['id']]);  
+        }
         //dd($response->json());
         //$success = $response->json()['success'];
         //$data = $response->json()['data'];
