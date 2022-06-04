@@ -39,7 +39,6 @@ class LoginController extends BaseController
         $success['token'] =  $user->createToken('MyApp')->accessToken;
         $success['name'] =  $user->name;
         if($input['is_empresario'] == 1){
-            dd("holaaa");
             $user->setRoleEmpresario();
         }
         return $this->sendResponse($success, 'User register successfully.');
