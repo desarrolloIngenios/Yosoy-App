@@ -26,7 +26,7 @@
 
                     @if(session('role') == 'ADMIN' || session('role') == 'EMPRESARIO')
                         <a href="{{ route('offer.show_public', $offer['id']) }}" target="_blank">
-                            <button class="btn btn-info btn-icon"><i class="typcn typcn-arrow-back-outline"></i></button>
+                            <button class="btn btn-info"><i class="typcn typcn-arrow-back-outline"></i></button>
                         </a>
                         <a href="{{ route('offer.show', $offer['id']) }}">
                             <button class="btn btn-primary "><i class="typcn typcn-plus-outline"> Listado de Postulados</i></button>
