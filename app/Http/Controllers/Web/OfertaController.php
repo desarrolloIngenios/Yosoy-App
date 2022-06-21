@@ -10,7 +10,18 @@ use Illuminate\Support\Facades\Http;
 class OfertaController extends Controller
 {
     public function create(Request $request)
-    {
+    {   
+
+        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.offer.index'), []);
+        //dd($response->json());
+        $success = $response->json()['success'];
+        $offers = $response->json()['data'];
+        $message = $response->json()['message'];
+        $data['offers'] = $offers;
+        if(!empty($offers) && count($offers) >= 1){
+            return redirect()->route('pricing.index');
+        }
+
         $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.get.available.offer'), []);
         //dd($response->json());
         $success = $response->json()['success'];
