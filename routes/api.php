@@ -63,6 +63,9 @@ Route::middleware('auth:api')->group(function () {
   
 
     Route::post('empresa', [App\Http\Controllers\Api\CompanyController::class, 'store'])->name('api.empresa.store');
+    Route::get('empresa/index', [App\Http\Controllers\Api\CompanyController::class, 'index'])->name('api.empresa_index');
+
+    
 
     
 });

@@ -2,13 +2,13 @@
 @section('content')
 <!-- row -->
 <div class="row row-sm">
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-3 col-sm-12">
         <div class="card bg-warning-gradient text-white">
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
                         <div class="icon1 mt-2 text-center">
-                            <i class="fe fe-pie-chart tx-40"></i>
+                            <i class="fa fa-users tx-40"></i>
                         </div>
                     </div>
                     <div class="col-6">
@@ -21,13 +21,13 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-3 col-sm-12">
         <div class="card bg-warning-gradient text-white">
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
                         <div class="icon1 mt-2 text-center">
-                            <i class="fe fe-pie-chart tx-40"></i>
+                            <i class="fa fa-hammer tx-40"></i>
                         </div>
                     </div>
                     <div class="col-6">
@@ -42,13 +42,13 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-3 col-sm-12">
         <div class="card bg-warning-gradient text-white">
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
                         <div class="icon1 mt-2 text-center">
-                            <i class="fe fe-pie-chart tx-40"></i>
+                            <i class="fa fa-graduation-cap tx-40"></i>
                         </div>
                     </div>
                     <div class="col-6">

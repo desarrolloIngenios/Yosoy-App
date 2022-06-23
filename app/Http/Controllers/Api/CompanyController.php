@@ -19,4 +19,12 @@ class CompanyController extends BaseController
         
         return $this->sendResponse($empresa, 'Empresa');
     }
+
+    public function index()
+    {
+        $empresa = Empresa::with(
+           'ciudad'
+            )->get();
+        return $this->sendResponse($empresa, 'empresa');
+    }
 }
