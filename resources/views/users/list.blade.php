@@ -54,9 +54,9 @@
                     <div class="col-6">
                         <div class="mt-0 text-center">
                             <span class="text-white">Técnicos</span>
-                            <h2 class="text-white mb-0">{{ count(array_filter($users,function($element) {
-                                                            return $element['is_empirico']==false;
-                                                            })) }}</h2>
+                            <h2 class="text-white mb-0">{{ abs(count(array_filter($users,function($element) {
+                                                            return $element['is_empirico']==true;
+                                                            })) - count($users)) }}</h2>
                         </div>
                     </div>
                 </div>
