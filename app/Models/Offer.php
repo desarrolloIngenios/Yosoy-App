@@ -24,6 +24,14 @@ class Offer extends Model
                             'company_id',
                         ];
     
+    protected $appends = ['total_aplicaciones'];
+
+    public function getTotalAplicacionesAttribute()
+    {
+        return $this->users()->count();
+    }
+
+
     public function cargo() {
         return $this->belongsTo(\App\Models\Base\Cargo::class, 'cargo_id');
     }

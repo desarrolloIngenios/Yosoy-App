@@ -2,6 +2,67 @@
 @section('content')
 <!-- row -->
 <div class="row row-sm">
+    <div class="col-md-4 col-sm-12">
+        <div class="card bg-warning-gradient text-white">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="icon1 mt-2 text-center">
+                            <i class="fe fe-pie-chart tx-40"></i>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mt-0 text-center">
+                            <span class="text-white">Usuarios</span>
+                            <h2 class="text-white mb-0">{{ count($users) }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="card bg-warning-gradient text-white">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="icon1 mt-2 text-center">
+                            <i class="fe fe-pie-chart tx-40"></i>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mt-0 text-center">
+                            <span class="text-white">Empíricos</span>
+                            <h2 class="text-white mb-0">{{ count(array_filter($users,function($element) {
+                                                            return $element['is_empirico']==true;
+                                                            })) }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="card bg-warning-gradient text-white">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="icon1 mt-2 text-center">
+                            <i class="fe fe-pie-chart tx-40"></i>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mt-0 text-center">
+                            <span class="text-white">Técnicos</span>
+                            <h2 class="text-white mb-0">{{ count(array_filter($users,function($element) {
+                                                            return $element['is_empirico']==false;
+                                                            })) }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   
     <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
         <div class="card  box-shadow-0 ">
