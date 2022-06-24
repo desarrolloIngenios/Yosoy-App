@@ -27,4 +27,24 @@ class CompanyController extends BaseController
             )->get();
         return $this->sendResponse($empresa, 'empresa');
     }
+
+    public function update(Request $request)
+    {
+        $input = $request->all();
+        //$user = $request->user();
+        $empresa = Empresa::find($input['id']);
+        $empresa->fill($request->except(['_token']));
+        //$empresa->user_id = $user->id;
+        $empresa->save();
+        
+        return $this->sendResponse($empresa, 'Empresa');
+    }
+
+    public function find(Request $request, $id)
+    {
+        $empresa = Empresa::find($id);
+        
+        return $this->sendResponse($empresa, 'Empresa');
+    }
+
 }
