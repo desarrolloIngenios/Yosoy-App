@@ -74,7 +74,8 @@ Route::get('pricing/index', [App\Http\Controllers\Web\PricingController::class, 
 Route::get('empresario/dashboard', [App\Http\Controllers\Web\CompanyController::class, 'dashboard'])->name('dashboard.empresario');
 Route::get('empresario/empresa', [App\Http\Controllers\Web\CompanyController::class, 'empresa'])->name('empresa.empresario');
 Route::post('empresa/create', [App\Http\Controllers\Web\CompanyController::class, 'empresa_post'])->name('empresa_create.post');
-//Route::get('empresa/create', [App\Http\Controllers\Web\EmpresaController::class, 'index'])->name('empresa.create');
+Route::post('empresa/update', [App\Http\Controllers\Web\CompanyController::class, 'empresa_update'])->name('empresa_update.post');
+Route::get('empresa/index', [App\Http\Controllers\Web\EmpresaController::class, 'index'])->name('empresa.index');
 
 
 

@@ -11,18 +11,18 @@ use Illuminate\Support\Facades\Http;
 
 class EmpresaController extends Controller
 {
-    public function index(Request $request)
-    {
-
-        $data = [];
-        $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.ciudades'), []);
-        //dd($response->json());
-        $success = $response->json()['success'];
-        $ciudades = $response->json()['data'];
-        $message = $response->json()['message'];
-        $data['ciudades'] = $ciudades;
-        
-        return view('empresa/create', $data);
+        public function index(Request $request)
+        {
+ 
+            $data = [];
+            $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.empresa_index'), []);
+            //dd($response->json());
+            $success = $response->json()['success'];
+            $empresas = $response->json()['data'];
+            $message = $response->json()['message'];
+            $data['empresas'] = $empresas;
+    
+            return view('empresa/index', $data);
     }
 
    

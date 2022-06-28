@@ -69,10 +69,9 @@
 								<div class="row">
 									<div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
 										<div class="card-sigin">
-											<div class="mb-5 d-flex"> <a href="{{ route('login') }}"><img src="../../images/Logo1.png" class="sign-favicon ht-40" alt="logo"></a></div>
 													<div class="card-sigin">
 														<div class="main-signup-header">
-															<h2>Yo Soy Empresario!</h2>
+														<h2 style="font-size: 37px;"><a href="{{ route('login') }}"><img src="../../images/Logo1.png" class="sign-favicon ht-40" alt="logo"></a> Empresario!</h2>
 															@if (session('status'))
 															<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
 																<span class="alert-inner--icon"><i class="fe fe-slash"></i></span>

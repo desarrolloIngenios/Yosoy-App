@@ -63,6 +63,12 @@ Route::middleware('auth:api')->group(function () {
   
 
     Route::post('empresa', [App\Http\Controllers\Api\CompanyController::class, 'store'])->name('api.empresa.store');
+    Route::post('empresa/update', [App\Http\Controllers\Api\CompanyController::class, 'update'])->name('api.empresa.update');
+    Route::get('empresa/index', [App\Http\Controllers\Api\CompanyController::class, 'index'])->name('api.empresa_index');
+    Route::get('empresa/find/{id}', [App\Http\Controllers\Api\CompanyController::class, 'find'])->name('api.empresa.find');
+    
+
+    
 
     
 });
