@@ -23,7 +23,7 @@ class CompanyController extends Controller
         //dd(session('empresa'));
         $empresa_id = session('empresa');
        
-        $data = [];
+        $data = []; 
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.ciudades'), []);
         //dd($response->json());
         $success = $response->json()['success'];
@@ -32,6 +32,13 @@ class CompanyController extends Controller
         $data['ciudades'] = $ciudades;
 
         if($empresa_id != ''){
+            $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.empresa.find',['id'=>$empresa_id]), []);
+        //dd($response->json());
+
+            $success = $response->json()['success'];
+            $empresa = $response->json()['data'];
+            $message = $response->json()['message'];
+            $data['empresa'] = $empresa;
             return view('empresa/edit', $data);
         } 
         
@@ -54,4 +61,16 @@ class CompanyController extends Controller
         return redirect()->back();
         
     }
+
+    public function empresa_update(Request $request)
+    {
+            $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.empresa.update'), $request->input());
+            //dd($response->json());
+            $success = $response->json()['success'];
+            $data = $response->json()['data'];
+            $message = $response->json()['message'];
+
+            return redirect()->back();
+    }
+
 }

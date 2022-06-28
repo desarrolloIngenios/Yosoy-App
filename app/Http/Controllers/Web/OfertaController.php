@@ -119,7 +119,7 @@ class OfertaController extends Controller
             $offers_apply_ids[] = $offer_apply['id'];
         }
         //$data['offers'] = [];
-       // dd($offers_apply_ids);
+        //dd($offers_apply_ids);
         $data['offers_apply_ids'] = $offers_apply_ids;
 
         return view('oferta/index', $data);

@@ -68,7 +68,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Correo para factura electrónica</label> <input class="form-control" name="email_factura_electronica" placeholder="Correo para factura electrónica" value="{{ old('email') }}" type="email" required>
+                                    <label>Correo para factura electrónica</label> <input class="form-control" name="email_factura_electronica" placeholder="Correo para factura electrónica" type="email" required>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="descripcion">Descripción</label>
-                                    <textarea type="text" name="descripcion" class="form-control" value="{{isset($perfil['descripcion'])? $perfil['descripcion']:''}}" placeholder="Descripción" name="numero_contacto_1" type="text"  required></textarea>
+                                    <textarea type="text" name="descripcion" class="form-control" placeholder="Descripción" type="text" required></textarea>
                                 </div>
                             </div>
                           

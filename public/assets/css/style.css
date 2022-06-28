@@ -82,7 +82,7 @@ License        :   Licensed under ThemeForest License
 */
 /* ######## FONT ######## */
 /* ############### FONTS IMPORT ############### */
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
+@import url("https://fonts.googleapis.com/css?family=Nunito:300,400,500,700,900");
 
 /* ######## BOOTSTRAP ######## */
 /*Color variables*/
@@ -1098,7 +1098,7 @@ a.badge-dark.focus {
     align-items: center;
     font-size: 10px;
     font-weight: 500;
-    font-family: "Roboto", sans-serif;
+    font-family: "Nunito", sans-serif;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: #949eb7;
@@ -1221,8 +1221,8 @@ fieldset:disabled a.btn {
 
 .btn-primary {
     color: #fff;
-    background-color: #0162e8;
-    border-color: #0162e8;
+    background-color: #5f3a89;
+    border-color: #5f3a89;
 }
 
 .btn-primary:hover {
@@ -1405,8 +1405,8 @@ fieldset:disabled a.btn {
 
 .btn-warning {
     color: #fff;
-    background-color: #fbbc0b;
-    border-color: #fbbc0b;
+    background-color: #fdb733;
+    border-color: #fdb733;
 }
 
 .btn-warning:hover {
@@ -2532,14 +2532,14 @@ input[type="button"].btn-block {
 /* ###### 5.1 Buttons  ###### */
 .btn-main-primary {
     color: #fff;
-    background-color: #0162e8;
-    border-color: #025cd8;
+    background-color: #5f3a89;
+    border-color: #5f3a89;
 }
 
 .btn-main-primary:hover {
     color: #fff;
-    background-color: #025cd8;
-    border-color: #0162e8;
+    background-color: #5f3a89;
+    border-color: #5f3a89;
 }
 
 .btn-main-primary:focus,
@@ -3718,7 +3718,7 @@ section {
 
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Nunito", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.5;
@@ -15076,7 +15076,7 @@ a.close.disabled {
 /* ############### PAGE LAYOUT STYLES ############### */
 /* ###### 6.3 Global  ###### */
 body {
-    font-family: "Roboto", sans-serif;
+    font-family: "Nunito", sans-serif;
 }
 
 .main-body,
@@ -33131,14 +33131,14 @@ textarea.parsley-success:focus {
 /* ###### 4.8 RangeSlider ###### */
 .irs-min,
 .irs-max {
-    font-family: "Roboto", sans-serif;
+    font-family: "Nunito", sans-serif;
     border-radius: 0;
 }
 
 .irs-from,
 .irs-to,
 .irs-single {
-    font-family: "Roboto", sans-serif;
+    font-family: "Nunito", sans-serif;
     background-color: #0162e8;
     border-radius: 0;
 }
@@ -36720,7 +36720,7 @@ textarea.parsley-success:focus {
 
 .main-signup-header h2 {
     font-weight: 500;
-    color: #0162e8;
+    color: #fdb733;
     letter-spacing: -1px;
 }
 
@@ -37968,7 +37968,7 @@ button.bg-info:focus {
 }
 
 .bg-warning {
-    background-color: #fbbc0b !important;
+    background-color: #fdb733 !important;
 }
 
 a.bg-warning:hover,
@@ -38240,7 +38240,7 @@ button.bg-dark:focus {
 }
 
 .bg-primary {
-    background-color: #0162e8 !important;
+    background-color: #5f3a89 !important;
 }
 
 .bg-primary-gradient {
@@ -38256,7 +38256,8 @@ button.bg-dark:focus {
 }
 
 .bg-warning-gradient {
-    background-image: linear-gradient(to left, #efa65f, #f76a2d) !important;
+    background-image: linear-gradient(to left, #5f3a89, #fdb733) !important;
+    /* background-image: linear-gradient(to left, #efa65f, #f76a2d) !important; */
 }
 
 .bg-purple-gradient {
@@ -77291,7 +77292,7 @@ button.bg-dark:focus {
 }
 
 .text-primary {
-    color: #0162e8 !important;
+    color: #5f3a89 !important;
 }
 
 a.text-primary:hover,
