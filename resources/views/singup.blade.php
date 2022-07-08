@@ -91,6 +91,11 @@
 														<label>Correo Electrónico</label> <input class="form-control" name="email" placeholder="Ingresa tu Correo Electrónico" value="{{ old('email') }}" type="email" required>
 													</div>
 													<div class="form-group">
+														<label for="numero_contacto_1">Número de contacto / Celular</label>
+														<input class="form-control" value="{{ old('numero_contacto_1') }}" placeholder="Número contacto" name="numero_contacto_1" type="number" required>
+													</div>
+
+													<div class="form-group">
 														<label>Contraseña</label> <input class="form-control" id="password" name="password" placeholder="Ingresa tu contraseña" type="password" required>
 														<input id ="check" type="checkbox" onclick="(function(){
 																	var x = document.getElementById('password');

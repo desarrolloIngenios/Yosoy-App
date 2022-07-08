@@ -6,7 +6,7 @@
                 <th class="wd-lg-8p"><span>User</span></th>
                 <th class="wd-lg-20p"><span></span></th>
                 <th class="wd-lg-20p"><span>Contacto</span></th>
-                <th class="wd-lg-20p"><span>Perfil</span></th>
+                <th class="wd-lg-20p"><span>Experiencia</span></th>
                 <th class="wd-lg-20p">Action</th>
             </tr>
         </thead>
@@ -43,6 +43,8 @@
                         {{ $perfil_laboral['nivel_experiencia'] ? $perfil_laboral['nivel_experiencia']['nombre'] : '' }}
                         -
                         {{ $perfil_laboral['cargo'] ? $perfil_laboral['cargo']['nombre'] : '' }} 
+                        -
+                        {{ $perfil_laboral['tiempo_experiencia'] ? $perfil_laboral['tiempo_experiencia']['nombre'] : '' }} 
                         <br> 
                     @endforeach
                 </td>

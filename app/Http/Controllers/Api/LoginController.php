@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Support\Facades\Password;
@@ -25,6 +26,7 @@ class LoginController extends BaseController
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
+            'numero_contacto_1' => 'required',
             //'c_password' => 'required|same:password',
         ]);
    
@@ -35,12 +37,26 @@ class LoginController extends BaseController
        
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
+        
+        // Creación del Usuario
         $user = User::create($input);
+
+        // Guardar Perfil
+        $profile = new Profile();
+        $profile->user_id = $user->id;
+        $profile->pais_residencia_id = 0;
+        $profile->fill($request->except(['_token']));
+        $profile->save();
+
         $success['token'] =  $user->createToken('MyApp')->accessToken;
         $success['name'] =  $user->name;
+
+        // si en el formulario viene el campo is_empresario verdadero, 
+        // se asigna el rol de empresario al Usuario
         if($input['is_empresario'] == 1){
             $user->setRoleEmpresario();
         }
+
         return $this->sendResponse($success, 'User register successfully.');
     }
    

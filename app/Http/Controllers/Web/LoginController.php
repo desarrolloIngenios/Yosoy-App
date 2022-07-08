@@ -63,6 +63,12 @@ class LoginController extends Controller
         return view('singup');
     }
 
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+        return redirect()->route('login');
+    }
+
     public function registro_empresa()
     {
         return view('singup_empresa');

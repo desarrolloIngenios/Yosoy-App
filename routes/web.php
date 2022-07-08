@@ -77,6 +77,7 @@ Route::post('empresa/create', [App\Http\Controllers\Web\CompanyController::class
 Route::post('empresa/update', [App\Http\Controllers\Web\CompanyController::class, 'empresa_update'])->name('empresa_update.post');
 Route::get('empresa/index', [App\Http\Controllers\Web\EmpresaController::class, 'index'])->name('empresa.index');
 
+Route::get('logout', [App\Http\Controllers\Web\LoginController::class, 'logout'])->name('logout');
 
 
 

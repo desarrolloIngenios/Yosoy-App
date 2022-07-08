@@ -19,8 +19,6 @@ class ProfileController extends BaseController
      */
     public function store(Request $request)
     {
-        //return "holaa";
-
         //$user_id = $request->input('user_id');
         //$profile = Profile::where('user_id', $user_id)->first();
         $profile = $request->user()->profile;
