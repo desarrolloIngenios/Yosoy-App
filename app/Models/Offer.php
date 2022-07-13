@@ -66,6 +66,7 @@ class Offer extends Model
                       'profile.genero',
                       'profile.perfiles_laborales.nivel_experiencia',
                       'profile.perfiles_laborales.cargo',
+                      'profile.perfiles_laborales.tiempo_experiencia',
                     
                     );
     }

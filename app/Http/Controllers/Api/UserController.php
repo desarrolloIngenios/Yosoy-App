@@ -17,6 +17,7 @@ class UserController extends BaseController
             'tipo_documento', 
             'perfiles_laborales.nivel_experiencia', 
             'perfiles_laborales.cargo',
+            'perfiles_laborales.tiempo_experiencia',
             'user'
             )->get();
         //dd($profile);

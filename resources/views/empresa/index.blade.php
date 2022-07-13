@@ -3,7 +3,7 @@
 <!-- row -->
 <div class="row row-sm">
     <div class="col-md-3 col-sm-12">
-        <div class="card bg-warning-gradient text-white">
+        <div class="card bg-info text-white">
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">

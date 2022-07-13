@@ -33,11 +33,13 @@ Route::post('reset_password', [App\Http\Controllers\Web\LoginController::class, 
 Route::get('terminos_condiciones', [App\Http\Controllers\Web\PaginasEstaticasController::class, 'terminos_condiciones'])->name('terminos_condiciones');
 Route::get('politica_privacidad', [App\Http\Controllers\Web\PaginasEstaticasController::class, 'politica_privacidad'])->name('politica_privacidad');
 
-Route::get('registro', [App\Http\Controllers\Web\LoginController::class, 'registro_index'])->name('registro.get');
+Route::get('registro/{tipo_usuario?}', [App\Http\Controllers\Web\LoginController::class, 'registro_index'])->name('registro.get');
 Route::post('registro', [App\Http\Controllers\Web\LoginController::class, 'registro_post'])->name('registro.post');
+Route::get('registro_tipo_usuario', [App\Http\Controllers\Web\LoginController::class, 'registro_tipo_usuario'])->name('registro_tipo_usuario.get');
+
 
 Route::get('registro_empresa', [App\Http\Controllers\Web\LoginController::class, 'registro_empresa'])->name('registro_empresa.get');
-Route::post('registro', [App\Http\Controllers\Web\LoginController::class, 'registro_post'])->name('registro.post');
+//Route::post('registro', [App\Http\Controllers\Web\LoginController::class, 'registro_post'])->name('registro.post');
 
 Route::post('profile', [App\Http\Controllers\Web\ProfileController::class, 'store'])->name('profile.post');
 Route::get('profile', [App\Http\Controllers\Web\ProfileController::class, 'index'])->name('profile.get');
@@ -77,6 +79,7 @@ Route::post('empresa/create', [App\Http\Controllers\Web\CompanyController::class
 Route::post('empresa/update', [App\Http\Controllers\Web\CompanyController::class, 'empresa_update'])->name('empresa_update.post');
 Route::get('empresa/index', [App\Http\Controllers\Web\EmpresaController::class, 'index'])->name('empresa.index');
 
+Route::get('logout', [App\Http\Controllers\Web\LoginController::class, 'logout'])->name('logout');
 
 
 

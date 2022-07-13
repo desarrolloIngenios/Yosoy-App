@@ -87,7 +87,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="descripcion">Descripción</label>
-                                <textarea name="description" placeholder="Resume brevemente el perfil o servicio que estás buscando." maxlength="220" rows="4" class="form-control" required></textarea>
+                                <textarea name="description" placeholder="Resume brevemente el perfil o servicio que estás buscando." maxlength="490" rows="4" class="form-control" required></textarea>
                             </div>
                         </div>
                     </div>

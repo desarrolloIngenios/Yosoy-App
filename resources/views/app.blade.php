@@ -26,7 +26,7 @@
 							<div class="responsive-logo">
 								<a href="{{route('profile.get')}}"><img src="../../images/Logo1.png" class="logo-1" alt="logo"></a>
 								<a href="index.html"><img src="../../assets/img/brand/logo-white.png" class="dark-logo-1" alt="logo"></a>
-								<a href="index.html"><img src="../../assets/img/brand/favicon.png" class="logo-2" alt="logo"></a>
+								<a href="index.html"><img src="../../images/Logo1.png" class="logo-2" alt="logo"></a>
 								<a href="index.html"><img src="../../assets/img/brand/favicon-white.png" class="dark-logo-2" alt="logo"></a>
 							</div>
 							<div class="app-sidebar__toggle" data-toggle="sidebar">

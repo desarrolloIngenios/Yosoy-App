@@ -1,26 +1,31 @@
 
+
+<section id="no-more-tables">
 <div class="table-responsive border-top userlist-table">
     <table class="table card-table table-striped table-vcenter text-nowrap mb-0">
         <thead>
             <tr>
-                <th class="wd-lg-8p"><span>User</span></th>
+                <th class="wd-lg-8p"><span>Usuario</span></th>
                 <th class="wd-lg-20p"><span></span></th>
                 <th class="wd-lg-20p"><span>Contacto</span></th>
-                <th class="wd-lg-20p"><span>Perfil</span></th>
-                <th class="wd-lg-20p">Action</th>
+                <th class="wd-lg-20p"><span>Experiencia</span></th>
+                <th class="wd-lg-20p">Acciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach($users as $user)
             <tr>
-                <td>
+                <td data-title="">
                     @if(isset($user['foto_perfil_url']))
                         <img alt="avatar" class="rounded-circle avatar-md mr-2" src="{{ \Storage::disk('s3')->temporaryUrl($user['foto_perfil_url'], '+10 minutes') }}">
                     @else
                         <img alt="avatar" class="rounded-circle avatar-md mr-2" src="../../assets/img/faces/1.jpg">
                     @endif
+
                 </td>
-                <td>
+                <td data-title="Nombre">
+                    <i class="las la-{{ $user['is_empirico'] ? 'hammer':'graduation-cap' }} tx-20"></i>
+
                     @if(trim($user['full_name']) == "")
                         {{ $user['user']['name'] }} 
                     @else
@@ -29,7 +34,7 @@
                     <br>
                     {{ $user['ciudad_residencia'] ? $user['ciudad_residencia']['pais_departamento_ciudad']:'-' }}
                 </td>
-                <td>
+                <td data-title="Número">
                     {{ $user['numero_contacto_1'] }} - {{ $user['numero_contacto_2'] }} 
                     <br>
                     @if(trim($user['email']) == "")
@@ -38,23 +43,22 @@
                         {{ $user['email'] }} 
                     @endif
                 </td>
-                <td>
+                <td data-title="Experiencia">
                     @foreach($user['perfiles_laborales'] as $perfil_laboral)
                         {{ $perfil_laboral['nivel_experiencia'] ? $perfil_laboral['nivel_experiencia']['nombre'] : '' }}
                         -
                         {{ $perfil_laboral['cargo'] ? $perfil_laboral['cargo']['nombre'] : '' }} 
+                        -
+                        {{ $perfil_laboral['tiempo_experiencia'] ? $perfil_laboral['tiempo_experiencia']['nombre'] : '' }} 
                         <br> 
                     @endforeach
                 </td>
-                <td>
-                    <a href="#" class="btn btn-sm btn-primary">
-                        <i class="las la-search"></i>
+                <td data-title="Acciones">
+                    <a target="_blank" href="https://api.whatsapp.com/send?phone=57{{ str_replace(' ', '', $user['numero_contacto_1']); }}" class="btn btn-sm">
+                        <img alt="avatar" class="rounded-circle avatar-md mr-2" src="../../assets/img/faces/WhatsApp.webp">
                     </a>
-                    <a href="#" class="btn btn-sm btn-info">
-                        <i class="las la-pen"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm btn-danger">
-                        <i class="las la-trash"></i>
+                    <a target="_blank" href="tel:57{{ str_replace(' ', '', $user['numero_contacto_1']); }}" class="btn btn-sm btn-primary">
+                        <i class="las la-phone"></i>
                     </a>
                 </td>
             </tr>
@@ -62,3 +66,4 @@
         </tbody>
     </table>
 </div>
+</section>

@@ -18,6 +18,9 @@
 		<!--- Icons css --->
 		<link href="../../assets/css/icons.css" rel="stylesheet">
 
+		<!-- Internal Select2 css -->
+		<link href="../../assets/plugins/select2/css/select2.min.css" rel="stylesheet">	
+
 		<!--- Right-sidemenu css --->
 		<link href="../../assets/plugins/sidebar/sidebar.css" rel="stylesheet">
 
@@ -66,21 +69,60 @@
 								<div class="row">
 									<div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
 										<div class="card-sigin">
-											<div class="mb-5 d-flex"> <a href="{{ route('login') }}"><img src="../../images/Logo1.png" class="sign-favicon ht-40" alt="logo"></a></div>
+											<div class="mb-5 d-flex"> <h1 class="text-primary"><a href="{{ route('login') }}"><img src="../../images/Logo1.png" class="sign-favicon ht-40" alt="logo"></a> {{ $nombre }}</h1></div>
 											<div class="main-signup-header">
 												<h2 class="text-primary">Crea tu perfil</h2>
 												<h5 class="font-weight-normal mb-4">Solo te toma un minuto.</h5>
-												@if (session('status'))
-															<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
-																<span class="alert-inner--icon"><i class="fe fe-slash"></i></span>
-																<span class="alert-inner--text"><strong></strong> {{ session('status') }}</span>
-																<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-																	<span aria-hidden="true">×</span>
-																</button>
-															</div>
-															@endif
+												@if ( $errors->count() > 0 )
+													<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+
+													@foreach( $errors->all() as $message )
+														<span class="alert-inner--icon"><i class="fe fe-slash"></i></span>
+														<span class="alert-inner--text"><strong></strong> {{ $message }}</span>
+													@endforeach
+													<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+															<span aria-hidden="true">x</span>
+														</button>
+													</div>
+												@endif
+
 												<form action="{{ route('registro.post') }}" method="post">
 												@csrf
+												<input name="is_empirico" type="hidden" value="{{ $is_empirico }}">
+													<div class="form-group">
+													<label>Yo soy</label><select class="form-control select2" name="cargo_id" placeholder="" required>
+														<option value=""></option>
+															@foreach($cargos as $cargo)
+																<option value="{{ $cargo->id }}">
+																		{{ $cargo->nombre }}
+																	</option>
+															@endforeach
+														</select>
+													</div>
+													<div class="row">
+
+													<div class="col-lg-6 mg-b-6 mg-lg-b-6">
+														<label>Nivel de experiencia</label><select class="form-control select2" name="nivel_experiencia_id" placeholder="" required>
+														@foreach($nivel_experiencia as $item)
+																<option value=""></option>
+																	<option value="{{ $item->id }}">
+																		{{ $item->nombre }}
+																	</option>
+															@endforeach
+														</select>
+													</div>   
+													<div class="col-lg-6 mg-b-6 mg-lg-b-6">
+														<label>Tiempo de experiencia</label><select class="form-control select2" name="tiempo_experiencia_id" placeholder="" required>
+														@foreach($tiempo_experiencia as $item)
+																<option value=""></option>
+																	<option value="{{ $item->id }}">
+																		{{ $item->nombre }}
+																	</option>
+															@endforeach
+														</select>
+													</div>  
+													</div>
+
 													<div class="form-group">
 														<label>Nombre(s)</label> <input class="form-control" name="name" placeholder="Ingresa tu(s) nombre(s)" value="{{ old('name') }}" type="text" required>
 													</div>
@@ -90,6 +132,11 @@
 													<div class="form-group">
 														<label>Correo Electrónico</label> <input class="form-control" name="email" placeholder="Ingresa tu Correo Electrónico" value="{{ old('email') }}" type="email" required>
 													</div>
+													<div class="form-group">
+														<label for="numero_contacto_1">Número de contacto / Celular</label>
+														<input class="form-control" value="{{ old('numero_contacto_1') }}" placeholder="Número contacto" name="numero_contacto_1" type="number" required>
+													</div>
+
 													<div class="form-group">
 														<label>Contraseña</label> <input class="form-control" id="password" name="password" placeholder="Ingresa tu contraseña" type="password" required>
 														<input id ="check" type="checkbox" onclick="(function(){
@@ -169,6 +216,8 @@
 
 		<!--- Custom js --->
 		<script src="../../assets/js/custom.js"></script>
+
+        @include('partials/include_js')
 
 	</body>
 </html>

@@ -54,7 +54,7 @@
 						<div class="col-xs-6 col-sm-6 col-lg-6 col-xl-4">
 							<div class="panel price panel-color">
 								<div class="panel-heading bg-warning  p-0 text-center">
-									<h3>Buscas Servicio y/o Vacante Contratos sabatinos, medio tiempo y tiempo completo</h3>
+									<h3>Buscas Servicio, vacante contratos sabatinos, medio tiempo y tiempo completo</h3>
 								</div>
 								<div class="panel-body text-center">
 									<p class="lead"><strong>$95.000</strong></p>

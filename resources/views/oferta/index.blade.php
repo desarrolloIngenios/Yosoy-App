@@ -7,7 +7,7 @@
 <h2 class="">Listado de Ofertas</h2>
 <div class="row row-sm">
     <div class="col-md-4 col-sm-12">
-        <div class="card bg-warning-gradient text-white">
+        <div class="card bg-warning text-white">
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="col-md-4 col-sm-12">
-        <div class="card bg-warning-gradient text-white">
+        <div class="card bg-info text-white">
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">

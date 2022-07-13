@@ -3,6 +3,12 @@
 <!-- row -->
 <div class="row row-sm">
   
+@if(count($perfil['perfiles_laborales']) == 0)
+    @include('profile/partial_profile_perfil_laboral')
+@else
+
+
+    
     <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
         <div class="card  box-shadow-0 ">
             <div class="card-header">
@@ -79,7 +85,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="fecha_nacimiento">Fecha de nacimiento</label>
-                                    <input class="form-control fc-datepicker" name="fecha_nacimiento" placeholder="MM/DD/YYYY" value="08/17/2022" type="text"  required>
+                                    <input class="form-control fc-datepicker" name="fecha_nacimiento" placeholder="MM/DD/YYYY" value="{{isset($perfil['fecha_nacimiento'])? date('m/d/Y', strtotime($perfil['fecha_nacimiento'])):''}}" type="text"  required>
                                 </div>
                             </div>
                         </div>
@@ -590,7 +596,8 @@
 
 
 
-
+@endif
+<!-- if perfiles laborales == 0 -->
 
 
 

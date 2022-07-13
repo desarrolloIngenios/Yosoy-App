@@ -70,15 +70,18 @@
 											<div class="main-signup-header">
 												<h2 class="text-primary">Crea tu perfil de empresa</h2>
 												<h5 class="font-weight-normal mb-4">Solo te toma un minuto.</h5>
-												@if (session('status'))
-															<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
-																<span class="alert-inner--icon"><i class="fe fe-slash"></i></span>
-																<span class="alert-inner--text"><strong></strong> {{ session('status') }}</span>
-																<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-																	<span aria-hidden="true">×</span>
-																</button>
-															</div>
-															@endif
+												@if ( $errors->count() > 0 )
+													<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+
+													@foreach( $errors->all() as $message )
+														<span class="alert-inner--icon"><i class="fe fe-slash"></i></span>
+														<span class="alert-inner--text"><strong></strong> {{ $message }}</span>
+													@endforeach
+													<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+															<span aria-hidden="true">x</span>
+														</button>
+													</div>
+												@endif
 												<form action="{{ route('registro.post') }}" method="post">
 												@csrf
 													<div class="form-group">
@@ -86,6 +89,10 @@
 													</div>
 													<div class="form-group">
 														<label>Apellidos</label> <input class="form-control" name="last_name" placeholder="Ingresa tus apellidos" value="{{ old('last_name') }}" type="text" required>
+													</div>
+													<div class="form-group">
+														<label for="numero_contacto_1">Número de contacto / Celular</label>
+														<input class="form-control" value="{{ old('numero_contacto_1') }}" placeholder="Número contacto" name="numero_contacto_1" type="number" required>
 													</div>
 													<div class="form-group">
 														<label>Correo Electrónico</label> <input class="form-control" name="email" placeholder="Ingresa tu Correo Electrónico" value="{{ old('email') }}" type="email" required>
