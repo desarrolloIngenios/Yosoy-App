@@ -14,6 +14,9 @@
         </thead>
         <tbody>
             @foreach($users as $user)
+                @if(is_null($user['name']))
+                    @continue
+                @endif
             <tr>
                 <td data-title="">
                     @if(isset($user['foto_perfil_url']))
@@ -27,7 +30,7 @@
                     <i class="las la-{{ $user['is_empirico'] ? 'hammer':'graduation-cap' }} tx-20"></i>
 
                     @if(trim($user['full_name']) == "")
-                        {{ $user['user']['name'] }} 
+                        {{ "-" }} 
                     @else
                         {{ $user['full_name'] }} 
                     @endif
@@ -38,7 +41,7 @@
                     {{ $user['numero_contacto_1'] }} - {{ $user['numero_contacto_2'] }} 
                     <br>
                     @if(trim($user['email']) == "")
-                        {{ $user['user']['email'] }} 
+                        {{ "-"}} 
                     @else
                         {{ $user['email'] }} 
                     @endif
