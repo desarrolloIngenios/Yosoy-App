@@ -161,7 +161,7 @@ class OfertaController extends Controller
         $message = $response->json()['message'];
         $data['users'] = $profiles;
         //$data['offers'] = [];
-        //dd($data);
+        dd($data);
         return view('oferta/show', $data);
     }
 
