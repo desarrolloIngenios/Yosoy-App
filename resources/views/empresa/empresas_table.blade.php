@@ -28,14 +28,11 @@
                     {{ $user['email_factura_electronica'] }} 
                 </td>
                 <td>
-                    <a href="#" class="btn btn-sm btn-primary">
-                        <i class="las la-search"></i>
+                    <a target="_blank" href="https://api.whatsapp.com/send?phone=57{{ str_replace(' ', '', $user['numero_contacto']); }}" class="btn btn-sm">
+                        <img alt="avatar" class="rounded-circle avatar-md mr-2" src="../../assets/img/faces/WhatsApp.webp">
                     </a>
-                    <a href="#" class="btn btn-sm btn-info">
-                        <i class="las la-pen"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm btn-danger">
-                        <i class="las la-trash"></i>
+                    <a target="_blank" href="tel:57{{ str_replace(' ', '', $user['numero_contacto']); }}" class="btn btn-sm btn-primary">
+                        <i class="las la-phone"></i>
                     </a>
                 </td>
             </tr>

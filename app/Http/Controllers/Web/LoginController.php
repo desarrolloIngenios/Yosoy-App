@@ -5,6 +5,14 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Models\Base\Cargo;
+use App\Models\User;
+use App\Models\Profile;
+use App\Models\ProfilePerfilLaboral;
+use Validator;
+use App\Models\Base\TiempoExperiencia;
+use App\Models\Base\NivelExperiencia;
+
 
 
 class LoginController extends Controller
@@ -58,9 +66,33 @@ class LoginController extends Controller
         return redirect()->route('profile.get');
     }
 
-    public function registro_index()
+    public function registro_index(Request $request, $tipo_usuario = null)
     {
-        return view('singup');
+        $data = [];
+        if($tipo_usuario == 'tecnico'){
+            
+            $data['nombre'] = 'Técnico';
+            $data['is_empirico'] = false;
+
+        } elseif($tipo_usuario == 'empirico') {
+           
+            $data['nombre'] = 'Empírico / Informal';
+            $data['is_empirico'] = true;
+
+        } else {
+            return redirect()->route('registro_tipo_usuario.get');
+        }
+
+        $tiempo_experiencia = TiempoExperiencia::all();
+        $nivel_experiencia = NivelExperiencia::all();
+        $cargos = Cargo::orderBy('nombre')->get();
+
+        $data['cargos'] = $cargos;
+        $data['tiempo_experiencia'] = $tiempo_experiencia;
+        $data['nivel_experiencia'] = $nivel_experiencia;
+
+        return view('singup', $data);
+
     }
 
     public function logout(Request $request)
@@ -76,17 +108,49 @@ class LoginController extends Controller
 
     public function registro_post(Request $request)
     {
-        $response = Http::accept('application/json')->post(route('api.register'), $request->input());
-        $success = $response->json()['success'];
-        if(!$success){
-            return redirect()->back()->withInput($request->all())->with('status', 'El Correo electrónico ya se encuentra en uso!');
-        }
-        $data = $response->json()['data'];
-        $message = $response->json()['message'];
 
-        if($success){
-            return redirect()->route('login')->with('success', 'Cuenta creada con éxito, Puedes Iniciar Sesión!');
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+            'numero_contacto_1' => 'required',
+            //'c_password' => 'required|same:password',
+        ], ['email.unique' => "El correo ya está registrado"]);
+   
+        if($validator->fails()){
+            return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
         }
+
+        $input = $request->all();
+
+        $input['password'] = bcrypt($input['password']);
+        
+        // Creación del Usuario
+        $user = User::create($input);
+
+        // Guardar Perfil
+        $profile = new Profile();
+        $profile->user_id = $user->id;
+        $profile->pais_residencia_id = 0;
+        $profile->fill($request->except(['_token']));
+        $profile->save();
+
+        $success['token'] =  $user->createToken('MyApp')->accessToken;
+        $success['name'] =  $user->name;
+
+        if($input['is_empresario'] != 1){
+            $perfil_laboral = new ProfilePerfilLaboral();
+            $perfil_laboral->fill($request->except(['_token']));
+            $perfil_laboral->profile_id = $profile->id;
+            $perfil_laboral->save();
+        }
+
+        // si en el formulario viene el campo is_empresario verdadero, 
+        // se asigna el rol de empresario al Usuario
+        if($input['is_empresario'] == 1){
+            $user->setRoleEmpresario();
+        }
+        return redirect()->route('login')->with('success', 'Cuenta creada con éxito, Puedes Iniciar Sesión!');
     }
 
     public function forgot()
@@ -123,6 +187,12 @@ class LoginController extends Controller
             'token' => $token,
         ]);
         return redirect()->route('login')->with('success', 'Contraseña actualizada! Puedes inicar sesión de nuevo');
+    }
+
+    
+    public function registro_tipo_usuario()
+    {
+        return view('registro_tipo_usuario');
     }
 
 
