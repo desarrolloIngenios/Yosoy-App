@@ -322,5 +322,7 @@
 
 		</div>
         @include('partials/include_js')
+		@yield('js')
+
     </body>
 </html>
