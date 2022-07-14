@@ -14,7 +14,7 @@
         </thead>
         <tbody>
             @foreach($users as $user)
-                @if(is_null($user['name']))
+                @if(is_null($user) || is_null($user['name']))
                     @continue
                 @endif
             <tr>
