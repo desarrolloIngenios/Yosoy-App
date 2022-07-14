@@ -41,7 +41,7 @@
                     {{ $user['numero_contacto_1'] }} - {{ $user['numero_contacto_2'] }} 
                     <br>
                     @if(trim($user['email']) == "")
-                        {{ "-"}} 
+                        {{ "-" }} 
                     @else
                         {{ $user['email'] }} 
                     @endif

@@ -18,7 +18,7 @@ class OfertaController extends Controller
         $offers = $response->json()['data'];
         $message = $response->json()['message'];
         $data['offers'] = $offers;
-        if(!empty($offers) && count($offers) >= 1){
+        if(!empty($offers) && count($offers) >= 2){
             return redirect()->route('pricing.index');
         }
 

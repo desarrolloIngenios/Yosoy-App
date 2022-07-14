@@ -1,6 +1,7 @@
 @extends('app')
 @section('content')
 <!-- row -->
+
 <div class="row row-sm">
     <div class="col-md-3 col-sm-12">
         <div class="card bg-warning text-white">
