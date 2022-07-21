@@ -20,6 +20,10 @@
             </div>
             <div class="card-footer">
                 {{ $offer['ciudad']['pais_departamento_ciudad'] }}
+                <br>
+                <a href="{{ route('login') }}">
+                    <button class="btn btn-primary "><i class="typcn typcn-plus-outline"> Aplicar</i></button>
+                </a>
             </div>
         </div>
     </div>
