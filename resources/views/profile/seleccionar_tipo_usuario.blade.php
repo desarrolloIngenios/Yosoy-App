@@ -11,7 +11,7 @@
                 </div>
                 <div class="panel-body text-center">
                     <div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto wd-100p">
-                        <img src="../../images/empirico.jpg" class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto" alt="logo">
+                        <img src="../../images/empirico.png" class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto" alt="logo">
                     </div>
                 </div>
                 <ul class="list-group list-group-flush text-center">
@@ -33,7 +33,7 @@
                 </div>
                 <div class="panel-body text-center">
                     <div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto wd-100p">
-                        <img src="../../images/tecnico.jpg" class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto" alt="logo">
+                        <img src="../../images/tecnico.png" class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto" alt="logo">
                     </div>
                 </div>
                 <ul class="list-group list-group-flush text-center">
