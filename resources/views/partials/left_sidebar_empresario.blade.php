@@ -43,6 +43,9 @@
 				<li class="slide">
 					<a class="side-menu__item" href="{{ route('oferta.create') }}"><i class=" side-menu__icon fa fa-plus"></i><span class="side-menu__label">Crear Oferta</span></a>
 				</li>
+				<li class="slide">
+					<a class="side-menu__item" href="{{ route('logout') }}"><i class=" side-menu__icon fa fa-sign-out" ></i><span class="side-menu__label">Salir</span></a>
+				</li>
 				@endif
 			</ul>
 		</div>
