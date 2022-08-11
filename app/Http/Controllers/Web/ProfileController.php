@@ -17,6 +17,10 @@ class ProfileController extends Controller
             return redirect()->route('dashboard.empresario');
         }
 
+        if(!session('token', false)){
+            return redirect()->route('login');
+        }
+
         $response = Http::withToken(session('token'))->get(route('api.profile'));
         //dd($response->json());
         $success = $response->json()['success'];

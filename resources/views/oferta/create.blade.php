@@ -17,7 +17,7 @@
                     @endif
                     <div class="row row-sm">
                         <div class="col-lg-6 mg-b-12 mg-lg-b-6">
-                            <p class="mg-b-10">Cargo</p><select class="form-control select2" name="cargo_id" placeholder="">
+                            <p class="mg-b-10">Cargo</p><select class="form-control select2" name="cargo_id" placeholder="" required>
                             <option value=""></option>
                                 @foreach($cargos as $item)
                                     <option value="{{ $item['id'] }}">
@@ -27,7 +27,7 @@
                             </select>
                         </div>   
                         <div class="col-lg-6 mg-b-12 mg-lg-b-6">
-                            <p class="mg-b-10">Tiempo de experiencia</p><select class="form-control select2" name="tiempo_experiencia_id" placeholder="País">
+                            <p class="mg-b-10">Tiempo de experiencia</p><select class="form-control select2" name="tiempo_experiencia_id" placeholder="País" required>
                             @foreach($tiempo_experiencia as $item)
                                     <option value=""></option>
                                         <option value="{{ $item['id'] }}">
@@ -38,7 +38,7 @@
                         </div>  
 
                         <div class="col-lg-6 mg-b-12 mg-lg-b-6">
-                            <p class="mg-b-10">Sector*</p><select class="form-control select2" name="sector_id" placeholder="">
+                            <p class="mg-b-10">Sector*</p><select class="form-control select2" name="sector_id" placeholder="" required>
                             <option value=""></option>
                                 @foreach($sector as $item)
                                     <option value="{{ $item['id'] }}">
@@ -48,7 +48,7 @@
                             </select>
                         </div> 
                         <div class="col-lg-6 mg-b-12 mg-lg-b-6">
-                            <p class="mg-b-10">Ciudad*</p><select class="form-control select2" name="ciudad_id" placeholder="">
+                            <p class="mg-b-10">Ciudad*</p><select class="form-control select2" name="ciudad_id" placeholder="" required>
                             <option value=""></option>
                                 @foreach($ciudades as $item)
                                     <option value="{{ $item['id'] }}">
@@ -58,7 +58,7 @@
                             </select>
                         </div> 
                         <div class="col-lg-6 mg-b-12 mg-lg-b-6">
-                            <p class="mg-b-10">Nivel Educativo*</p><select class="form-control select2" name="nivel_educativo_id" placeholder="Nivel Educativo">
+                            <p class="mg-b-10">Nivel Educativo*</p><select class="form-control select2" name="nivel_educativo_id" placeholder="Nivel Educativo" required>
                             <option value=""></option>
                                 @foreach($nivel_educativo as $item)
                                     <option value="{{ $item['id'] }}">
@@ -69,7 +69,7 @@
                         </div> 
                         <div class="col-lg-6 mg-b-12 mg-lg-b-6">
                             <p class="mg-b-10">Tipo de contrato / Servicio que esta buscando</p>
-                            <select class="form-control select2" name="tipo_contrato[]" multiple="multiple" placeholder="Hola">
+                            <select class="form-control select2" name="tipo_contrato[]" multiple="multiple" placeholder="Hola" required>
                                 @foreach($tipo_contrato as $item)
                                     <option value=""></option>
                                     @if(isset($perfil['tipo_contrato_id']) && $perfil['tipo_contrato_id'] == $item['id'])
