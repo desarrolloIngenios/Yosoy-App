@@ -16,7 +16,6 @@ class CompanyController extends BaseController
         $empresa->fill($request->except(['_token']));
         $empresa->user_id = $user->id;
         $empresa->save();
-        
         return $this->sendResponse($empresa, 'Empresa');
     }
 

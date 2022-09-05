@@ -68,8 +68,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('empresa/find/{id}', [App\Http\Controllers\Api\CompanyController::class, 'find'])->name('api.empresa.find');
     
 
-    
-
+    Route::get('star_rating/user_api', [App\Http\Controllers\Api\StarRatingController::class, 'star_rating_by_user'])->name('api.star_rating');
+    Route::get('items/show', [App\Http\Controllers\Api\StarRatingController::class, 'items_show'])->name('api.items_show');
+    Route::post('star_rating/store', [App\Http\Controllers\Api\StarRatingController::class, 'storeStarRating'])->name('api.star_rating_store');
     
 });
 

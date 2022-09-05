@@ -79,6 +79,10 @@ Route::post('empresa/create', [App\Http\Controllers\Web\CompanyController::class
 Route::post('empresa/update', [App\Http\Controllers\Web\CompanyController::class, 'empresa_update'])->name('empresa_update.post');
 Route::get('empresa/index', [App\Http\Controllers\Web\EmpresaController::class, 'index'])->name('empresa.index');
 
+
+Route::get('rating/{user_id}/offer/{offer_id}', [App\Http\Controllers\Web\StarRatingController::class, 'show'])->name('star_rating.show');
+Route::post('rating_store', [App\Http\Controllers\Web\StarRatingController::class, 'store'])->name('star_rating.store');
+
 Route::get('logout', [App\Http\Controllers\Web\LoginController::class, 'logout'])->name('logout');
 
 

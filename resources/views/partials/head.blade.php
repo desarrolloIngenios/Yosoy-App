@@ -10,42 +10,42 @@
     <title> Yo Soy </title>
 
 		<!-- Favicon -->
-		<link rel="icon" href="../../images/Logo1.png" type="image/x-icon"/>
+		<link rel="icon" href="{{URL::asset('images/Logo1.png')}}" type="image/x-icon"/>
 
 		<!-- Icons css -->
-		<link href="../../assets/css/icons.css" rel="stylesheet">
+		<link href="{{URL::asset('/assets/css/icons.css')}}" rel="stylesheet">
 
 		<!-- Internal Select2 css -->
-		<link href="../../assets/plugins/select2/css/select2.min.css" rel="stylesheet">
+		<link href="{{URL::asset('/assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
 
 		<!--Internal  Datetimepicker-slider css -->
-		<link href="../../assets/plugins/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
-		<link href="../../assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet">
-		<link href="../../assets/plugins/pickerjs/picker.min.css" rel="stylesheet">
+		<link href="{{URL::asset('/assets/plugins/amazeui-datetimepicker/css/amazeui.datetimepicker.css')}}" rel="stylesheet">
+		<link href="{{URL::asset('/assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.css')}}" rel="stylesheet">
+		<link href="{{URL::asset('/assets/plugins/pickerjs/picker.min.css')}}" rel="stylesheet">
 
 		<!-- Internal Spectrum-colorpicker css -->
-		<link href="../../assets/plugins/spectrum-colorpicker/spectrum.css" rel="stylesheet">
+		<link href="{{URL::asset('/assets/plugins/spectrum-colorpicker/spectrum.css')}}" rel="stylesheet">
 
 		<!--  Right-sidemenu css -->
-		<link href="../../assets/plugins/sidebar/sidebar.css" rel="stylesheet">
+		<link href="{{URL::asset('/assets/plugins/sidebar/sidebar.css')}}" rel="stylesheet">
 
 		<!-- P-scroll bar css-->
-		<link href="../../assets/plugins/perfect-scrollbar/p-scrollbar.css" rel="stylesheet" />
+		<link href="{{URL::asset('/assets/plugins/perfect-scrollbar/p-scrollbar.css')}}" rel="stylesheet" />
 
 		<!--  Left-Sidebar css -->
-		<link rel="stylesheet" href="../../assets/css/closed-sidemenu.css">
+		<link rel="stylesheet" href="{{URL::asset('/assets/css/closed-sidemenu.css')}}">
 
 		<!--- Style css --->
-		<link href="../../assets/css/style.css" rel="stylesheet">
+		<link href="{{URL::asset('/assets/css/style.css')}}" rel="stylesheet">
 
 		<!--- Dark-mode css --->
-		<link href="../../assets/css/style-dark.css" rel="stylesheet">
+		<link href="{{URL::asset('/assets/css/style-dark.css')}}" rel="stylesheet">
 
 		<!---Skinmodes css-->
-		<link href="../../assets/css/skin-modes.css" rel="stylesheet" />
+		<link href="{{URL::asset('/assets/css/skin-modes.css')}}" rel="stylesheet" />
 
 		<!--- Animations css-->
-		<link href="../../assets/css/animate.css" rel="stylesheet">
+		<link href="{{URL::asset('/assets/css/animate.css')}}" rel="stylesheet">
 
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
