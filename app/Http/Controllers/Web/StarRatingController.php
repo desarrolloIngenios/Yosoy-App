@@ -11,7 +11,7 @@ class StarRatingController extends Controller
 {
     public function show(Request $request, $user_id, $offer_id)
     {
-        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.items_show'), []);
+        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.items_show'), ['user_id' => $user_id, 'offer_id' => $offer_id]);
         //dd($response->json());
         $success = $response->json()['success'];
         $items = $response->json()['data'];

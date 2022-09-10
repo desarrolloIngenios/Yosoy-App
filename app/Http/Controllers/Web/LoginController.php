@@ -12,6 +12,8 @@ use App\Models\ProfilePerfilLaboral;
 use Validator;
 use App\Models\Base\TiempoExperiencia;
 use App\Models\Base\NivelExperiencia;
+use App\Models\Code;
+
 
 
 
@@ -134,6 +136,10 @@ class LoginController extends Controller
         $profile->pais_residencia_id = 0;
         $profile->fill($request->except(['_token']));
         $profile->save();
+        
+        if($profile->code){
+            $code = Code::set_used($profile->code);
+        }
 
         $success['token'] =  $user->createToken('MyApp')->accessToken;
         $success['name'] =  $user->name;

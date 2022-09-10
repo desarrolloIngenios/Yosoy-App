@@ -37,5 +37,16 @@ class StarRating extends Model
     public function star_rating_item() {
         return $this->belongsTo(\App\Models\StarRatingItem::class, 'star_rating_item');
     }
+    
+    static public function is_rating_user_offer($user_id, $offer_id) {
+        $star_rating = self::where('user_id', $user_id)->where('offer_id', $offer_id)->get();
+        $star_rating = $star_rating->first();
+        if(is_null($star_rating)){
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
 
 }

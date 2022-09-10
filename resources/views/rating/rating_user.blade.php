@@ -22,7 +22,11 @@
                     @endforeach
                 </h5>
                 <br>
-                    <button type="submit" class="btn btn-main-primary btn-block">Guardar</button>
+                    @if(count($items)>0)
+                        <button type="submit" class="btn btn-main-primary btn-block">Guardar</button>
+                    @else
+                        El usuario ya fue calificado
+                    @endif
                 </form>
             </div>
             <div class="card-body text-primary">

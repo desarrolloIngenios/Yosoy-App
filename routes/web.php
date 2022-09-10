@@ -85,6 +85,8 @@ Route::post('rating_store', [App\Http\Controllers\Web\StarRatingController::clas
 
 Route::get('logout', [App\Http\Controllers\Web\LoginController::class, 'logout'])->name('logout');
 
+Route::get('generate_code', [App\Http\Controllers\Web\CodeController::class, 'generate_code'])->name('web.generate_codes');
+
 
 
 

@@ -26,7 +26,12 @@ class StarRatingController extends BaseController
     public function items_show(Request $request)
     {
         $items = StarRatingItem::where('active', true)->get();
-        return $this->sendResponse($items, 'Items');
+        $is_rating = StarRating::is_rating_user_offer($request->user_id, $request->offer_id);
+        if($is_rating){
+            return $this->sendResponse([], 'Items');
+        } else {
+            return $this->sendResponse($items, 'Items');
+        }
     }
 
     public function storeStarRating(Request $request)
