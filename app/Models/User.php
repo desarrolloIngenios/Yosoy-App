@@ -10,6 +10,7 @@ use Laravel\Passport\HasApiTokens;
 use App\Models\Profile;
 use App\Models\Role;
 use App\Models\Empresa;
+use App\Models\StarRating;
 use Illuminate\Contracts\Auth\CanResetPassword;
 
 class User extends Authenticatable
@@ -59,6 +60,12 @@ class User extends Authenticatable
     public function offers()
     {
         return $this->belongsToMany(Offer::class, 'offer_user', 'user_id', 'offer_id');
+    }
+
+    public static function getStarRating($user_id)
+    {
+        $rating = StarRating::where('user_id', $user_id)->avg('rating');
+        return $rating;
     }
 
     public function setRoleEmpresario()
