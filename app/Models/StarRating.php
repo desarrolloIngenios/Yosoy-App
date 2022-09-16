@@ -20,6 +20,7 @@ class StarRating extends Model
                             'created_by',
                             'star_rating_item',
                             'rating',
+                            'comment',
                         ];
     
     public function offer() {
@@ -46,6 +47,11 @@ class StarRating extends Model
         } else {
             return true;
         }
+    }
+
+    public function star_rating_items_selected()
+    {
+        return $this->belongsToMany(StarRatingItem::class, 'star_rating_items_selected', 'star_rating_id', 'star_rating_item_id');
     }
     
 

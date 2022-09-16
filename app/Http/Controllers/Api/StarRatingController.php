@@ -38,20 +38,22 @@ class StarRatingController extends BaseController
     {
         $user_id = $request->input('user_id');
         $offer_id = $request->input('offer_id');
-        $ids = $request->input('ids');
+        $input_items_checkbox = $request->input('input_items_checkbox');
         $rating = $request->input('rating');
+        $comment = $request->input('comment');
+        if($rating > 3){
+            $comment = "";
+        }
+        $star_rating = new StarRating();
+        $star_rating->user_id = $user_id;
+        $star_rating->offer_id = $offer_id;
+        $star_rating->rating = $rating;
+        $star_rating->comment = $comment;
+        $star_rating->created_by = $user = $request->user()->id;
+        $star_rating->save();
 
-        // $profile = $request->user()->profile;
-        // //$profile = Profile::find(1);
-        // $profile->perfiles_laborales;
-        foreach($ids as $key => $id){
-            $star_rating = new StarRating();
-            $star_rating->user_id = $user_id;
-            $star_rating->offer_id = $offer_id;
-            $star_rating->star_rating_item = $id;
-            $star_rating->rating = $rating[$key];
-            $star_rating->created_by = $user = $request->user()->id;
-            $star_rating->save();
+        if(!is_null($input_items_checkbox)){
+            $star_rating->star_rating_items_selected()->sync($input_items_checkbox);
         }
 
         return $this->sendResponse($star_rating, 'Rating');

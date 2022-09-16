@@ -20,7 +20,7 @@ class StarRatingController extends Controller
 
         $data['user_id'] = $user_id;
         $data['offer_id'] = $offer_id;
-        //dd($data);
+
         return view('rating/rating_user', $data);
     }
 
@@ -29,11 +29,9 @@ class StarRatingController extends Controller
         //dd($request->input());
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.star_rating_store'), $request->input());
         //dd($response->json());
-
         $success = $response->json()['success'];
         $data = $response->json()['data'];
         $message = $response->json()['message'];
-        //dd($profile);
 
         if(!$success){
             return redirect()->back()->with('status', 'Error al acceder a la cuenta!');
