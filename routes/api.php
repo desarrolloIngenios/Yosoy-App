@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 if(env('API_FLAG')){
 
 Route::post('register', [App\Http\Controllers\Api\LoginController::class, 'register'])->name('api.register');
+Route::post('validate_code', [App\Http\Controllers\Api\LoginController::class, 'validate_code'])->name('api.validate_code');
 Route::post('login', [App\Http\Controllers\Api\LoginController::class, 'login'])->name('api.login');
 Route::post('forgot_password.post', [App\Http\Controllers\Api\LoginController::class, 'forgot_password'])->name('forgot_password.post');
 Route::post('/reset-password', [App\Http\Controllers\Api\LoginController::class, 'reset_password'])->middleware('guest')->name('password.update');
@@ -55,24 +56,22 @@ Route::middleware('auth:api')->group(function () {
     Route::get('offer/show/{offer_id}', [App\Http\Controllers\Api\OfferController::class, 'show'])->name('api.offer.show');
     Route::get('offer/get_profiles/apply/{offer_id}', [App\Http\Controllers\Api\OfferController::class, 'get_profile_apply'])->name('api.offer.profile.appply');
 
-    
-
     Route::post('offer/apply', [App\Http\Controllers\Api\OfferController::class, 'apply'])->name('api.offer.apply');
     Route::get('offer/apply', [App\Http\Controllers\Api\OfferController::class, 'get_offers_apply'])->name('api.offer.apply.get');
     Route::get('offer/available', [App\Http\Controllers\Api\OfferController::class, 'get_available_offer'])->name('api.get.available.offer');
-  
 
     Route::post('empresa', [App\Http\Controllers\Api\CompanyController::class, 'store'])->name('api.empresa.store');
     Route::post('empresa/update', [App\Http\Controllers\Api\CompanyController::class, 'update'])->name('api.empresa.update');
     Route::get('empresa/index', [App\Http\Controllers\Api\CompanyController::class, 'index'])->name('api.empresa_index');
     Route::get('empresa/find/{id}', [App\Http\Controllers\Api\CompanyController::class, 'find'])->name('api.empresa.find');
-    
 
-    
+    Route::get('star_rating/user_api', [App\Http\Controllers\Api\StarRatingController::class, 'star_rating_by_user'])->name('api.star_rating');
+    Route::get('items/show', [App\Http\Controllers\Api\StarRatingController::class, 'items_show'])->name('api.items_show');
+    Route::post('star_rating/store', [App\Http\Controllers\Api\StarRatingController::class, 'storeStarRating'])->name('api.star_rating_store');
 
+    Route::get('generate_codes', [App\Http\Controllers\Api\CodeController::class, 'generate_codes'])->name('api.generate_codes');
     
 });
-
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

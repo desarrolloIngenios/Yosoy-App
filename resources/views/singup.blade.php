@@ -153,7 +153,41 @@
 													<div class="form-group">
 														<input type="hidden" name="is_empresario" value="0">
 													</div>
+
+													<div class="form-group">
+														<label>¿Pertenece a algún grupo social?</label>
+														<select class="form-control select2" name="grupo_social_id" id="grupo_social_id" placeholder="" required>
+															<option value="1">No</option>
+															<option value="2">Grupos étnicos</option>
+															<option value="3">Afros</option>
+															<option value="4">Venezolanos</option>
+															<option value="5">Fundación Acción Interna</option>
+															<option value="6">Otros</option>
+														</select>
+													</div>
+
+													<div id="alert_valido" class="alert alert-success alert-dismissible fade show mb-0" role="alert">
+														<span class="alert-inner--text"><strong></strong>Código Válido</span>
+														<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+															<span aria-hidden="true">x</span>
+														</button>
+													</div>
+													<div id="alert_no_valido" class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+														<span class="alert-inner--icon"><i class="fe fe-slash"></i></span>
+														<span class="alert-inner--text"><strong></strong>El código no es válido</span>
+														<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+															<span aria-hidden="true">x</span>
+														</button>
+													</div>
 													
+													<div  id="code_div" class="row">
+														<div class="col-lg-8 mg-b-8 mg-lg-b-8">
+															<input class="form-control" id="code" name="code" placeholder="Ingresa tu código de registro" type="text" required>
+														</div>
+														<div class="col-lg-4 mg-b-4 mg-lg-b-4">
+															<button type="button" id="validar_button" class="btn btn-main-primary btn-block" >Validar</button>
+														</div>
+													</div>
 													
 													<div class="form-group mb-0 justify-content-end">
 														
@@ -169,7 +203,7 @@
 													</div>
 												
 													<br>
-													<button type="submit" class="btn btn-main-primary btn-block">Regístrate</button>
+													<button id="submit_button" type="submit" class="btn btn-main-primary btn-block">Regístrate</button>
 												</form>
 												<div class="main-signup-footer mt-5">
 													<p>Ya tienes un cuenta? <a href="{{ route('login') }}">Inicia Sesión</a></p>
@@ -218,6 +252,47 @@
 		<script src="../../assets/js/custom.js"></script>
 
         @include('partials/include_js')
+
+		<script type="text/javascript">
+			$(window).on('load', function() {
+				$('#code').prop('required',false);
+				$('#code_div').hide();
+				$('#alert_valido').hide();
+				$('#alert_no_valido').hide();
+
+				$('#grupo_social_id').on('change', function() {
+					if(this.value == 5) // Fundación Acción Interna
+					{
+						$('#code').prop('required',true);
+						$('#code_div').show('slow');
+						$('#submit_button').prop('disabled', true);
+					} 
+					else
+					{
+						$('#code').prop('required',false);
+						$('#code_div').hide('slow');
+						$('#submit_button').prop('disabled', false);
+						$('#code').val('')
+					}
+				});
+
+				$('#validar_button').click(function() {
+					var code = $('#code').val();
+					$.post("{{route('api.validate_code')}}", {code: code}, function(data, status){
+						if(data.data){
+							$('#submit_button').prop('disabled', false);
+							$('#alert_valido').show('slow');
+							$('#alert_no_valido').hide('slow');
+							$('#code_div').hide('slow'	);
+
+						} else {
+							$('#alert_valido').hide('slow');
+							$('#alert_no_valido').show('slow');
+						}
+					});
+				});
+			});
+		</script>
 
 	</body>
 </html>

@@ -27,6 +27,8 @@ class Profile extends Model
                             'pais_residencia_id',
                             'is_empirico',
                             'foto_perfil_url',
+                            'code',
+                            'grupo_social_id'
                         ];
     
     protected $appends = ['full_name'];

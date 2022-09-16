@@ -31,6 +31,13 @@ class ProfileController extends Controller
             return redirect()->route('seleccionar_tipo_usuario.get');
         }
 
+        $response = Http::withToken(session('token'))->get(route('api.star_rating'));
+        //dd($response->json());
+        $success = $response->json()['success'];
+        $star_rating = $response->json()['data'];
+        $message = $response->json()['message'];
+        $data['star_rating'] = $star_rating;
+
         //dd(session('token'));
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.pais'), []);
         $success = $response->json()['success'];

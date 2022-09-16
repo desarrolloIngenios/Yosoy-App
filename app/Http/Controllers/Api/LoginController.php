@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\Code;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Support\Facades\Password;
@@ -124,4 +125,16 @@ class LoginController extends BaseController
                     : back()->withErrors(['email' => [__($status)]]);
 
     }
+
+    public function validate_code(Request $request){
+        $code = $request->code;
+        if(!Code::is_used($code)){
+            return $this->sendResponse(true, 'Codigo.');
+        }
+        return $this->sendResponse(false, 'No valido');
+
+    }
+
+
+
 }

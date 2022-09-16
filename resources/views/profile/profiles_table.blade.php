@@ -22,7 +22,7 @@
                     @if(isset($user['foto_perfil_url']))
                         <img alt="avatar" class="rounded-circle avatar-md mr-2" src="{{ \Storage::disk('s3')->temporaryUrl($user['foto_perfil_url'], '+10 minutes') }}">
                     @else
-                        <img alt="avatar" class="rounded-circle avatar-md mr-2" src="../../assets/img/faces/1.jpg">
+                        <img alt="avatar" class="rounded-circle avatar-md mr-2" src="{{URL::asset('/assets/img/faces/1.jpg')}}">
                     @endif
 
                 </td>
@@ -58,8 +58,15 @@
                 </td>
                 <td data-title="Acciones">
                     <a target="_blank" href="https://api.whatsapp.com/send?phone=57{{ str_replace(' ', '', $user['numero_contacto_1']); }}" class="btn btn-sm">
-                        <img alt="avatar" class="rounded-circle avatar-md mr-2" src="../../assets/img/faces/WhatsApp.webp">
+                        <img alt="avatar" class="rounded-circle avatar-md mr-2" src="{{URL::asset('/assets/img/faces/WhatsApp.webp')}}">
                     </a>
+                    @if(session('role') == 'ADMIN')
+                        @if(isset($offer))
+                        <a target="_blank" href="{{ route('star_rating.show', [$user['user_id'], $offer['id']]) }}" class="btn btn-sm btn-primary">
+                        <i class="las la-star"></i>
+                        </a>
+                        @endif
+                    @endif
                     <a target="_blank" href="tel:{{ str_replace(' ', '', $user['numero_contacto_1']); }}" class="btn btn-sm btn-primary">
                         <i class="las la-phone"></i>
                     </a>
