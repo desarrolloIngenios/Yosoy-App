@@ -34,10 +34,6 @@ class StarRating extends Model
     public function created_by() {
         return $this->belongsTo(User::class, 'created_by');
     }
-
-    public function star_rating_item() {
-        return $this->belongsTo(\App\Models\StarRatingItem::class, 'star_rating_item');
-    }
     
     static public function is_rating_user_offer($user_id, $offer_id) {
         $star_rating = self::where('user_id', $user_id)->where('offer_id', $offer_id)->get();

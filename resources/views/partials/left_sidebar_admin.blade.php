@@ -43,6 +43,10 @@
 					<a class="side-menu__item" href="{{ route('offer.index') }}"><i class=" side-menu__icon fa fa-align-justify"></i><span class="side-menu__label">Ofertas</span></a>
 				</li>
 				<li class="slide">
+					<a class="side-menu__item" href="{{ route('star_rating.index') }}"><i class=" side-menu__icon fa fa-star"></i><span class="side-menu__label">Calificaciones</span></a>
+				</li>
+				
+				<li class="slide">
 					<a class="side-menu__item" href="{{ route('oferta.create') }}"><i class=" side-menu__icon fa fa-plus"></i><span class="side-menu__label">Crear Oferta</span></a>
 				</li>
 				<li class="slide">

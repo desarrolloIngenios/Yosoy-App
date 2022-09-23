@@ -7,12 +7,12 @@
   height: 100px;
 }
 
-#form p {
+form p {
   text-align: center;
 }
 
-#form label {
-  font-size: 100px;
+form p label {
+  font-size: 40px;
 }
 
 input[type="radio"] {

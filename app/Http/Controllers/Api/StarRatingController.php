@@ -15,6 +15,11 @@ use App\Models\StarRating;
 
 class StarRatingController extends BaseController
 {
+    public function index(Request $request)
+    {
+        $star_rating = StarRating::with(['star_rating_items_selected', 'offer.cargo', 'user.profile'])->get();
+        return $this->sendResponse($star_rating, 'Star Rating');
+    }
 
     public function star_rating_by_user(Request $request)
     {
