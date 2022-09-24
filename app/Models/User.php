@@ -65,6 +65,7 @@ class User extends Authenticatable
     public static function getStarRating($user_id)
     {
         $rating = StarRating::where('user_id', $user_id)->avg('rating');
+        $rating = ($rating + 5.0) / 2;
         return $rating;
     }
 

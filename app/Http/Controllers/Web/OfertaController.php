@@ -168,4 +168,15 @@ class OfertaController extends Controller
         return view('oferta/show', $data);
     }
 
+    public function close_offer(Request $request, $offer_id)
+    {
+        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.offer.close', ['offer_id' => $offer_id]), []);
+        //dd($response->json());
+        $success = $response->json()['success'];
+        $profiles = $response->json()['data'];
+        $message = $response->json()['message'];
+
+        return redirect()->back();
+    }
+
 }
