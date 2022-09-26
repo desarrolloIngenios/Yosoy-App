@@ -92,6 +92,15 @@ class OfferController extends BaseController
         return $this->sendResponse($avalible_offers, 'avalible_offers');
     }
 
+
+    public function close_offer(Request $request, $offer_id)
+    {
+        $offer = Offer::find($offer_id);
+        $offer->active = false;
+        $offer->save();
+        return $this->sendResponse($offer, 'Offer');
+    }
+
     
     
 
