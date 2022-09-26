@@ -13,4 +13,6 @@ class CodeController extends BaseController
         Code::generate(10);
         return $this->sendResponse(true, 'Codigos');
     }
+
+   
 }

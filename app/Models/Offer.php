@@ -22,6 +22,7 @@ class Offer extends Model
                             'nivel_educativo_id',
                             'tiempo_experiencia_id',
                             'company_id',
+                            'active'
                         ];
     
     protected $appends = ['total_aplicaciones'];
@@ -30,7 +31,6 @@ class Offer extends Model
     {
         return $this->users()->count();
     }
-
 
     public function cargo() {
         return $this->belongsTo(\App\Models\Base\Cargo::class, 'cargo_id');

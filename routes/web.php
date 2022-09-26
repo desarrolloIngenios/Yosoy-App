@@ -66,6 +66,7 @@ Route::post('offer', [App\Http\Controllers\Web\OfertaController::class, 'store']
 Route::get('offer/public/{id}', [App\Http\Controllers\Web\OfertaController::class, 'show_public'])->name('offer.show_public');
 Route::get('offer/apply/{offer_id}', [App\Http\Controllers\Web\OfertaController::class, 'apply'])->name('offer.apply');
 Route::get('offer/detail/{offer_id}', [App\Http\Controllers\Web\OfertaController::class, 'show'])->name('offer.show');
+Route::get('offer/close/{offer_id}', [App\Http\Controllers\Web\OfertaController::class, 'close_offer'])->name('offer.close');
 
 
 //Route::post('profile', [App\Http\Controllers\Web\ProfileController::class, 'store'])->name('profile.post');
@@ -82,10 +83,17 @@ Route::get('empresa/index', [App\Http\Controllers\Web\EmpresaController::class, 
 
 Route::get('rating/{user_id}/offer/{offer_id}', [App\Http\Controllers\Web\StarRatingController::class, 'show'])->name('star_rating.show');
 Route::post('rating_store', [App\Http\Controllers\Web\StarRatingController::class, 'store'])->name('star_rating.store');
+Route::get('star_rating/index', [App\Http\Controllers\Web\StarRatingController::class, 'index'])->name('star_rating.index');
+
 
 Route::get('logout', [App\Http\Controllers\Web\LoginController::class, 'logout'])->name('logout');
 
 Route::get('generate_code', [App\Http\Controllers\Web\CodeController::class, 'generate_code'])->name('web.generate_codes');
+Route::get('show_code', [App\Http\Controllers\Web\CodeController::class, 'show_code'])->name('web.show_codes');
+
+Route::get('offer/questions/{offer_id}', [App\Http\Controllers\Web\OfferQuestionController::class, 'create'])->name('offer.question.create');
+Route::get('offer/questions_show', [App\Http\Controllers\Web\OfferQuestionController::class, 'show'])->name('offer.questions.show');
+Route::post('offer/questions', [App\Http\Controllers\Web\OfferQuestionController::class, 'store'])->name('offer.question.store');
 
 
 

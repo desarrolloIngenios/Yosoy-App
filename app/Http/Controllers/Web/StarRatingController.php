@@ -9,6 +9,19 @@ use Illuminate\Support\Facades\Http;
 
 class StarRatingController extends Controller
 {
+    public function index(Request $request)
+    {
+        $response = Http::withToken(session('token'))->accept('application/json')->get(route('star_rating_show.index'));
+        //dd($response->json());
+        $success = $response->json()['success'];
+        $star_rating = $response->json()['data'];
+        $message = $response->json()['message'];
+        $data['star_rating'] = $star_rating;
+
+        return view('rating/star_rating_index', $data);
+    }
+
+
     public function show(Request $request, $user_id, $offer_id)
     {
         $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.items_show'), ['user_id' => $user_id, 'offer_id' => $offer_id]);

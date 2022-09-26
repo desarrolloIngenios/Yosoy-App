@@ -48,9 +48,15 @@
 @endif
 <div class="row row-sm">
 @foreach($offers as $offer)
+    @if(!$offer['active'] && !(session('role') == 'ADMIN' || session('role') == 'EMPRESARIO'))
+        @continue
+    @endif
     <div class="col-12 col-sm-12 col-lg-12">
         <div class="card card-primary">
             <div class="card-header pb-0">
+                @if(!$offer['active'])
+                <div class="badge bg-pink">OFERTA CERRADA</div>
+                @endif
                 <h5 class="card-title ">{{$offer['cargo']['nombre']}} - {{$offer['sector']['nombre']}}  - {{$offer['tiempo_experiencia']['nombre']}}  </h5>
                 <h5 class="card-title ">
                     @foreach($offer['tipo_contrato'] as $tipo_contrato)
@@ -74,6 +80,15 @@
                         <a href="{{ route('offer.show', $offer['id']) }}">
                             <button class="btn btn-primary "><i class="typcn typcn-plus-outline"> Listado de Postulados</i></button>
                         </a>
+                        @if($offer['active'])
+                        <a data-target="#modelcerraroferta" data-toggle="modal" data-url="{{ route('offer.close', $offer['id']) }}" href="">
+                            <button class="btn btn-primary "><i class="typcn typcn-times"> Cerrar Oferta</i></button>
+                        </a>
+                        @else
+                        <a href="{{ route('offer.question.create', $offer['id']) }}">
+                            <button class="btn btn-primary "><i class="typcn typcn-plus-outline"> Encuesta de servicio</i></button>
+                        </a>
+                        @endif
                     @endif
 
                     @if(!in_array($offer['id'], $offers_apply_ids))
@@ -95,5 +110,38 @@
 @endforeach
 </div>
 
-<!-- row -->
+<!-- Modal -->
+<div class="modal" id="modelcerraroferta">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">Cerrar Oferta</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <h6>¿Está seguro que desea cerrar la oferta?</h6>
+            </div>
+            <div class="modal-footer">
+            <a id="link" href="{{ route('offer.close', $offer['id']) }}">
+                <button class="btn ripple btn-primary" type="button">Si</button>
+            </a>
+            <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Basic modal -->
+
+@endsection
+@section('js')
+<script type="text/javascript">
+    $(window).on('load', function() {
+        $('#modelcerraroferta').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var url = button.data('url')
+            var modal = $(this)
+
+            modal.find('#link').attr("href", url)
+        })
+    });
+</script>
 @endsection
