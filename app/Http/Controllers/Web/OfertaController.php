@@ -104,6 +104,12 @@ class OfertaController extends Controller
 
     public function index(Request $request)
     {
+        $response = Http::withToken(session('token'))->get(route('api.profile'));
+        //dd($response->json());
+        $success = $response->json()['success'];
+        $perfil = $response->json()['data'];
+        $message = $response->json()['message'];
+        $data['perfil'] = $perfil;
         
         $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.offer.index'), []);
         //dd($response->json());

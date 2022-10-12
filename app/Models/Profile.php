@@ -28,7 +28,8 @@ class Profile extends Model
                             'is_empirico',
                             'foto_perfil_url',
                             'code',
-                            'grupo_social_id'
+                            'grupo_social_id',
+                            'bancarizacion_id'
                         ];
     
     protected $appends = ['full_name'];
@@ -67,8 +68,27 @@ class Profile extends Model
     public function user() {
         return $this->belongsTo(\App\Models\User::class, 'user_id');
     }
-    
 
-    
+    public function bancarizacion() {
+        return $this->belongsTo(\App\Models\Base\Bancarizacion::class, 'bancarizacion_id');
+    }
 
+    public function is_complete_form() {
+        if(!is_null($this->tipo_documento_id) &&
+            !is_null($this->numero_documento) &&
+            !is_null($this->name) &&
+            !is_null($this->last_name) &&
+            !is_null($this->genero_id) &&
+            !is_null($this->fecha_nacimiento) &&
+            !is_null($this->email) &&
+            !is_null($this->numero_contacto_1) &&
+            !is_null($this->numero_contacto_2) &&
+            !is_null($this->ciudad_residencia_id) &&
+            !is_null($this->direccion_residencia) &&
+            !is_null($this->bancarizacion_id)
+            ){
+            return true;
+        }    
+        return false;
+    }
 }
