@@ -93,9 +93,15 @@
 
                     @if(!in_array($offer['id'], $offers_apply_ids))
                         @if(session('role') != 'EMPRESARIO')
-                        <a href="{{ route('offer.apply', $offer['id']) }}">
-                            <button class="btn btn-primary "><i class="typcn typcn-plus-outline"> Aplicar</i></button>
-                        </a>
+                            @if(!$perfil['is_complete_form'])
+                            <a href="{{ route('profile.get') }}">
+                                <button class="btn btn-primary "><i class="typcn typcn-plus-outline"> Debe completar el perfil para aplicar a la oferta</i></button>
+                            </a>
+                            @else
+                            <a href="{{ route('offer.apply', $offer['id']) }}">
+                                <button class="btn btn-primary "><i class="typcn typcn-plus-outline"> Aplicar</i></button>
+                            </a>
+                            @endif
                         @endif
                     @else
                         <button class="btn btn-success "><i class="typcn typcn-input-checked"> Aplicado</i></button>

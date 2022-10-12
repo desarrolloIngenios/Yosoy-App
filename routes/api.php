@@ -27,6 +27,8 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('pais', [App\Http\Controllers\Api\PaisController::class, 'index'])->name('api.pais');
     Route::post('genero', [App\Http\Controllers\Api\GeneroController::class, 'index'])->name('api.genero');
+    Route::get('bancarizaciones', [App\Http\Controllers\Api\BancarizacionController::class, 'index'])->name('api.bancarizaciones');
+    
     Route::post('tipo_documentos', [App\Http\Controllers\Api\TipoDocumentoController::class, 'index'])->name('api.tipo_documentos');
     Route::post('ciudades', [App\Http\Controllers\Api\CiudadController::class, 'index'])->name('api.ciudades');
     Route::post('profile_post', [App\Http\Controllers\Api\ProfileController::class, 'store'])->name('api.profile_post');

@@ -152,13 +152,32 @@
                         </div>
 
                         <div class="row row-sm">
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Dirección de residencia</label>
                                     <input class="form-control" value="{{isset($perfil['direccion_residencia'])? $perfil['direccion_residencia']:''}}" placeholder="Dirección de residencia" name="direccion_residencia" type="text" required>
                                 </div>
                             </div>
+                            <div class="col-lg-6 mg-b-6 mg-lg-b-0">
+                                <p class="mg-b-10">Bancarización</p><select name="bancarizacion_id" class="form-control select2" placeholder="Bancarización"  required>
+                                    <option value=""></option>
+                                    @foreach($bancarizaciones as $bancarizacion)
+                                       
+                                        @if(isset($perfil['bancarizacion_id']) && $perfil['bancarizacion_id'] == $bancarizacion['id'])
+                                            <option value="{{ $bancarizacion['id'] }}" selected>
+                                                {{ $bancarizacion['nombre'] }}
+                                            </option>
+                                        @else
+                                            <option value="{{ $bancarizacion['id'] }}">
+                                                {{ $bancarizacion['nombre'] }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>   
                         </div>
+
+                        
 
                     </div>
                     <button type="submit" class="btn btn-primary mt-3 mb-0">Actualizar</button>
