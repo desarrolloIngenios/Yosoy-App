@@ -56,6 +56,7 @@ class ProfileController extends BaseController
             $profile->experiencias_laborales = [];
             $profile->educaciones = [];
         }
+        $profile->is_complete_form = $profile->is_complete_form();
         return $this->sendResponse($profile, 'Perfil');
     }
 

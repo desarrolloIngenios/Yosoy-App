@@ -53,6 +53,13 @@ class ProfileController extends Controller
         $message = $response->json()['message'];
         $data['generos'] = $generos;
 
+        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.bancarizaciones'), []);
+        //dd($response->json());
+        $success = $response->json()['success'];
+        $bancarizaciones = $response->json()['data'];
+        $message = $response->json()['message'];
+        $data['bancarizaciones'] = $bancarizaciones;
+
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.tipo_documentos'), []);
         //dd($response->json());
         $success = $response->json()['success'];
@@ -152,7 +159,7 @@ class ProfileController extends Controller
         ]);
 
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.profile_post'), $request->input());
-        //dd($response);
+        //  dd($response);
 
         $success = $response->json()['success'];
         $data = $response->json()['data'];
