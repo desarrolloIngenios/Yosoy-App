@@ -95,6 +95,11 @@ Route::get('offer/questions/{offer_id}', [App\Http\Controllers\Web\OfferQuestion
 Route::get('offer/questions_show', [App\Http\Controllers\Web\OfferQuestionController::class, 'show'])->name('offer.questions.show');
 Route::post('offer/questions', [App\Http\Controllers\Web\OfferQuestionController::class, 'store'])->name('offer.question.store');
 
+Route::get('wompi/transactions', [App\Http\Controllers\Web\WompiController::class, 'index'])->name('wompi.index');
+
+Route::get('offer/index/public', [App\Http\Controllers\Web\OfertaController::class, 'show_public_index'])->name('offer.show_public_index');
+
+
 
 
 
