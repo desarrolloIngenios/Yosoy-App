@@ -162,6 +162,9 @@
 															<option value="3">Afros</option>
 															<option value="4">Venezolanos</option>
 															<option value="5">Fundación Acción Interna</option>
+															<option value="7">Fundación afro, indígenas y mestizos</option>
+															<option value="8">Fundación GAAT</option>
+															<option value="9">Fundación Soy Oportunidad</option>
 															<option value="6">Otros</option>
 														</select>
 													</div>
