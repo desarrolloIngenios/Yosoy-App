@@ -100,7 +100,9 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         $request->session()->flush();
+        return redirect()->to('https://yo-soy.co');
         return redirect()->route('login');
+        
     }
 
     public function registro_empresa()

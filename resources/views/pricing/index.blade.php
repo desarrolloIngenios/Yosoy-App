@@ -59,20 +59,21 @@
 									<li class="list-group-item">Listo para tu búsqueda, haz clic y en 5 pasos ágiles escribe el servicio y/o vacante</li>
 								</ul>
 								<div class="panel-footer text-center">
-									<a class="btn btn-primary" target="_blank" href="https://checkout.wompi.co/l/FDGtt6">Ir a pagar!</a>
+									<!-- <a class="btn btn-primary" target="_blank" href="https://checkout.wompi.co/l/FDGtt6">Ir a pagar!</a> -->
+									<form>
+										<script
+											src="https://checkout.wompi.co/widget.js"
+											data-render="button"
+											data-public-key="pub_test_WFaWpZ8xYKWD8x0Vs713YNYADtuQePwL"
+											data-currency="COP"
+											data-amount-in-cents="7500000"
+											data-reference="{{ uniqid('ref_') }}"
+											data-redirect-url="{{ route('pricing.index') }}"
+											>
+										</script>
+									</form>
 								</div>
-								<form>
-									<script
-										src="https://checkout.wompi.co/widget.js"
-										data-render="button"
-										data-public-key="pub_test_X0zDA9xoKdePzhd8a0x9HAez7HgGO2fH"
-										data-currency="COP"
-										data-amount-in-cents="4950000"
-										data-reference="4XMPGKWWPKWQ"
-										data-signature:integrity="37c8407747e595535433ef8f6a811d853cd943046624a0ec04662b17bbf33bf5"
-										>
-									</script>
-								</form>
+								
 							</div>
 						</div><!-- COL-END -->
 						<div class="col-xs-6 col-sm-6 col-lg-6 col-xl-4">
@@ -90,7 +91,19 @@
 									<li class="list-group-item">Listo para tu búsqueda, haz clic y en 5 pasos ágiles escribe el servicio y/o vacante</li>
 								</ul>
 								<div class="panel-footer text-center">
-									<a class="btn btn-warning" target="_blank" href="https://checkout.wompi.co/l/JJbr4j">Ir a pagar!</a>
+									<form>
+										<script
+											src="https://checkout.wompi.co/widget.js"
+											data-render="button"
+											data-public-key="pub_test_WFaWpZ8xYKWD8x0Vs713YNYADtuQePwL"
+											data-currency="COP"
+											data-amount-in-cents="9500000"
+											data-reference="{{ uniqid('ref_') }}"
+											data-redirect-url="{{ route('pricing.index') }}"
+											>
+										</script>
+									</form>
+									<!-- <a class="btn btn-warning" target="_blank" href="https://checkout.wompi.co/l/JJbr4j">Ir a pagar!</a> -->
 								</div>
 							</div>
 						</div><!-- COL-END -->

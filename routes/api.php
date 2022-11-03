@@ -22,6 +22,7 @@ Route::post('forgot_password.post', [App\Http\Controllers\Api\LoginController::c
 Route::post('/reset-password', [App\Http\Controllers\Api\LoginController::class, 'reset_password'])->middleware('guest')->name('password.update');
 
 Route::get('offer/public/{id}', [App\Http\Controllers\Api\OfferController::class, 'show_public'])->name('api.offer.show_public');
+Route::get('offer/index_public', [App\Http\Controllers\Api\OfferController::class, 'show_public_index'])->name('api.offer.show_public_index');
 
 Route::middleware('auth:api')->group(function () {
 

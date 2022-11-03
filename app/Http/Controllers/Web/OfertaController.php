@@ -148,6 +148,17 @@ class OfertaController extends Controller
         return view('oferta/show_public', $data);
     }
 
+    public function show_public_index(Request $request)
+    {
+        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.offer.show_public_index', ['id' => 1]), []);
+        //dd($response->json());
+        $success = $response->json()['success'];
+        $offer = $response->json()['data'];
+        $message = $response->json()['message'];
+        $data['offers'] = $offer;
+        return view('oferta/show_public_index', $data);
+    }
+
     public function apply(Request $request, $offer_id)
     {
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.offer.apply'), ['offer_id' => $offer_id]);

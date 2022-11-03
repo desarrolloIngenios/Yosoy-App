@@ -51,6 +51,12 @@ class OfferController extends BaseController
         return $this->sendResponse($offer, 'Offer');
     }
 
+    public function show_public_index(Request $request)
+    {
+        $offers = Offer::with(['cargo', 'sector', 'ciudad', 'nivel_educativo', 'tiempo_experiencia', 'tipo_contrato'])->where('active', true)->get();
+        return $this->sendResponse($offers, 'Offer');
+    }
+
     public function show(Request $request, $offer_id)
     {
         $offer = Offer::with(['cargo', 'sector', 'ciudad', 'nivel_educativo', 'tiempo_experiencia', 'tipo_contrato', 'users'])->where('id', $offer_id)->first();
