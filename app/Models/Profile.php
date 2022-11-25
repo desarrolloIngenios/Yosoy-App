@@ -32,10 +32,27 @@ class Profile extends Model
                             'bancarizacion_id'
                         ];
     
-    protected $appends = ['full_name'];
+    protected $appends = ['full_name', 'grupo_social_nombre'];
 
     public function getFullNameAttribute($value) {
         return $this->name . ' ' . $this->last_name;
+    }
+    public function getGrupoSocialNombreAttribute($value) {
+        $array_grupo_social = [];
+        $array_grupo_social[1] = '-';
+        $array_grupo_social[2] = "Grupos étnicos";
+        $array_grupo_social[3] = "Afros";
+        $array_grupo_social[4] = "Venezolanos";
+        $array_grupo_social[5] = "Fundación Acción Interna";
+        $array_grupo_social[7] = "Fundación afro, indígenas y mestizos";
+        $array_grupo_social[8] = "Fundación GAAT";
+        $array_grupo_social[9] = "Fundación Soy Oportunidad";
+        $array_grupo_social[6] = "Otros";
+        if(isset($array_grupo_social[$this->grupo_social_id])){
+            return $array_grupo_social[$this->grupo_social_id];
+        } else {
+            return "";
+        }
     }
 
     public function perfiles_laborales()

@@ -28,12 +28,13 @@
                 </td>
                 <td data-title="Nombre">
                     <i class="las la-{{ $user['is_empirico'] ? 'hammer':'graduation-cap' }} tx-20"></i>
-
                     @if(trim($user['full_name']) == "")
                         {{ "-" }} 
                     @else
                         {{ $user['full_name'] }} 
                     @endif
+                    <br>
+                    {{ $user['grupo_social_nombre'] }} 
                     <br>
                     {{ $user['ciudad_residencia'] ? $user['ciudad_residencia']['pais_departamento_ciudad']:'-' }}
                 </td>
