@@ -59,7 +59,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('offer/show/{offer_id}', [App\Http\Controllers\Api\OfferController::class, 'show'])->name('api.offer.show');
     Route::get('offer/close/{offer_id}', [App\Http\Controllers\Api\OfferController::class, 'close_offer'])->name('api.offer.close');
     Route::get('offer/get_profiles/apply/{offer_id}', [App\Http\Controllers\Api\OfferController::class, 'get_profile_apply'])->name('api.offer.profile.appply');
+    Route::get('offer/get_profiles/for/{offer_id}', [App\Http\Controllers\Api\OfferController::class, 'get_profiles_for_offer'])->name('api.offer.profiles');
 
+    
     Route::post('offer/apply', [App\Http\Controllers\Api\OfferController::class, 'apply'])->name('api.offer.apply');
     Route::get('offer/apply', [App\Http\Controllers\Api\OfferController::class, 'get_offers_apply'])->name('api.offer.apply.get');
     Route::get('offer/available', [App\Http\Controllers\Api\OfferController::class, 'get_available_offer'])->name('api.get.available.offer');

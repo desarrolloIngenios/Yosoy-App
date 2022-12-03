@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Offer;
+use App\Models\Profile;
 use App\Models\ProfilePerfilLaboral;
+use App\Models\ProfileExperienciaLaboral;
+
 use Illuminate\Support\Facades\Auth;
 
 
@@ -90,6 +93,35 @@ class OfferController extends BaseController
         }
         return $this->sendResponse($profiles, 'profiles');
     }
+
+    public function get_profiles_for_offer(Request $request, $offer_id)
+    {
+        // se buscan perfiles que tengan el mismo cargo y que se encuentren en la ciudad de la oferta
+
+        $offer = Offer::with(['cargo', 'sector', 'ciudad', 'nivel_educativo', 'tiempo_experiencia', 'tipo_contrato'])->where('id', $offer_id)->first();
+        
+        //$experiencias = ProfilePerfilLaboral::get();
+
+        //return $this->sendResponse($experiencias, 'profiles');
+        $experiencias = ProfilePerfilLaboral::where('cargo_id', $offer->cargo->id)->pluck('profile_id')->toArray();
+        $ids_of_profiles = array_unique($experiencias); 
+//        return $this->sendResponse($experiencias, 'profiles');
+
+
+        $profiles = Profile::whereIn('id', $ids_of_profiles)->where('ciudad_residencia_id', $offer->ciudad->id)
+        ->with('user',
+            'ciudad_residencia',
+            'genero',
+            'tipo_documento',
+            'genero',
+            'perfiles_laborales.nivel_experiencia',
+            'perfiles_laborales.cargo',
+            'perfiles_laborales.tiempo_experiencia'
+      )->get();
+
+        return $this->sendResponse($profiles, 'profiles');
+    }
+
 
     public function get_available_offer(Request $request)
     {
