@@ -180,8 +180,14 @@ class OfertaController extends Controller
         $profiles = $response->json()['data'];
         $message = $response->json()['message'];
         $data['users'] = $profiles;
-        //$data['offers'] = [];
-        //dd($data);
+
+        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.offer.profiles', ['offer_id' => $offer_id]), []);
+        //dd($response->json());
+        $success = $response->json()['success'];
+        $profiles = $response->json()['data'];
+        $message = $response->json()['message'];
+        $data['users_busqueda'] = $profiles;
+
         return view('oferta/show', $data);
     }
 

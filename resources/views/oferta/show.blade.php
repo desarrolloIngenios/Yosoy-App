@@ -23,8 +23,16 @@
 
         </div>
     </div>
-    @include('profile/profiles_table')
+</div>
 
+<div>
+    <h4>Postulados</h4>
+    @include('profile/profiles_table')
+</div>
+
+<div>
+    <h4>Búsqueda</h4>
+    @include('profile/profiles_table', ['users' => $users_busqueda])
 </div>
 
 <!-- row -->
