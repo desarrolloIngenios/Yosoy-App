@@ -8,7 +8,7 @@
 				<h6 class="modal-title"></h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<h6>Hola, ya utilizaste el plan y esperamos que haya cumplido tu servicio, te invitamos a adquirir uno de nuestros planes online a fin de acompañarte en tu búsqueda de servicio o vacante, y/o contáctanos WhatsApp 3219356028</h6>
+				<h6>Hola, te invitamos a adquirir uno de nuestros planes online a fin de acompañarte en tu búsqueda de servicio o vacante, y/o contáctanos WhatsApp 3219356028</h6>
 			</div>
 		</div>
 	</div>
@@ -24,7 +24,7 @@
             <div class="card-body pt-0">
                     <div class="row">
 					
-						<div class="col-xs-6 col-sm-6 col-lg-6 col-xl-4">
+						<!-- <div class="col-xs-6 col-sm-6 col-lg-6 col-xl-4">
 							<div class="panel price panel-color">
 								<div class="panel-heading bg-warning  p-0 text-center">
 									<h3>Buscas Servicio y/o Vacante Trabajadores informales y técnicos</h3>
@@ -39,11 +39,9 @@
 									<li class="list-group-item">Cobertura : Nacional</li>
 									<li class="list-group-item border-bottom-0">Listo para tu búsqueda, haz clic y en 5 pasos ágiles escribe el servicio y/o vacante</li>
 								</ul>
-								<!-- <div class="panel-footer text-center">
-									<a class="btn btn-warning" href="#">Ir a pagar!</a>
-								</div> -->
 							</div>
-						</div><!-- COL-END -->
+						</div> -->
+						
 						<div class="col-xs-6 col-sm-6 col-lg-6 col-xl-4">
 							<div class="panel price panel-color">
 								<div class="panel-heading bg-primary p-0 text-center">
@@ -64,7 +62,7 @@
 										<script
 											src="https://checkout.wompi.co/widget.js"
 											data-render="button"
-											data-public-key="pub_test_WFaWpZ8xYKWD8x0Vs713YNYADtuQePwL"
+											data-public-key="{{ $public_key_wompi }}"
 											data-currency="COP"
 											data-amount-in-cents="7500000"
 											data-reference="{{ uniqid('ref_') }}"
@@ -95,7 +93,7 @@
 										<script
 											src="https://checkout.wompi.co/widget.js"
 											data-render="button"
-											data-public-key="pub_test_WFaWpZ8xYKWD8x0Vs713YNYADtuQePwL"
+											data-public-key="{{ $public_key_wompi }}"
 											data-currency="COP"
 											data-amount-in-cents="9500000"
 											data-reference="{{ uniqid('ref_') }}"
