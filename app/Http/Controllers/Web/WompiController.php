@@ -16,11 +16,17 @@ class WompiController extends Controller
     public function index(Request $request)
     {   
         try{
+            $token = "prv_test_zy1gktgC1z2SSY084g2yNeM6NOJshJT3";
+            $url = "https://sandbox.wompi.co/v1/transactions?=2023-07-01&page=1&page_size=50&order_by=created_at&order=DESC";
 
-        $response = Http::withToken("prv_test_zy1gktgC1z2SSY084g2yNeM6NOJshJT3")->accept('*/*')->get("https://sandbox.wompi.co/v1/transactions?=2023-07-01&page=1&page_size=50&order_by=created_at&order=DESC", 
+            if(env('APP_ENV') == 'production'){
+                $token = "prv_prod_X1hCA6QNAlpXJ9chFs1FuyNIJikt4SZ8";
+                $url = "https://production.wompi.co/v1/transactions?=2023-07-01&page=1&page_size=50&order_by=created_at&order=DESC";
+            }
+            $response = Http::withToken($token)->accept('*/*')->get($url, 
                         [
                             'from_date' => '2020-07-01', 
-                            'until_date' =>'2023-01-01',
+                            'until_date' =>'2024-01-01',
                             'page' => 1,
                             'page_size' => 200
                         ]);
