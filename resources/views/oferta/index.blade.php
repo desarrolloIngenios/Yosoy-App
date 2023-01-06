@@ -59,6 +59,9 @@
                 @endif
                 <h5 class="card-title ">{{$offer['cargo']['nombre']}} - {{$offer['sector']['nombre']}}  - {{$offer['tiempo_experiencia']['nombre']}}  </h5>
                 <h5 class="card-title ">
+                    @if(!is_null($offer['empresa']))
+                        {{ $offer['empresa']['nombre'] }} - 
+                    @endif
                     @foreach($offer['tipo_contrato'] as $tipo_contrato)
                         {{ $tipo_contrato['nombre'] }} @if(!$loop->last) {{", "}} @endif
                     @endforeach

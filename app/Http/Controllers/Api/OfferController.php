@@ -18,7 +18,7 @@ class OfferController extends BaseController
     public function index(Request $request)
     {
        
-        $offers = Offer::with(['cargo', 'sector', 'ciudad', 'nivel_educativo', 'tiempo_experiencia', 'tipo_contrato']);
+        $offers = Offer::with(['cargo', 'sector', 'ciudad', 'nivel_educativo', 'tiempo_experiencia', 'tipo_contrato','empresa']);
         $user = $request->user();
         if(!is_null($user->roles->first()) && $user->roles->first()->name === 'EMPRESARIO'){
             if(!is_null($user->empresa)){
@@ -125,8 +125,15 @@ class OfferController extends BaseController
 
     public function get_available_offer(Request $request)
     {
-       //$avalible_offers = 0;
-       $avalible_offers = 1;
+        $avalible_offers = 0;
+        if($request->user()->id == 501)
+        {
+            $avalible_offers = 1;
+        }
+        else if(!is_null($request->user()->roles->first()) && $request->user()->roles->first()->name === 'ADMIN')
+        {
+            $avalible_offers = 1;
+        }
         return $this->sendResponse($avalible_offers, 'avalible_offers');
     }
 

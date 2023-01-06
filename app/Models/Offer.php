@@ -57,6 +57,11 @@ class Offer extends Model
         return $this->belongsToMany(\App\Models\Base\TipoContrato::class, 'offer_tipo_contrato', 'offer_id', 'tipo_contrato_id');
     }
 
+    public function empresa()
+    {
+        return $this->belongsTo(\App\Models\Empresa::class, 'company_id');
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'offer_user', 'offer_id', 'user_id')

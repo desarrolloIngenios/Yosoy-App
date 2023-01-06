@@ -19,11 +19,14 @@ class OfertaController extends Controller
         $message = $response->json()['message'];
         $data['offers'] = $offers;
 
-        if(session('role') != 'ADMIN'){
-            //if(!empty($offers) && count($offers) >= 2){
-                return redirect()->route('pricing.index');
-            //}
-        }
+      //  dd(session()->all());
+
+        // if(session('role') != 'ADMIN'){
+        //     //if(!empty($offers) && count($offers) >= 2){
+        //         return redirect()->route('pricing.index');
+        //     //}
+        // }
+
 
         $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.get.available.offer'), []);
         //dd($response->json());
