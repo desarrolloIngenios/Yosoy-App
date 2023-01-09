@@ -6,11 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use App\Http\Controllers\Web\WompiController;
+
 
 class OfertaController extends Controller
 {
     public function create(Request $request)
     {   
+        $wompi_controller = new WompiController();
+        $wompi_controller->actualizar_tabla_transacciones(session()->get('user_id'));
 
         $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.offer.index'), []);
         //dd($response->json());

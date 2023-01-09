@@ -8,6 +8,8 @@ use App\Models\Offer;
 use App\Models\Profile;
 use App\Models\ProfilePerfilLaboral;
 use App\Models\ProfileExperienciaLaboral;
+use App\Models\WompiTransaccion;
+
 
 use Illuminate\Support\Facades\Auth;
 
@@ -126,10 +128,13 @@ class OfferController extends BaseController
     public function get_available_offer(Request $request)
     {
         $avalible_offers = 0;
-        if($request->user()->id == 501)
+        $cantida_pagos = WompiTransaccion::where('user_id', $request->user()->id)->where('estado_wompi', "LIKE", "APPROVED")->count();
+        $cantidad_ofertas = Offer::where('user_id', $request->user()->id)->count();
+
+        if($cantida_pagos > $cantidad_ofertas)
         {
             $avalible_offers = 1;
-        }
+        } 
         else if(!is_null($request->user()->roles->first()) && $request->user()->roles->first()->name === 'ADMIN')
         {
             $avalible_offers = 1;

@@ -60,6 +60,10 @@ class LoginController extends Controller
         $request->session()->forget('role');
         session(['role' => $role]);  
 
+        $user_id = $data['user_id'];
+        $request->session()->forget('user_id');
+        session(['user_id' => $user_id]);  
+
         if($role == 'EMPRESARIO') {
             session(['empresa' => $data['empresa']]);  
         }
