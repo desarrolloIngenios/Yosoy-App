@@ -14,7 +14,12 @@ class OfertaController extends Controller
     public function create(Request $request)
     {   
         $wompi_controller = new WompiController();
-        $wompi_controller->actualizar_tabla_transacciones(session()->get('user_id'));
+        if(session('role') == 'ADMIN'){
+            $wompi_controller->actualizar_tabla_transacciones();
+        } else {
+            $wompi_controller->actualizar_tabla_transacciones(session()->get('user_id'));
+        }
+
 
         $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.offer.index'), []);
         //dd($response->json());
