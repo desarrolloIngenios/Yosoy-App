@@ -87,6 +87,7 @@ class LoginController extends BaseController
             $user = Auth::user(); 
             $success['token'] =  $user->createToken('MyApp')->accessToken; 
             $success['name'] =  $user->name;
+            $success['user_id'] =  $user->id;
             $success['role'] =  $user->roles->first()? $user->roles->first()->name : '';
             $success['empresa'] =  $user->empresa? $user->empresa->id : '';
             

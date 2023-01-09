@@ -99,6 +99,10 @@ Route::get('wompi/transactions', [App\Http\Controllers\Web\WompiController::clas
 
 Route::get('offer/index/public', [App\Http\Controllers\Web\OfertaController::class, 'show_public_index'])->name('offer.show_public_index');
 
+Route::get('store_datos_transaccion', [App\Http\Controllers\Web\WompiController::class, 'store_datos_transaccion'])->name('store_datos_transaccion');
+
+
+
 Route::get('facturacion/index', [App\Http\Controllers\Web\FacturacionElectronicaController::class, 'index'])->name('facturacion_electronica.index');
 
 

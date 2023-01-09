@@ -8,6 +8,7 @@ use App\Models\Offer;
 use App\Models\OfferQuestionResponse;
 use App\Models\OfferQuestionStar;
 use App\Models\OfferQuestionText;
+use App\Models\WompiTransaccion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
@@ -15,6 +16,16 @@ class WompiController extends Controller
 {
     public function index(Request $request)
     {   
+        $objs_transactions = $this->llamado_transacciones_wompi();
+        $data = [
+            'transactions' => $objs_transactions,
+        ];
+        return view('wompi/index', $data);
+
+    }
+
+    public function llamado_transacciones_wompi()
+    {
         try{
             $token = "prv_test_zy1gktgC1z2SSY084g2yNeM6NOJshJT3";
             $url = "https://sandbox.wompi.co/v1/transactions?=2023-07-01&page=1&page_size=50&order_by=created_at&order=DESC";
@@ -57,12 +68,7 @@ class WompiController extends Controller
                 $objs_transactions[] = $transaction;
             }
         }
-        $data = [
-            'transactions' => $objs_transactions,
-        ];
-        return view('wompi/index', $data);
-
-
+        return $objs_transactions;
     }
 
     public function store(Request $request)
@@ -115,4 +121,57 @@ class WompiController extends Controller
         return view('offer/question/index', $data);
 
     }
+
+    public function store_datos_transaccion(Request $request)
+    {
+        $referencia = $request->get('referencia');
+        $user_id = $request->get('user_id');
+        
+        $transaccion = WompiTransaccion::where('referencia', $referencia)->first();
+        if(is_null($transaccion)){
+            $transaccion = new WompiTransaccion();
+            $transaccion->referencia = $referencia;
+            $transaccion->user_id = $user_id;
+            $transaccion->save();
+        }
+        return $transaccion;
+    }
+
+    public function actualizar_tabla_transacciones($user_id = null)
+    {
+        if(!is_null($user_id)){
+            $transacciones_sin_confirmacion = WompiTransaccion::where('user_id', $user_id)->get();
+        } else {
+            $transacciones_sin_confirmacion = WompiTransaccion::whereNull('transaccion_wompi_id')->get();
+        }
+        // APPROVED
+        $objs_transactions = $this->llamado_transacciones_wompi();
+        //dd($transacciones_sin_confirmacion);
+        //dd($transacciones_sin_confirmacion->get(['referencia']));
+
+        $referencias = [];
+        foreach($transacciones_sin_confirmacion as $transaccion){
+            $referencias[] = $transaccion->referencia;
+        }
+        foreach ($objs_transactions as $transaccion) {
+        //dd($transaccion->reference, $referencias);
+
+            if(in_array($transaccion->reference, $referencias)){
+                $wompi_transacion = $transacciones_sin_confirmacion->where('referencia', $transaccion->reference)->first();
+                if(!is_null($wompi_transacion)){
+
+                    $wompi_transacion->transaccion_wompi_id = $transaccion->id;
+                    $wompi_transacion->estado_wompi = $transaccion->status;
+                    $wompi_transacion->valor_wompi = number_format($transaccion->amount_in_cents/100);
+                    $wompi_transacion->fecha_wompi = \Carbon\carbon::createFromFormat("Y-m-d\TH:i:s.uP",  $transaccion->created_at);
+                    $wompi_transacion->save();
+                }
+            }
+            //dd($transaccion->reference);
+        }
+      
+        return $transaccion;
+    }
+
+    
 }
