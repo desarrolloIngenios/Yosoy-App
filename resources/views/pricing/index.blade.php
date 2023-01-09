@@ -58,14 +58,14 @@
 								</ul>
 								<div class="panel-footer text-center">
 									<!-- <a class="btn btn-primary" target="_blank" href="https://checkout.wompi.co/l/FDGtt6">Ir a pagar!</a> -->
-									<form>
-										<script
+									<form id="1">
+										<script id="script1"
 											src="https://checkout.wompi.co/widget.js"
 											data-render="button"
 											data-public-key="{{ $public_key_wompi }}"
 											data-currency="COP"
 											data-amount-in-cents="7500000"
-											data-reference="{{ uniqid('ref_') }}"
+											data-reference="{{ uniqid('ref_'.session()->get('user_id').'_') }}"
 											data-redirect-url="{{ route('pricing.index') }}"
 											>
 										</script>
@@ -89,14 +89,14 @@
 									<li class="list-group-item">Listo para tu búsqueda, haz clic y en 5 pasos ágiles escribe el servicio y/o vacante</li>
 								</ul>
 								<div class="panel-footer text-center">
-									<form>
-										<script
+									<form id="2">
+										<script id="script2"
 											src="https://checkout.wompi.co/widget.js"
 											data-render="button"
 											data-public-key="{{ $public_key_wompi }}"
 											data-currency="COP"
 											data-amount-in-cents="9500000"
-											data-reference="{{ uniqid('ref_') }}"
+											data-reference="{{ uniqid('ref_'.session()->get('user_id').'_') }}"
 											data-redirect-url="{{ route('pricing.index') }}"
 											>
 										</script>
@@ -120,6 +120,17 @@
 <script type="text/javascript">
     $(window).on('load', function() {
         $('#modaldemo1').modal('show');
-    });
+		
+		$( ".waybox-button" ).click(function() {
+			var script_name = 'script'+$(this).parent().attr('id');
+			var referencia = $('#'+script_name).attr('data-reference');
+			var user_id = {{ session()->get('user_id') }}
+			$.get("{{ route('store_datos_transaccion') }}", { user_id : user_id, referencia: referencia }, function(resp) {
+				console.log(resp);
+			});
+   		});
+	});
+	
+
 </script>
 @endsection

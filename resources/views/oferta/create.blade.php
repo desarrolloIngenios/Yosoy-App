@@ -14,6 +14,7 @@
                     @csrf
                     @if(session('empresa'))
                     <input type="hidden" id="company_id" name="company_id" value="{{session('empresa')}}">
+                    <input type="hidden" id="user_id" name="user_id" value="{{session('user_id')}}">
                     @endif
                     <div class="row row-sm">
                         <div class="col-lg-6 mg-b-12 mg-lg-b-6">

@@ -130,7 +130,7 @@
                 <h6>¿Está seguro que desea cerrar la oferta?</h6>
             </div>
             <div class="modal-footer">
-            <a id="link" href="{{ route('offer.close', $offer['id']) }}">
+            <a id="link" href="">
                 <button class="btn ripple btn-primary" type="button">Si</button>
             </a>
             <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">No</button>
