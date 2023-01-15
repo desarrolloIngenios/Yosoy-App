@@ -107,7 +107,7 @@ class OfferController extends BaseController
         $experiencias = ProfilePerfilLaboral::where('cargo_id', $offer->cargo->id)->where('tiempo_experiencia_id', '>=', $offer->tiempo_experiencia_id)->pluck('profile_id')->toArray();
         
         //--
-        $experiencias = ProfilePerfilLaboral::pluck('profile_id')->toArray();
+        //$experiencias = ProfilePerfilLaboral::pluck('profile_id')->toArray();
         
         // SE OBTIEN LOS IDS DE LOS PERFILES LABORALES QUE COINCIDEN CON LA OFERTA
         $ids_of_profiles = array_unique($experiencias); 
