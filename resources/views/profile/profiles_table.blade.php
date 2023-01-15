@@ -2,7 +2,7 @@
 
 <section id="no-more-tables">
 <div class="table-responsive border-top userlist-table">
-    <table class="table card-table table-striped table-vcenter text-nowrap mb-0">
+    <table id="{{$table_id ?? ''}}" class="table card-table table-striped table-vcenter text-nowrap mb-0">
         <thead>
             <tr>
                 <th class="wd-lg-8p"><span>Usuario</span></th>
@@ -17,7 +17,7 @@
                 @if(is_null($user) || is_null($user['name']))
                     @continue
                 @endif
-            <tr>
+            <tr id="{{$loop->index}}" class="user_row" style="{{$style ?? ''}}">
                 <td data-title="">
                     @if(isset($user['foto_perfil_url']))
                         <img alt="avatar" class="rounded-circle avatar-md mr-2" src="{{ \Storage::disk('s3')->temporaryUrl($user['foto_perfil_url'], '+10 minutes') }}">
