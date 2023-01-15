@@ -100,16 +100,19 @@ class OfferController extends BaseController
     {
         // se buscan perfiles que tengan el mismo cargo y que se encuentren en la ciudad de la oferta
 
+        // SE CONSULTA LA OFERTA
         $offer = Offer::with(['cargo', 'sector', 'ciudad', 'nivel_educativo', 'tiempo_experiencia', 'tipo_contrato'])->where('id', $offer_id)->first();
         
-        //$experiencias = ProfilePerfilLaboral::get();
-
-        //return $this->sendResponse($experiencias, 'profiles');
-        $experiencias = ProfilePerfilLaboral::where('cargo_id', $offer->cargo->id)->pluck('profile_id')->toArray();
+        // EXPERIENCIAS QUE CORRESPONDEN CON EL CARGO Y EL TIEMPO DE EXPERIENCIA ES IGUAL O MAYOR AL REQUERIDO EN LA OFERTA
+        $experiencias = ProfilePerfilLaboral::where('cargo_id', $offer->cargo->id)->where('tiempo_experiencia_id', '>=', $offer->tiempo_experiencia_id)->pluck('profile_id')->toArray();
+        
+        //--
+        $experiencias = ProfilePerfilLaboral::pluck('profile_id')->toArray();
+        
+        // SE OBTIEN LOS IDS DE LOS PERFILES LABORALES QUE COINCIDEN CON LA OFERTA
         $ids_of_profiles = array_unique($experiencias); 
-//        return $this->sendResponse($experiencias, 'profiles');
 
-
+        // SE OBTIENEN LOS PERFILES DE LOS CANDIDATOS QUE COINCIDEN CON LA BUSQUDA SOLICITADA SE AGREGA EL FILTRO DE LAS CIUDADES
         $profiles = Profile::whereIn('id', $ids_of_profiles)->where('ciudad_residencia_id', $offer->ciudad->id)
         ->with('user',
             'ciudad_residencia',
@@ -119,7 +122,7 @@ class OfferController extends BaseController
             'perfiles_laborales.nivel_experiencia',
             'perfiles_laborales.cargo',
             'perfiles_laborales.tiempo_experiencia'
-      )->get();
+      )->orderBy('updated_at', 'DESC')->limit(15)->get();
 
         return $this->sendResponse($profiles, 'profiles');
     }
