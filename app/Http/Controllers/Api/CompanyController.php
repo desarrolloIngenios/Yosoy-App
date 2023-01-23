@@ -22,7 +22,10 @@ class CompanyController extends BaseController
     public function index()
     {
         $empresa = Empresa::with(
-           'ciudad'
+           'ciudad',
+           'regimen',
+           'actividad_economica',
+           'tipo_documento'
             )->get();
         return $this->sendResponse($empresa, 'empresa');
     }
