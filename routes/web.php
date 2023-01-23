@@ -98,6 +98,7 @@ Route::post('offer/questions', [App\Http\Controllers\Web\OfferQuestionController
 Route::get('wompi/transactions', [App\Http\Controllers\Web\WompiController::class, 'index'])->name('wompi.index');
 
 Route::get('offer/index/public', [App\Http\Controllers\Web\OfertaController::class, 'show_public_index'])->name('offer.show_public_index');
+Route::get('offer/agragar/{user_id}/gratis/', [App\Http\Controllers\Web\OfertaController::class, 'agregar_oferta_gratis'])->name('offer.agregar_gratis');
 
 Route::get('store_datos_transaccion', [App\Http\Controllers\Web\WompiController::class, 'store_datos_transaccion'])->name('store_datos_transaccion');
 

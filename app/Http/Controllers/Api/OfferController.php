@@ -9,6 +9,7 @@ use App\Models\Profile;
 use App\Models\ProfilePerfilLaboral;
 use App\Models\ProfileExperienciaLaboral;
 use App\Models\WompiTransaccion;
+use App\Models\OfertaGratis;
 
 
 use Illuminate\Support\Facades\Auth;
@@ -131,12 +132,18 @@ class OfferController extends BaseController
     public function get_available_offer(Request $request)
     {
         $avalible_offers = 0;
-        $cantida_pagos = WompiTransaccion::where('user_id', $request->user()->id)->where('estado_wompi', "LIKE", "APPROVED")->count();
+        // Se consulta la cantidad de ofertas pagas aprobadas tiene el usuario
+        $cantidad_ofertas_disponibles = WompiTransaccion::where('user_id', $request->user()->id)->where('estado_wompi', "LIKE", "APPROVED")->sum('cantidad_ofertas') + 0;
+        // Se consulta la cantidad de ofertas gratuitas que tiene el usuario y se suman a las ofertas pagas
+        $cantidad_ofertas_disponibles += OfertaGratis::where('user_id', $request->user()->id)->sum('cantidad_ofertas');
+
+        // se consultan la cantidad de ofertas publicadas
         $cantidad_ofertas = Offer::where('user_id', $request->user()->id)->count();
 
-        if($cantida_pagos > $cantidad_ofertas)
+        //dd($cantidad_ofertas_disponibles);
+        if($cantidad_ofertas_disponibles > $cantidad_ofertas)
         {
-            $avalible_offers = 1;
+            $avalible_offers = $cantidad_ofertas_disponibles;
         } 
         else if(!is_null($request->user()->roles->first()) && $request->user()->roles->first()->name === 'ADMIN')
         {
@@ -153,6 +160,16 @@ class OfferController extends BaseController
         $offer->save();
         return $this->sendResponse($offer, 'Offer');
     }
+
+    public function agregar_oferta_prueba(Request $request, $user_id)
+    {
+        $offer = new OfertaGratis();
+        $offer->user_id = $user_id;
+        $offer->save();
+        return $this->sendResponse($offer, 'Offer');
+    }
+
+    
 
     
     
