@@ -20,6 +20,7 @@ Route::get('/', function () {
 });
 
 Route::get('login', [App\Http\Controllers\Web\LoginController::class, 'index'])->name('login');
+
 Route::get('login_empresas', [App\Http\Controllers\Web\LoginController::class, 'index_empresas'])->name('login_empresas');
 Route::post('login', [App\Http\Controllers\Web\LoginController::class, 'login'])->name('login.post');
 Route::get('forgot', [App\Http\Controllers\Web\LoginController::class, 'forgot'])->name('forgot');

@@ -37,10 +37,23 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => env('APP_ENV') == 'production' ? ['single', 'slack']:['single'],
             'ignore_exceptions' => false,
         ],
 
+        'slack' => [
+            'driver' => 'slack',
+            'url' => 'https://hooks.slack.com/services/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',
+            'username' => 'Oh See Snaps',
+            'emoji' => ':boom:',
+            'level' => env('LOG_LEVEL', 'debug')
+        ],
+
+        'deprecations' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/php-deprecation-warnings.log'),
+        ],
+     
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
@@ -54,13 +67,13 @@ return [
             'days' => 14,
         ],
 
-        'slack' => [
-            'driver' => 'slack',
-            'url' => env('LOG_SLACK_WEBHOOK_URL'),
-            'username' => 'Laravel Log',
-            'emoji' => ':boom:',
-            'level' => env('LOG_LEVEL', 'critical'),
-        ],
+        // 'slack' => [
+        //     'driver' => 'slack',
+        //     'url' => env('LOG_SLACK_WEBHOOK_URL'),
+        //     'username' => 'Laravel Log',
+        //     'emoji' => ':boom:',
+        //     'level' => env('LOG_LEVEL', 'critical'),
+        // ],
 
         'papertrail' => [
             'driver' => 'monolog',
@@ -100,6 +113,7 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+        
     ],
 
 ];
