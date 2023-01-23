@@ -8,6 +8,7 @@ use App\Models\Offer;
 use App\Models\OfferQuestionResponse;
 use App\Models\OfferQuestionStar;
 use App\Models\OfferQuestionText;
+use App\Models\Empresa;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -20,12 +21,12 @@ class FacturacionElectronicaController extends Controller
         if(is_null($access_token)){
             dd("Error obtener token");
         }
-        $this->facturaElectronica($access_token);
+        $this->facturaElectronica($access_token, 6);
         return $access_token;
 
     }
 
-    public function facturaElectronica($access_token)
+    public function facturaElectronica($access_token, $user_id)
     {
         try{
             $url = "http://testing.eba-mnikdhzz.us-east-1.elasticbeanstalk.com./electronicbilling";
@@ -34,6 +35,47 @@ class FacturacionElectronicaController extends Controller
                 //$url = "https://production.wompi.co/v1/transactions?=2023-07-01&page=1&page_size=50&order_by=created_at&order=DESC";
             }
 
+            $empresa = Empresa::where('user_id', $user_id)->first();
+
+            if(!is_null($empresa->tipo_documento_id) && 
+                !is_null($empresa->nit) && $empresa->nit != "" &&
+                !is_null($empresa->digito_verificacion) &&
+                !is_null($empresa->regimen_id) &&
+                !is_null($empresa->actividad_economica_id) &&
+                !is_null($empresa->actividad_economica_id) &&
+                $empresa->direccion != "" &&
+                $empresa->nombre != ""
+                )
+            {
+            $data =  
+                [
+                    "documentType" => [
+                            "code" => "31" 
+                        ], 
+                    "identificationNumber" => "626321331", 
+                    "checkDigit" => "1", 
+                    "regime" => [
+                                "name" => "tipo.tipo.regimen.pj" 
+                            ], 
+                    "country" => [
+                                "code" => "CO" 
+                                ], 
+                    "activity" => [
+                                    "ciiu219" => "111" 
+                                ], 
+                    "address" => "11", 
+                    "postalCode" => "0000", 
+                    "firstName" => "juan", 
+                    "secondName" => "", 
+                    "lastName" => "", 
+                    "surName" => "", 
+                    "email" => "test@zenware.com.co" 
+                 ];                  
+                dd("se puede crear la empresa");
+            } else {
+                dd("no se puede crear la empresa");
+            }
+            dd($empresa);
             $data =  [
                 "prefix" => [
                       "id" => 1 
@@ -78,6 +120,8 @@ class FacturacionElectronicaController extends Controller
             Log::info($text);
         }
     }
+
+
 
     public function getAccessToken()
     {
