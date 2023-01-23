@@ -162,9 +162,16 @@
 															<option value="3">Afros</option>
 															<option value="4">Venezolanos</option>
 															<option value="5">Fundación Acción Interna</option>
-															<option value="7">Fundación afro, indígenas y mestizos</option>
+															<option value="7">Fundación Afro, Indígenas y Mestizos</option>
 															<option value="8">Fundación GAAT</option>
 															<option value="9">Fundación Soy Oportunidad</option>
+															<option value="10">Mujeres Endógenas del Cauca</option>
+															<option value="11">Fundación Compromiso Valle</option>
+															<option value="12">Fundación Apoyar</option>
+															<option value="13">Fundación para la reconciliación</option>
+															<option value="14">CIREC</option>
+															<option value="15">Fundación levántate y anda</option>
+															<option value="16">Fundación Fé</option>
 															<option value="6">Otros</option>
 														</select>
 													</div>

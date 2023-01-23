@@ -67,10 +67,15 @@
                         <i class="las la-star"></i>
                         </a>
                         @endif
+                        <a href="{{ route('offer.agregar_gratis', [$user['user_id']]) }}" class="btn btn-sm btn-primary">
+                            <i class="">Oferta de Prueba</i>
+                        </a>
                     @endif
                     <a target="_blank" href="tel:{{ str_replace(' ', '', $user['numero_contacto_1']); }}" class="btn btn-sm btn-primary">
                         <i class="las la-phone"></i>
                     </a>
+                    
+                   
                 </td>
             </tr>
             @endforeach

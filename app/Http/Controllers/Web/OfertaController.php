@@ -214,4 +214,16 @@ class OfertaController extends Controller
         return redirect()->back();
     }
 
+    public function agregar_oferta_gratis(Request $request, $user_id)
+    {
+        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.offer.agregar_oferta_prueba', ['user_id' => $user_id]), []);
+        //dd($response->json());
+        $success = $response->json()['success'];
+        $profiles = $response->json()['data'];
+        $message = $response->json()['message'];
+
+        return redirect()->back();
+    }
+
+
 }
