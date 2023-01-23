@@ -5,10 +5,14 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Http;
+
+use App\Models\ZenSmartRegimen;
+use App\Models\ZenSmartActividadEconomica;
+use App\Models\Base\TipoDocumento;
+
 
 class CompanyController extends Controller
 {
@@ -30,6 +34,11 @@ class CompanyController extends Controller
         $ciudades = $response->json()['data'];
         $message = $response->json()['message'];
         $data['ciudades'] = $ciudades;
+
+        $data['regimen'] = ZenSmartRegimen::all();
+        $data['actividad_economica'] = ZenSmartActividadEconomica::all();
+        $data['tipo_documento'] = TipoDocumento::all();
+
 
         if($empresa_id != ''){
             $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.empresa.find',['id'=>$empresa_id]), []);
