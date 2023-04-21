@@ -80,7 +80,8 @@ Route::middleware('auth:api')->group(function () {
 
 
     Route::get('generate_codes', [App\Http\Controllers\Api\CodeController::class, 'generate_codes'])->name('api.generate_codes');
-    
+
+   
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

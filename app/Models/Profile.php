@@ -52,10 +52,11 @@ class Profile extends Model
         $array_grupo_social[11] = "Fundación Compromiso Valle";
         $array_grupo_social[12] = "Fundación Apoyar";
         $array_grupo_social[13] = "Fundación para la reconciliación";
-        $array_grupo_social[14] = "CIREC";
+        $array_grupo_social[14] = "Fundación CIREC";
         $array_grupo_social[15] = "Fundación levántate y anda";
         $array_grupo_social[16] = "Fundación Fé";
         $array_grupo_social[17] = "Tiempo de Juego";
+        $array_grupo_social[18] = "Fundación Creando Futuro";
         $array_grupo_social[6] = "Otros";
 															
         if(isset($array_grupo_social[$this->grupo_social_id])){

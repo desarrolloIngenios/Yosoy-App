@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\PoliticaLog;
 use App\Models\Code;
 use Illuminate\Support\Facades\Auth;
 use Validator;

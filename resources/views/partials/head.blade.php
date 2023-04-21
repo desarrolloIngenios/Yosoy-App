@@ -47,9 +47,13 @@
 		<!--- Animations css-->
 		<link href="{{URL::asset('/assets/css/animate.css')}}" rel="stylesheet">
 
+
+		<link href="{{URL::asset('/assets/plugins/ion-rangeslider/css/ion.rangeSlider.css')}}" rel="stylesheet">
+		<link href="{{URL::asset('/assets/plugins/ion-rangeslider/css/ion.rangeSlider.skinFlat.css')}}" rel="stylesheet">
+
 		<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
-@yield('css')
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+	@yield('css')
 </head>
 

@@ -75,12 +75,14 @@ class WompiController extends Controller
     {
         $referencia = $request->get('referencia');
         $user_id = $request->get('user_id');
+        $cantidad_ofertas = $request->get('cantidad_ofertas');
         
         $transaccion = WompiTransaccion::where('referencia', $referencia)->first();
         if(is_null($transaccion)){
             $transaccion = new WompiTransaccion();
             $transaccion->referencia = $referencia;
             $transaccion->user_id = $user_id;
+            $transaccion->cantidad_ofertas = $cantidad_ofertas;
             $transaccion->save();
         }
         return $transaccion;

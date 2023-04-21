@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Base\Cargo;
 use App\Models\User;
+use App\Models\PoliticaLog;
+use App\Models\PoliticaActual;
 use App\Models\Profile;
 use App\Models\ProfilePerfilLaboral;
 use Validator;
@@ -62,13 +64,23 @@ class LoginController extends Controller
 
         $user_id = $data['user_id'];
         $request->session()->forget('user_id');
-        session(['user_id' => $user_id]);  
+        session(['user_id' => $user_id]); 
+
+        $politica_actual = PoliticaActual::find(1);
+        $politica_log = PoliticaLog::where('user_id', $user_id)->where('version', $politica_actual->version)->first();
+
+        $politica_aceptada = 0;
+        if(!is_null($politica_log)){
+            $politica_log = 1;
+        }
+
+        session(['politica_actual' => $politica_actual->version]);  
+        session(['user_politica_aceptada' => $politica_log]); 
 
         if($role == 'EMPRESARIO') {
             session(['empresa' => $data['empresa']]);  
         }
-        // 'Accept' => 'application/json',
-        // 'Authorization' => 'Bearer '.$accessToken,
+        
         return redirect()->route('profile.get');
     }
 
@@ -205,6 +217,14 @@ class LoginController extends Controller
     public function registro_tipo_usuario()
     {
         return view('registro_tipo_usuario');
+    }
+
+
+    public function aceptar_politicas(Request $request)
+    {
+        $input = $request->all();
+        $politica_log = PoliticaLog::create($input);
+        session(['user_politica_aceptada' => 1]); 
     }
 
 
