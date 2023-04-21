@@ -324,5 +324,45 @@
         @include('partials/include_js')
 		@yield('js')
 
+
+
+		<div class="modal" id="scrollmodal">
+			<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content modal-content-demo">
+			<div class="modal-header">
+			<h6 class="modal-title">Actualización Política de Datos</h6></button>
+			</div>
+			<div class="modal-body">
+			<p>Debes aceptar nuestra politica de datos versión {{session('politica_actual')}} para continuar.</p>
+			<a target="_blank" href="https://google.com.co">Ver politica de datos aquí.</a>
+			</div>
+			<div class="modal-footer">
+			<button class="btn ripple btn-primary" id="aceptar_politica" type="button">Acepto</button>
+			<!-- <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">Close</button> -->
+			</div>
+			</div>
+			</div>
+			</div>
+			
+<script type="text/javascript">
+
+			$(window).on('load', function() {
+				$('#scrollmodal').on('shown.bs.modal', function (event) {
+					$("#aceptar_politica").trigger("click");  
+				});
+				@if(!session('user_politica_aceptada'))
+					//$("#scrollmodal").modal("show");
+				@endif
+				
+				$("#aceptar_politica").on("click",function(){
+					$("#scrollmodal").modal("hide");
+					$.post("{{ route('aceptar_politicas.post' ) }}", {"_token": "{{ csrf_token() }}", user_id: {{session('user_id')}}, version: {{session('politica_actual')}} }, function(result){
+						//alert("guardado!!");
+					});
+				})
+			});
+			
+			</script>
+
     </body>
 </html>
