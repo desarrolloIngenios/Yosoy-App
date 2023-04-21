@@ -103,9 +103,11 @@ Route::get('offer/agragar/{user_id}/gratis/', [App\Http\Controllers\Web\OfertaCo
 
 Route::get('store_datos_transaccion', [App\Http\Controllers\Web\WompiController::class, 'store_datos_transaccion'])->name('store_datos_transaccion');
 
+Route::post('aceptar_politicas', [App\Http\Controllers\Web\LoginController::class, 'aceptar_politicas'])->name('aceptar_politicas.post');
 
 
 Route::get('facturacion/index', [App\Http\Controllers\Web\FacturacionElectronicaController::class, 'index'])->name('facturacion_electronica.index');
+Route::get('facturacion/crearEmpresaZenSmart/{empresa_id}', [App\Http\Controllers\Web\FacturacionElectronicaController::class, 'crearEmpresaZenSmart'])->name('crearEmpresaZenSmart.index');
 
 
 

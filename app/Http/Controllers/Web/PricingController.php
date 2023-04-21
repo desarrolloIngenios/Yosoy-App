@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use App\Models\DescuentosOfertas;
+
 
 class PricingController extends Controller
 {
@@ -18,6 +20,12 @@ class PricingController extends Controller
         $data = [
             'public_key_wompi' => $public_key_wompi
         ];
+
+        $descuentos = DescuentosOfertas::all();
+        $precio_base = 75000;
+        $data['descuentos'] = $descuentos;
+        $data['precio_base'] = $precio_base;
+
         return view('pricing/index', $data);
     }
 
