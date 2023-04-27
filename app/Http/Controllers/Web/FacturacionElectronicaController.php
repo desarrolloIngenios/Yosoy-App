@@ -61,9 +61,10 @@ class FacturacionElectronicaController extends Controller
     {
         try{
             $url = "http://testing.eba-mnikdhzz.us-east-1.elasticbeanstalk.com./electronicbilling";
-
+            $x_client_db = 118;
             if(env('APP_ENV') == 'production'){
-                //$url = "https://production.wompi.co/v1/transactions?=2023-07-01&page=1&page_size=50&order_by=created_at&order=DESC";
+                $url = "https://qfxh062knd.execute-api.us-east-1.amazonaws.com/electronicbilling";
+                $x_client_db = 106;
             }
 
             $empresa = Empresa::with('regimen', 'actividad_economica', 'tipo_documento')->where('id', $empresa_id)->first();
@@ -72,11 +73,12 @@ class FacturacionElectronicaController extends Controller
                 Log::info('facturaElectronica '.$empresa->id.' no pasa la validacion de la creación de la empresa. No se puede generar factura.');
                 return false;
             }
-
+            //dd("hola");
             $fecha_actual = \Carbon\Carbon::now()->isoFormat('YYYY-DD-MM');
             //dd($fecha_actual);
             $total = $total + 0;
             $transaction_wompi_id += 1000;
+            //$transaction_wompi_id = 197;
             $data =  [
                 "prefix" => [
                       "id" => 1 
@@ -93,18 +95,19 @@ class FacturacionElectronicaController extends Controller
                             ], 
                 "date" => $fecha_actual, 
                 "expiration" => $fecha_actual, 
-                "concept" => "Test", 
+                "concept" => "Servicios", 
                 "subTotal" => $total, 
                 "items" => [
                                   [
                                      "product" => [
-                                        "code" => "TEST2" 
+                                        "code" => "SERVICIOYOSOY" 
                                      ], 
                                      "quantity" => 1, 
                                      "unitValue" => $total 
                                   ] 
                                ], 
-                "total" => (int) $total*1.19, 
+                // "total" => (int) $total*1.19, 
+                "total" => (int) $total, 
                 "currency" => [
                                            "code" => "COP" 
                                         ], 
@@ -118,7 +121,7 @@ class FacturacionElectronicaController extends Controller
              }
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer '.$access_token,
-                'X-CLIENT-DB' => '118',
+                'X-CLIENT-DB' => $x_client_db,
             ])->withBody(json_encode($data), 'application/json')->post($url);
             //dd($response->json());
 
@@ -160,9 +163,11 @@ class FacturacionElectronicaController extends Controller
         // La empresa no está creada
         try{
             $url = "http://testing.eba-mnikdhzz.us-east-1.elasticbeanstalk.com./enterprises";
+            $x_client_db = 118;
 
             if(env('APP_ENV') == 'production'){
-                //$url = "";
+                $url = "https://qfxh062knd.execute-api.us-east-1.amazonaws.com/enterprises";
+                $x_client_db = 106;
             }
             if(!is_null($empresa) &&
             !is_null($empresa->tipo_documento) && 
@@ -213,9 +218,11 @@ class FacturacionElectronicaController extends Controller
             Log::info("Error al obtener el token");
             return false;
         }
+
+
         $response = Http::withHeaders([
             'Authorization' => 'Bearer '.$access_token,
-            'X-CLIENT-DB' => '118',
+            'X-CLIENT-DB' => $x_client_db,
         ])->withBody(json_encode($data), 'application/json')->post($url);
         $description = $response->json('description');
         if($description == "The entered document number already exists"){
@@ -253,14 +260,19 @@ class FacturacionElectronicaController extends Controller
             // PRIMERO SE BUSCA SI LA EMPRESA YA HA SIDO CREADA EN EL SISTEMA DE ZENDSMART
             $url = "http://testing.eba-mnikdhzz.us-east-1.elasticbeanstalk.com./enterprise-rest?search=".$empresa->nit."&rowsPerPage=100&page=0";
             if(env('APP_ENV') == 'production'){
-                //$url = "";
+                $url = "https://qfxh062knd.execute-api.us-east-1.amazonaws.com/enterprise-rest?search=".$empresa->nit."&rowsPerPage=100&page=0";
             }
             
             $data = [];
 
+            $x_client_db = 118;
+            if(env('APP_ENV') == 'production'){
+                $x_client_db = 106;
+            }
+
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer '.$access_token,
-                'X-CLIENT-DB' => '118',
+                'X-CLIENT-DB' => $x_client_db,
             ])->withBody(json_encode($data), 'application/json')->get($url);
 
             // SE LA RESPUESTA DEL SERVICIO ES SUCCESS
@@ -302,17 +314,20 @@ class FacturacionElectronicaController extends Controller
     {
         try{
             $url = "http://testing.eba-mnikdhzz.us-east-1.elasticbeanstalk.com./oauth/token";
+            $user = 'Otoniel.fonseca@ingenios.com.co';
+            $password = 'Admin123!';
 
             if(env('APP_ENV') == 'production'){
-                //$url = "https://production.wompi.co/v1/transactions?=2023-07-01&page=1&page_size=50&order_by=created_at&order=DESC";
+                $url = "https://qfxh062knd.execute-api.us-east-1.amazonaws.com/oauth/token";
+                $password = 'Jeronimo27';
             }
             $response = Http::withHeaders([
                 'Authorization' => 'Basic aW5nZW5pb3MtY2xpZW50OnY0NFpkWCVDRmtoZFYlJEg=',
             ])->accept('*/*')->asForm()->post($url, 
                         [
                             'grant_type' => 'password', 
-                            'username' => 'Otoniel.fonseca@ingenios.com.co', 
-                            'password' => 'Admin123!', 
+                            'username' => $user, 
+                            'password' => $password, 
                             'scope' => 'apiclient', 
                             'type' => 'NORMAL', 
                         ]);

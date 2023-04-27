@@ -61,6 +61,9 @@
 				<li class="slide">
 					<a class="side-menu__item" href="{{ route('wompi.index') }}"><i class=" side-menu__icon fa fa-file"></i><span class="side-menu__label">Facturación</span></a>
 				</li>
+				<li class="slide">
+					<a class="side-menu__item" target="_blank" href="{{ route('terminos_condiciones') }}"><i class=" side-menu__icon fa fa-file"></i><span class="side-menu__label">Política de datos.</span></a>
+				</li>
 				
 				<li class="slide">
 					<a class="side-menu__item" href="{{ route('logout') }}"><i class=" side-menu__icon fa fa-sign-out" ></i><span class="side-menu__label">Salir</span></a>

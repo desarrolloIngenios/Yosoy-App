@@ -6,9 +6,28 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+
 
 class ProfileController extends Controller
 {
+
+    public function validar_success($response)
+    {
+        if(!is_null($response)){
+            if (!array_key_exists('success', $response->json())) {
+                // $debugInfo = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1)[0];
+                // Log::info($debugInfo);
+                Log::info('Contenido de la sesión: ' . json_encode(session()->all()));
+                Log::info("Método ".__METHOD__." en linea ".__LINE__);
+                return redirect(\Request::url());
+                //return redirect()->back();
+            }
+        } else {
+            return redirect()->back();
+        }
+    }
+
     public function index(Request $request)
     {
         ini_set('memory_limit', '100M');
@@ -20,9 +39,9 @@ class ProfileController extends Controller
         if(!session('token', false)){
             return redirect()->route('login');
         }
-
+        //dd($debugInfo);
         $response = Http::withToken(session('token'))->get(route('api.profile'));
-        //dd($response->json());
+        $this->validar_success($response);
         $success = $response->json()['success'];
         $perfil = $response->json()['data'];
         $message = $response->json()['message'];
@@ -33,6 +52,7 @@ class ProfileController extends Controller
 
         $response = Http::withToken(session('token'))->get(route('api.star_rating'));
         //dd($response->json());
+        $this->validar_success($response);
         $success = $response->json()['success'];
         $star_rating = $response->json()['data'];
         $message = $response->json()['message'];
@@ -40,6 +60,7 @@ class ProfileController extends Controller
 
         //dd(session('token'));
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.pais'), []);
+        $this->validar_success($response);
         $success = $response->json()['success'];
         $paises = $response->json()['data'];
         $message = $response->json()['message'];
@@ -48,6 +69,7 @@ class ProfileController extends Controller
 
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.genero'), []);
         //dd($response->json());
+        $this->validar_success($response);
         $success = $response->json()['success'];
         $generos = $response->json()['data'];
         $message = $response->json()['message'];
@@ -55,6 +77,7 @@ class ProfileController extends Controller
 
         $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.bancarizaciones'), []);
         //dd($response->json());
+        $this->validar_success($response);
         $success = $response->json()['success'];
         $bancarizaciones = $response->json()['data'];
         $message = $response->json()['message'];
@@ -62,6 +85,7 @@ class ProfileController extends Controller
 
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.tipo_documentos'), []);
         //dd($response->json());
+        $this->validar_success($response);
         $success = $response->json()['success'];
         $tipo_documentos = $response->json()['data'];
         $message = $response->json()['message'];
@@ -69,6 +93,7 @@ class ProfileController extends Controller
 
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.ciudades'), []);
         //dd($response->json());
+        $this->validar_success($response);
         $success = $response->json()['success'];
         $tipo_documentos = $response->json()['data'];
         $message = $response->json()['message'];
@@ -76,6 +101,7 @@ class ProfileController extends Controller
         
         $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.cargos'));
         //dd($response->json());
+        $this->validar_success($response);
         $success = $response->json()['success'];
         $cargos = $response->json()['data'];
         $message = $response->json()['message'];
@@ -83,6 +109,7 @@ class ProfileController extends Controller
 
         $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.tiempo_experiencia'));
         //dd($response->json());
+        $this->validar_success($response);
         $success = $response->json()['success'];
         $tiempo_experiencia = $response->json()['data'];
         $message = $response->json()['message'];
@@ -90,6 +117,7 @@ class ProfileController extends Controller
 
         $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.nivel_experiencia'));
         //dd($response->json());
+        $this->validar_success($response);
         $success = $response->json()['success'];
         $nivel_experiencia = $response->json()['data'];
         $message = $response->json()['message'];
@@ -97,6 +125,7 @@ class ProfileController extends Controller
 
         $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.tipo_contrato'));
         // dd($response->json());
+        $this->validar_success($response);
         $success = $response->json()['success'];
         $tipo_contrato = $response->json()['data'];
         $message = $response->json()['message'];
@@ -104,6 +133,7 @@ class ProfileController extends Controller
 
         $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.sector'));
         // dd($response->json());
+        $this->validar_success($response);
         $success = $response->json()['success'];
         $sector = $response->json()['data'];
         $message = $response->json()['message'];
@@ -111,6 +141,7 @@ class ProfileController extends Controller
 
         $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.empleador'));
         // dd($response->json());
+        $this->validar_success($response);
         $success = $response->json()['success'];
         $empleador = $response->json()['data'];
         $message = $response->json()['message'];
@@ -118,6 +149,7 @@ class ProfileController extends Controller
 
         $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.nivel_educativo'));
         // dd($response->json());
+        $this->validar_success($response);
         $success = $response->json()['success'];
         $nivel_educativo = $response->json()['data'];
         $message = $response->json()['message'];
@@ -127,6 +159,7 @@ class ProfileController extends Controller
         //dd($perfil);
         $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.titulo_educativo'));
         // dd($response->json());
+        $this->validar_success($response);
         $success = $response->json()['success'];
         $titulo_educativo = $response->json()['data'];
         $message = $response->json()['message'];
@@ -134,6 +167,7 @@ class ProfileController extends Controller
 
         $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.institucion_educativa'));
         // dd($response->json());
+        $this->validar_success($response);
         $success = $response->json()['success'];
         $institucion_educativa = $response->json()['data'];
         $message = $response->json()['message'];
