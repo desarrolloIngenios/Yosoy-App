@@ -19,6 +19,7 @@ class WompiTransaccion extends Model
                             'valor_wompi',
                             'fecha_wompi',
                             'is_factura_electronica',
+                            'tipo_candidato_string'
                         ];
    
     public function user() {

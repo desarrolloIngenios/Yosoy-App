@@ -129,24 +129,53 @@ class OfferController extends BaseController
     public function get_available_offer(Request $request)
     {
         $avalible_offers = 0;
+        $empirico_count = 0;
+        $tecnico_count = 0;
+
         // Se consulta la cantidad de ofertas pagas aprobadas tiene el usuario
-        $cantidad_ofertas_disponibles = WompiTransaccion::where('user_id', $request->user()->id)->where('estado_wompi', "LIKE", "APPROVED")->sum('cantidad_ofertas') + 0;
+        $cantidad_ofertas_pagas = WompiTransaccion::where('user_id', $request->user()->id)->where('estado_wompi', "LIKE", "APPROVED")->sum('cantidad_ofertas') + 0;
         // Se consulta la cantidad de ofertas gratuitas que tiene el usuario y se suman a las ofertas pagas
-        $cantidad_ofertas_disponibles += OfertaGratis::where('user_id', $request->user()->id)->sum('cantidad_ofertas');
+        $cantidad_ofertas_gratis = OfertaGratis::where('user_id', $request->user()->id)->sum('cantidad_ofertas');
+
 
         // se consultan la cantidad de ofertas publicadas
-        $cantidad_ofertas = Offer::where('user_id', $request->user()->id)->count();
+        $ofertas = Offer::where('user_id', $request->user()->id)->get();
 
-        //dd($cantidad_ofertas_disponibles);
-        if($cantidad_ofertas_disponibles > $cantidad_ofertas)
+        $cantidad_ofertas_realizadas = count($ofertas);
+
+        $avalible_offers = $cantidad_ofertas_pagas + $cantidad_ofertas_gratis - $cantidad_ofertas_realizadas;
+
+
+        if($cantidad_ofertas_pagas > $cantidad_ofertas_realizadas)
         {
-            $avalible_offers = $cantidad_ofertas_disponibles;
+            $ofertas_tecnicas_usadas = count($ofertas->where('is_tecnico',true));
+            $ofertas_empirico_usadas = count($ofertas->where('is_empirico',true));
+
+            $ofertas_pagas = WompiTransaccion::where('user_id', $request->user()->id)->where('estado_wompi', "LIKE", "APPROVED")->get();
+            $ofertas_pagas_empirico = count($ofertas_pagas->where('tipo_candidato_string', '=', 'empirico'));
+            $ofertas_pagas_tecnico = count($ofertas_pagas->where('tipo_candidato_string', '=', 'tecnico'));
+
+            $tecnico_count = $ofertas_pagas_tecnico - $ofertas_tecnicas_usadas;
+            $empirico_count = $ofertas_pagas_empirico - $ofertas_empirico_usadas;
+
+        } elseif($cantidad_ofertas_realizadas < $cantidad_ofertas_pagas + $cantidad_ofertas_gratis){
+            $tecnico_count = 1;
+            $empirico_count = 1;
         } 
-        else if(!is_null($request->user()->roles->first()) && $request->user()->roles->first()->name === 'ADMIN')
+        
+        if(!is_null($request->user()->roles->first()) && $request->user()->roles->first()->name === 'ADMIN')
         {
             $avalible_offers = 1;
+            $empirico_count = 1;
+            $tecnico_count = 1;
         }
-        return $this->sendResponse($avalible_offers, 'avalible_offers');
+
+        $obj = new \stdClass();
+        $obj->avalible_offers = $avalible_offers;
+        $obj->empirico = $empirico_count;
+        $obj->tecnico = $tecnico_count;
+
+        return $this->sendResponse($obj, 'data');
     }
 
 

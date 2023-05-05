@@ -16,7 +16,7 @@ class ProfileController extends Controller
     public function validar_success($response)
     {
         if(!is_null($response)){
-            if (!array_key_exists('success', $response->json())) {
+            if (!is_array($response->json()) && !array_key_exists('success', $response->json())) {
                 // $debugInfo = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1)[0];
                 // Log::info($debugInfo);
                 Log::info('Contenido de la sesión: ' . json_encode(session()->all()));
@@ -149,10 +149,6 @@ class ProfileController extends Controller
         //     $data['bancarizaciones'] = $bancarizaciones;
         //     Cache::put('bancarizaciones', $bancarizaciones, $minutes);
         // }
-
-
-
-        
 
 
         // $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.genero'), []);
