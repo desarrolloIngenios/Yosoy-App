@@ -23,7 +23,9 @@ class Offer extends Model
                             'tiempo_experiencia_id',
                             'company_id',
                             'active',
-                            'user_id'
+                            'user_id',
+                            'is_empirico',
+                            'is_tecnico',
                         ];
     
     protected $appends = ['total_aplicaciones'];

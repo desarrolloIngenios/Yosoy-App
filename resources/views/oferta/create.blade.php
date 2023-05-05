@@ -18,6 +18,20 @@
                     @endif
                     <div class="row row-sm">
                         <div class="col-lg-6 mg-b-12 mg-lg-b-6">
+                            <p class="mg-b-10">Candidato</p><select class="form-control select2" name="tipo_candidato" placeholder="" required>
+                            <option value=""></option>
+                                    @if(isset($tipo_candidato_empirico) && $tipo_candidato_empirico )
+                                        <option value="empirico">Empírico</option>
+                                    @endif
+                                    @if(isset($tipo_candidato_tecnico) && $tipo_candidato_tecnico )
+                                        <option value="tecnico">Técnico</option>
+                                    @endif
+                            </select>
+                        </div>   
+                    </div>   
+
+                    <div class="row row-sm">
+                        <div class="col-lg-6 mg-b-12 mg-lg-b-6">
                             <p class="mg-b-10">Cargo</p><select class="form-control select2" name="cargo_id" placeholder="" required>
                             <option value=""></option>
                                 @foreach($cargos as $item)
