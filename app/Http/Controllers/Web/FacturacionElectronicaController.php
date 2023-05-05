@@ -53,7 +53,7 @@ class FacturacionElectronicaController extends Controller
 
        
         //$this->facturaElectronica($access_token, 15);
-        return $access_token;
+        //return $access_token;
 
     }
 
@@ -62,9 +62,11 @@ class FacturacionElectronicaController extends Controller
         try{
             $url = "http://testing.eba-mnikdhzz.us-east-1.elasticbeanstalk.com./electronicbilling";
             $x_client_db = 118;
+            $prefix = 1;
             if(env('APP_ENV') == 'production'){
                 $url = "https://qfxh062knd.execute-api.us-east-1.amazonaws.com/electronicbilling";
                 $x_client_db = 106;
+                $prefix = 3;
             }
 
             $empresa = Empresa::with('regimen', 'actividad_economica', 'tipo_documento')->where('id', $empresa_id)->first();
@@ -77,13 +79,13 @@ class FacturacionElectronicaController extends Controller
             $fecha_actual = \Carbon\Carbon::now()->isoFormat('YYYY-DD-MM');
             //dd($fecha_actual);
             $total = $total + 0;
-            $transaction_wompi_id += 1000;
-            //$transaction_wompi_id = 197;
+            // $transaction_wompi_id += 1;
+            $transaction_wompi_id = 1;
             $data =  [
                 "prefix" => [
-                      "id" => 1 
+                      "id" => $prefix 
                    ], 
-                "number" => $transaction_wompi_id.'', 
+                "number" => $transaction_wompi_id.'',   
                 "client" => [
                         "documentType" => [
                            "code" => $empresa->tipo_documento->zensmart_codigo
