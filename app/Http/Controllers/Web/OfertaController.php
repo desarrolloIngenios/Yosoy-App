@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
+
 use App\Http\Controllers\Web\WompiController;
 
 
@@ -38,35 +40,22 @@ class OfertaController extends Controller
 
 
         $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.get.available.offer'), []);
-        //dd($response->json());
+        // dd($response->json());
         $success = $response->json()['success'];
-        $avalible_offers = $response->json()['data'];
+        $avalible_offers = $response->json()['data']['avalible_offers'];
+        $empirico_count = $response->json()['data']['empirico'];
+        $tecnico_count = $response->json()['data']['tecnico'];
         $message = $response->json()['message'];
         $data = [];
+        $tipo_candidato_empirico = $empirico_count > 0 ? true : false;
+        $tipo_candidato_tecnico = $tecnico_count > 0 ? true : false;
+        
+        $data['tipo_candidato_empirico'] = $tipo_candidato_empirico;
+        $data['tipo_candidato_tecnico'] = $tipo_candidato_tecnico;
+        //    dd($data);
         if($avalible_offers == 0){
             return redirect()->route('pricing.index');
         }
-
-        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.cargos'));
-        //dd($response->json());
-        $success = $response->json()['success'];
-        $cargos = $response->json()['data'];
-        $message = $response->json()['message'];
-        $data['cargos'] = $cargos;
-
-        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.tiempo_experiencia'));
-        //dd($response->json());
-        $success = $response->json()['success'];
-        $tiempo_experiencia = $response->json()['data'];
-        $message = $response->json()['message'];
-        $data['tiempo_experiencia'] = $tiempo_experiencia;
-
-        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.sector'));
-        // dd($response->json());
-        $success = $response->json()['success'];
-        $sector = $response->json()['data'];
-        $message = $response->json()['message'];
-        $data['sector'] = $sector;
 
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.ciudades'), []);
         $success = $response->json()['success'];
@@ -74,19 +63,26 @@ class OfertaController extends Controller
         $message = $response->json()['message'];
         $data['ciudades'] = $ciudades;
 
-        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.nivel_educativo'));
-        // dd($response->json());
-        $success = $response->json()['success'];
-        $nivel_educativo = $response->json()['data'];
-        $message = $response->json()['message'];
-        $data['nivel_educativo'] = $nivel_educativo;
-
-        $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.tipo_contrato'));
-        // dd($response->json());
-        $success = $response->json()['success'];
-        $tipo_contrato = $response->json()['data'];
-        $message = $response->json()['message'];
-        $data['tipo_contrato'] = $tipo_contrato;
+        $cache_keys = [
+            'tipo_contrato',
+            'nivel_educativo',
+            'sector',
+            'tiempo_experiencia',
+            'cargos',
+        ];
+        
+        $minutes = 30;
+        foreach ($cache_keys as $key) {
+            if (Cache::has($key)) {
+                $data[$key] = Cache::get($key);
+            } else {
+                $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.' . $key));
+                $success = $response->json()['success'];
+                $data[$key] = $response->json()['data'];
+                $message = $response->json()['message'];
+                Cache::put($key, $data[$key], $minutes);
+            }
+        }
 
         return view('oferta/create', $data);
     }
@@ -99,7 +95,13 @@ class OfertaController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->input());
+        //dd($request->input('tipo_candidato'));
+        if($request->input('tipo_candidato') == "tecnico"){
+            $request->request->add(['is_tecnico' => true]);
+        }
+        if($request->input('tipo_candidato') == "empirico"){
+            $request->request->add(['is_empirico' => true]);
+        }
        
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.offer.store'), $request->input());
         //dd($response->json());

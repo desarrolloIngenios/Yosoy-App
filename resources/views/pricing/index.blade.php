@@ -45,10 +45,10 @@
 						<div class="col-xs-6 col-sm-6 col-lg-6 col-xl-4">
 							<div class="panel price panel-color">
 								<div class="panel-heading bg-primary p-0 text-center">
-									<h3>Buscas Servicio y/o Vacante Trabajadores informales y técnicos</h3>
+									<h3>Empírico</h3>
 								</div>
 								<div class="panel-body text-center">
-									<p class="lead"><strong>$75.000</strong></p>
+									<p class="lead"><strong>$95.000</strong></p>
 								</div>
 								<ul class="list-group list-group-flush text-center">
 									<li class="list-group-item">La plataforma entregará hasta 5 contactos por cada servicio y/o vacantes, entre 2 y 4 días.</li>
@@ -65,7 +65,8 @@
 											data-public-key="{{ $public_key_wompi }}"
 											data-currency="COP"
 											data-cantidad-ofertas="1"
-											data-amount-in-cents="7500000"
+											data-tipo-candidato="empirico"
+											data-amount-in-cents="9500000"
 											data-reference="{{ uniqid('ref_'.session()->get('user_id').'_') }}"
 											data-redirect-url="{{ route('pricing.index') }}"
 											>
@@ -78,10 +79,10 @@
 						<div class="col-xs-6 col-sm-6 col-lg-6 col-xl-4">
 							<div class="panel price panel-color">
 								<div class="panel-heading bg-warning  p-0 text-center">
-									<h3>Buscas Servicio, vacante contratos sabatinos, medio tiempo y tiempo completo</h3>
+									<h3>Técnico</h3>
 								</div>
 								<div class="panel-body text-center">
-									<p class="lead"><strong>$95.000</strong></p>
+									<p class="lead"><strong>$135.000</strong></p>
 								</div>
 								<ul class="list-group list-group-flush text-center">
 									<li class="list-group-item">La plataforma entregará hasta 5 contactos por cada servicio y/o vacantes, entre 2 y 4 días.</li>
@@ -97,7 +98,8 @@
 											data-public-key="{{ $public_key_wompi }}"
 											data-currency="COP"
 											data-cantidad-ofertas="1"
-											data-amount-in-cents="9500000"
+											data-tipo-candidato="tecnico"
+											data-amount-in-cents="13500000"
 											data-reference="{{ uniqid('ref_'.session()->get('user_id').'_') }}"
 											data-redirect-url="{{ route('pricing.index') }}"
 											>
@@ -107,7 +109,7 @@
 								</div>
 							</div>
 						</div><!-- COL-END -->
-						<div class="col-xs-6 col-sm-6 col-lg-6 col-xl-4">
+						{{-- <div class="col-xs-6 col-sm-6 col-lg-6 col-xl-4">
 							<div class="panel price panel-color">
 								<div class="panel-heading bg-warning  p-0 text-center">
 									<h3>Buscas más de una vacante</h3>
@@ -146,7 +148,7 @@
 									<!-- <a class="btn btn-warning" target="_blank" href="https://checkout.wompi.co/l/JJbr4j">Ir a pagar!</a> -->
 								</div>
 							</div>
-						</div><!-- COL-END -->
+						</div><!-- COL-END --> --}}
 						<div style="text-align: center;">
 							<img src="{{URL::asset('/images/wompi.png')}}" class="logo-1" alt="logo">
 						</div>
@@ -169,8 +171,10 @@
 			var script_name = 'script'+$(this).parent().attr('id');
 			var referencia = $('#'+script_name).attr('data-reference');
 			var cantidad_ofertas = $('#'+script_name).attr('data-cantidad-ofertas');
+			var tipo_candidato = $('#'+script_name).attr('data-tipo-candidato');
+			
 			var user_id = {{ session()->get('user_id') }}
-			$.get("{{ route('store_datos_transaccion') }}", { user_id : user_id, referencia: referencia, cantidad_ofertas: cantidad_ofertas }, function(resp) {
+			$.get("{{ route('store_datos_transaccion') }}", { user_id : user_id, referencia: referencia, cantidad_ofertas: cantidad_ofertas, tipo_candidato: tipo_candidato}, function(resp) {
 				console.log(resp);
 			});
    		});
