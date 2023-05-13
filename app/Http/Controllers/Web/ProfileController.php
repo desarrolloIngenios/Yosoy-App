@@ -32,7 +32,7 @@ class ProfileController extends Controller
     public function index(Request $request)
     {
         ini_set('memory_limit', '300M');
-        $minutes = 30;
+        $minutes = 1800;
 
         if(session('role') ==  'EMPRESARIO'){
             return redirect()->route('dashboard.empresario');
