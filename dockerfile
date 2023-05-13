@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get install -y supervisor
 
 # Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \ && composer update
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -57,6 +57,7 @@ RUN touch /var/log/php/errors.log && chmod 777 /var/log/php/errors.log
 # Deployment steps
 RUN composer install --optimize-autoloader --no-dev
 RUN composer require league/flysystem-aws-s3-v3 "^1.0"
+RUN composer update
 RUN chmod +x /var/www/docker/run.sh
 
 EXPOSE 80
