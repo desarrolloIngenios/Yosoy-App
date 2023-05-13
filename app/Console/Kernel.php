@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
             $controller = app()->make(\App\Http\Controllers\Web\FacturacionElectronicaController::class);
             $controller->index();
         })
-        ->everyThirtyMinutes();
+        ->everyMinute();
         // ->everyThirtyMinutes();
     }
 
