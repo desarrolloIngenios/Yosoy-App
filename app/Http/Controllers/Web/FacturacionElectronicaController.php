@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Log;
 class FacturacionElectronicaController extends Controller
 {
 
-    public function index(Request $request)
+    public function index(Request $request = null)
     {   
         
 
