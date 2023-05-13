@@ -222,7 +222,7 @@
                         @csrf
                         <div class="row row-sm">
                             <div class="col-lg-6 mg-b-12 mg-lg-b-6">
-                                <p class="mg-b-10">Yo Soy</p><select class="form-control select2" name="cargo_id" placeholder="">
+                                <p class="mg-b-10">Yo Soy</p><select class="form-control select2" name="cargo_id" placeholder="" required>
                                 <option value=""></option>
                                     @foreach($cargos as $item)
                                         <option value="{{ $item['id'] }}">
@@ -232,7 +232,7 @@
                                 </select>
                             </div>   
                             <div class="col-lg-2 mg-b-6 mg-lg-b-6">
-                                <p class="mg-b-10">Nivel de experiencia</p><select class="form-control select2" name="nivel_experiencia_id" placeholder="País">
+                                <p class="mg-b-10">Nivel de experiencia</p><select class="form-control select2" name="nivel_experiencia_id" placeholder="" required>
                                 @foreach($nivel_experiencia as $item)
                                         <option value=""></option>
                                             <option value="{{ $item['id'] }}">
@@ -242,7 +242,7 @@
                                 </select>
                             </div>   
                             <div class="col-lg-2 mg-b-6 mg-lg-b-6">
-                                <p class="mg-b-10">Tiempo de experiencia</p><select class="form-control select2" name="tiempo_experiencia_id" placeholder="País">
+                                <p class="mg-b-10">Tiempo de experiencia</p><select class="form-control select2" name="tiempo_experiencia_id" placeholder="" required>
                                 @foreach($tiempo_experiencia as $item)
                                         <option value=""></option>
                                             <option value="{{ $item['id'] }}">
