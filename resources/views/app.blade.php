@@ -334,7 +334,7 @@
 			</div>
 			<div class="modal-body">
 			<p>Debes aceptar nuestra politica de datos versión {{session('politica_actual')}} para continuar.</p>
-			<a target="_blank" href="https://google.com.co">Ver politica de datos aquí.</a>
+			<a target="_blank" href="{{ route('terminos_condiciones') }}">Ver politica de datos aquí.</a>
 			</div>
 			<div class="modal-footer">
 			<button class="btn ripple btn-primary" id="aceptar_politica" type="button">Acepto</button>
