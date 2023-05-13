@@ -54,6 +54,10 @@ RUN cp docker/nginx.conf /etc/nginx/sites-enabled/default
 RUN mkdir /var/log/php
 RUN touch /var/log/php/errors.log && chmod 777 /var/log/php/errors.log
 
+
+# Install cron
+RUN apt-get update && apt-get install -y cron
+
 # Deployment steps
 RUN composer update
 RUN composer install --optimize-autoloader --no-dev
