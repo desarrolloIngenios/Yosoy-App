@@ -71,7 +71,7 @@ class OfertaController extends Controller
             'cargos',
         ];
         
-        $minutes = 30;
+        $minutes = 1800;
         foreach ($cache_keys as $key) {
             if (Cache::has($key)) {
                 $data[$key] = Cache::get($key);
