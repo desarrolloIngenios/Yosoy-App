@@ -65,7 +65,7 @@ RUN composer require league/flysystem-aws-s3-v3 "^1.0"
 RUN chmod +x /var/www/docker/run.sh
 
 # Configure cron
-RUN echo '* * * * cd /var/www && php artisan schedule:run >> /dev/null 2>&1' > /etc/cron.d/laravel-cron
+RUN echo '* * * * * cd /var/www && php artisan schedule:run >> /dev/null 2>&1' > /etc/cron.d/laravel-cron
 RUN chmod 0644 /etc/cron.d/laravel-cron
 RUN crontab /etc/cron.d/laravel-cron
 RUN service cron start
