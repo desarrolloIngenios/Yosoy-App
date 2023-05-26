@@ -41,8 +41,8 @@ class FacturacionElectronicaController extends Controller
                 $zensmart_factura->is_factura_enviada_correctamente = true;
                 $zensmart_factura->save();
                 // se actualiza el campo is_factura_enviada_correctamente 
-                // $transaccion->is_factura_electronica = true;
-                // $transaccion->save();
+                $transaccion->is_factura_electronica = true;
+                $transaccion->save();
                 Log::info('Se guarda el registro de la factura electrónica en la tabla de ZenSmartFacturaElectronica');
             }
             
