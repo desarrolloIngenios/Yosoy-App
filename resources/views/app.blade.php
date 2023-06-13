@@ -338,7 +338,12 @@
                     <h6 class="modal-title">Actualización Política de Datos</h6></button>
                 </div>
                 <div class="modal-body">
-                    <p>Debes aceptar nuestra politica de datos versión {{ session('politica_actual') }} para continuar.
+                    <p>Actualizamos nuestra política de tratamiento de datos y nuestros términos y condiciones, versión
+                        {{ session('politica_actual') }}.
+                        <br><br />
+                        Al aceptarlas, confirmas tu acuerdo con las nuevas políticas y reglas establecidas.
+                        <br><br />
+
                     </p>
                     <a target="_blank" href="{{ route('terminos_condiciones') }}">Ver politica de datos aquí.</a>
                 </div>
@@ -356,7 +361,7 @@
                 $("#aceptar_politica").trigger("click");
             });
             @if (!session('user_politica_aceptada'))
-                //$("#scrollmodal").modal("show");
+                $("#scrollmodal").modal("show");
             @endif
 
             $("#aceptar_politica").on("click", function() {
