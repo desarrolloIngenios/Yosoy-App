@@ -13,18 +13,19 @@
             <div class="card-body pt-0">
                 
 
-
+                <a href="{{ route('facturacion_electronica.index') }}" target="_blank" type="reset" class="btn btn-main-primary ">
+                    <i class="fa fa-file"> Generar Facturas Electŕonicas</i>
+                </a>
             <div class="table-responsive border-top userlist-table">
     <table class="table card-table table-striped table-vcenter text-nowrap mb-0">
         <thead>
             <tr>
                 <th class="wd-lg-30p"><span>INFO</span></th>
-                <th class="wd-lg-20p"><span>Id</span></th>
-                <th class="wd-lg-20p"><span>Referencia</span></th>
+                <th class="wd-lg-20p"><span>Id, Referencia, Metodo</span></th>
                 <th class="wd-lg-30p"><span>Estado</span></th>
-                <th class="wd-lg-30p"><span>Metodo de Pago</span></th>
                 <th class="wd-lg-30p"><span>Valor</span></th>
-                <th class="wd-lg-30p"><span>Correo</span></th>
+                <th class="wd-lg-30p"><span>Fecha</span></th>
+                <th class="wd-lg-30p"><span>Factura electrónica?</span></th>
             </tr>
         </thead>
         <tbody>
@@ -41,22 +42,22 @@
                 </td>
                 <td data-title="">
                     {{ isset($transaction->id)? $transaction->id : '' }}
-                </td>
-                <td data-title="">
+                    <br>
                     {{ isset($transaction->reference)? $transaction->reference : '' }}
+                    <br>
+                    {{ isset($transaction->payment_method_type)? $transaction->payment_method_type : '' }}
                 </td>
                 <td data-title="">
                     {{ isset($transaction->status)? $transaction->status : '' }}
                 </td>
                 <td data-title="">
-                    {{ isset($transaction->payment_method_type)? $transaction->payment_method_type : '' }}
-                </td>
-                <td data-title="">
                     {{ isset($transaction->amount_in_cents)? number_format($transaction->amount_in_cents/100) : '' }}
                 </td>
-               
                 <td data-title="">
                     {{ isset($transaction->created_at)? \Carbon\carbon::createFromFormat("Y-m-d\TH:i:s.uP",  $transaction->created_at)  : '' }}
+                </td>
+                <td data-title="">
+                    {{ isset($transaction->wompi_transacion) && $transaction->wompi_transacion->is_factura_electronica? 'SI' : 'NO' }}
                 </td>
                 
             </tr>

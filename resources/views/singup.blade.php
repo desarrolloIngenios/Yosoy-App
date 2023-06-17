@@ -174,6 +174,7 @@
 															<option value="16">Fundación Fé</option>
 															<option value="17">Tiempo de Juego</option>
 															<option value="18">Fundación Creando Futuro</option>
+															<option value="18">Fundación Huellas</option>
 															<option value="6">Otros</option>
 														</select>
 													</div>

@@ -48,12 +48,15 @@
 									<h3>Empírico</h3>
 								</div>
 								<div class="panel-body text-center">
-									<p class="lead"><strong>$95.000</strong></p>
+									<li class="list-group-item">Contribuye desde:</li>
+									<p class="lead"><strong>$50.000</strong></p>
 								</div>
 								<ul class="list-group list-group-flush text-center">
-									<li class="list-group-item">La plataforma entregará hasta 5 contactos por cada servicio y/o vacantes, entre 2 y 4 días.</li>
-									<li class="list-group-item">Garantía : Si tu servicio y/o trabajador no cumple tus expectativas, dar click y solicita de nuevo tu servicio y/o técnicos</li>
-									<li class="list-group-item">Cobertura : Nacional</li>
+									<li class="list-group-item">Empírico es una persona que ha aprendido desde la experiencia.</li>
+									<li class="list-group-item">1 Vacante</li>
+									<li class="list-group-item">La plataforma entregará hasta 5 perfiles por cada servicio y/o vacantes, entre 2 y 4 días. Si no cumplen tu expectativa te damos 5 perfiles más.</li>
+									<li class="list-group-item" style="text-align: justify;">Garantía: Si tu servicio y/o trabajador no cumple tus expectativas, dar click y solicita de nuevo tu servicio y/o técnicos. Tiene un mes de vigencia y debes evaluar al trabajador y/o servicio a fin de recibirla</li>
+									<li class="list-group-item">Cobertura: Nacional</li>
 									<li class="list-group-item">Listo para tu búsqueda, haz clic y en 5 pasos ágiles escribe el servicio y/o vacante</li>
 								</ul>
 								<div class="panel-footer text-center">
@@ -66,7 +69,7 @@
 											data-currency="COP"
 											data-cantidad-ofertas="1"
 											data-tipo-candidato="empirico"
-											data-amount-in-cents="9500000"
+											data-amount-in-cents="5000000"
 											data-reference="{{ uniqid('ref_'.session()->get('user_id').'_') }}"
 											data-redirect-url="{{ route('pricing.index') }}"
 											>
@@ -82,12 +85,15 @@
 									<h3>Técnico</h3>
 								</div>
 								<div class="panel-body text-center">
+									<li class="list-group-item">Contribuye desde:</li>
 									<p class="lead"><strong>$135.000</strong></p>
 								</div>
 								<ul class="list-group list-group-flush text-center">
-									<li class="list-group-item">La plataforma entregará hasta 5 contactos por cada servicio y/o vacantes, entre 2 y 4 días.</li>
-									<li class="list-group-item">Garantía : Si tu servicio y/o trabajador no cumple tus expectativas, dar de click y solicita de nuevo tu servicio y/o técnicos</li>
-									<li class="list-group-item">Cobertura : Nacional</li>
+									<li class="list-group-item">Cargos hasta estudios técnicos.</li>
+									<li class="list-group-item">1 Vacante</li>
+									<li class="list-group-item">La plataforma entregará hasta 5 perfiles por cada servicio y/o vacantes, entre 2 y 4 días. Si no cumplen tu expectativa te damos 5 perfiles más.</li>
+									<li class="list-group-item" style="text-align: justify;">Garantía: Si tu servicio y/o trabajador no cumple tus expectativas, dar click y solicita de nuevo tu servicio y/o técnicos. Tiene un mes de vigencia y debes evaluar al trabajador y/o servicio a fin de recibirla</li>
+									<li class="list-group-item">Cobertura: Nacional</li>
 									<li class="list-group-item">Listo para tu búsqueda, haz clic y en 5 pasos ágiles escribe el servicio y/o vacante</li>
 								</ul>
 								<div class="panel-footer text-center">
