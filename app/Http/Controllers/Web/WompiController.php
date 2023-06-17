@@ -63,8 +63,11 @@ class WompiController extends Controller
         $data = $response->json('data');
         $objs_transactions = [];
         if($data){
+            $transacciones = WompiTransaccion::all();
             foreach($data as $transaction_array){
                 $transaction = (object) $transaction_array; 
+                $registro_interno_transaccion = $transacciones->where('referencia', $transaction->reference)->first();
+                $transaction->wompi_transacion = $registro_interno_transaccion;
                 $objs_transactions[] = $transaction;
             }
         }
