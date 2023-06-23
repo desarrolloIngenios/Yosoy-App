@@ -57,7 +57,10 @@ class Profile extends Model
         $array_grupo_social[16] = "Fundación Fé";
         $array_grupo_social[17] = "Tiempo de Juego";
         $array_grupo_social[18] = "Fundación Creando Futuro";
-        $array_grupo_social[18] = "Fundación Huellas";
+        $array_grupo_social[19] = "Fundación Huellas";
+        $array_grupo_social[20] = "Fundación Laudes Infantis";
+        $array_grupo_social[21] = "Fundación poder joven";
+        $array_grupo_social[22] = "Centro Mya";
         $array_grupo_social[6] = "Otros";
 															
         if(isset($array_grupo_social[$this->grupo_social_id])){

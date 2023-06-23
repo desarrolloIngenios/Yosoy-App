@@ -174,7 +174,11 @@
 															<option value="16">Fundación Fé</option>
 															<option value="17">Tiempo de Juego</option>
 															<option value="18">Fundación Creando Futuro</option>
-															<option value="18">Fundación Huellas</option>
+															<option value="19">Fundación Huellas</option>
+															<option value="20">Fundación Laudes Infantis</option>
+															<option value="21">Fundación poder joven</option>
+															<option value="22">Centro Mya</option>
+															
 															<option value="6">Otros</option>
 														</select>
 													</div>
