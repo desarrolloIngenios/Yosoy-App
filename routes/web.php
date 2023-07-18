@@ -73,7 +73,8 @@ Route::get('offer/close/{offer_id}', [App\Http\Controllers\Web\OfertaController:
 //Route::post('profile', [App\Http\Controllers\Web\ProfileController::class, 'store'])->name('profile.post');
 Route::get('oferta/create', [App\Http\Controllers\Web\OfertaController::class, 'create'])->name('oferta.create');
 
-Route::get('pricing/index', [App\Http\Controllers\Web\PricingController::class, 'index'])->name('pricing.index');
+Route::get('pricing/index/{tipo_candidato?}/{valor_ingresado?}', [App\Http\Controllers\Web\PricingController::class, 'index'])->name('pricing.index');
+Route::post('pricing/edit/valor_pagar', [App\Http\Controllers\Web\PricingController::class, 'edit_valor_pagar'])->name('pricing.edit.valor_pagar');
 
 Route::get('empresario/dashboard', [App\Http\Controllers\Web\CompanyController::class, 'dashboard'])->name('dashboard.empresario');
 Route::get('empresario/empresa', [App\Http\Controllers\Web\CompanyController::class, 'empresa'])->name('empresa.empresario');
