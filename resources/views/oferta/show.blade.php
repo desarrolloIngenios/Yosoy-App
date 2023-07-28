@@ -19,26 +19,58 @@
             </div>
             <div class="card-footer" >
                 {{ $offer['ciudad']['pais_departamento_ciudad'] }}
+                <br>
+                {{ \Carbon\Carbon::createFromTimeStamp(strtotime($offer['created_at']))->locale('es')->diffForHumans() }}
             </div>
 
         </div>
     </div>
 </div>
 
-<div>
-    <h4>Postulados</h4>
-    @include('profile/profiles_table')
-</div>
 
-<div >
-    <h4>Búsqueda</h4>
+{{-- <div >
+    <h4>Búsqueda Inteligente (Match)</h4>
     @include('profile/profiles_table', ['users' => $users_busqueda, 'style' => "display: none;", 'table_id'=>'tabla_busqueda'])
 </div>
 <div class="container">
-    <div class="col-sm-6 col-md-3">
-			<button id="button_ver_mas" class="btn btn-success btn-block" >Ver más +</button>
-		</div>
+<div class="col-sm-6 col-md-3">
+        <button id="button_ver_mas" class="btn btn-success btn-block" >Ver más +</button>
     </div>
+</div>
+<br>
+<br>
+<br>
+<div>
+    <h4>Postulados</h4>
+    @include('profile/profiles_table')
+</div> --}}
+
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="main-content-label mg-b-5">
+                    <h4>Búsqueda Inteligente (Match)</h4>
+                </div>
+                @include('profile/profiles_table', ['users' => $users_busqueda, 'style' => "display: none;", 'table_id'=>'tabla_busqueda'])
+            </div>
+            <div class="col-sm-3 col-md-3">
+                <button id="button_ver_mas" class="btn btn-success" >Ver más +</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="main-content-label mg-b-5">
+                    <h4>Postulados</h4>
+                </div>
+                @include('profile/profiles_table')
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- row -->
 @endsection
