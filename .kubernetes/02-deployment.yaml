@@ -51,9 +51,9 @@ spec:
             - name: WEB_FLAG
               value: "true"
             - name: AWS_ACCESS_KEY_ID
-              value: "AKIARJ7XHYQR47WT3DER"
+              value: "AKIAUMFJASHM5XIIXDWK"
             - name: AWS_SECRET_ACCESS_KEY
-              value: "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"
+              value: "amqnUTs/BgE927G9dXlO6z/TNcTUiKU+NQarP+Xj"
             - name: AWS_DEFAULT_REGION
               value: "us-east-2"
             - name: AWS_BUCKET
