@@ -57,7 +57,7 @@ spec:
             - name: AWS_DEFAULT_REGION
               value: "us-east-2"
             - name: AWS_BUCKET
-              value: "authenticlibreria"
+              value: "yosoygaleria"
             - name: AWS_USE_PATH_STYLE_ENDPOINT
               value: "false"
             - name: MAIL_MAILER
