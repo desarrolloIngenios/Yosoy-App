@@ -57,11 +57,25 @@ class OfertaController extends Controller
             return redirect()->route('pricing.index');
         }
 
-        $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.ciudades'), []);
-        $success = $response->json()['success'];
-        $ciudades = $response->json()['data'];
-        $message = $response->json()['message'];
-        $data['ciudades'] = $ciudades;
+        if (Cache::has('ciudades')) {
+            $ciudades = Cache::get('ciudades');
+            $data['ciudades'] = $ciudades;
+        } else {
+            $minutes = 1800;
+            $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.ciudades'), []);
+            //$this->validar_success($response);
+            $success = $response->json()['success'];
+            $ciudades = $response->json()['data'];
+            $message = $response->json()['message'];
+            $data['ciudades'] = $ciudades;
+            Cache::put('ciudades', $ciudades, $minutes);
+        }
+
+        // $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.ciudades'), []);
+        // $success = $response->json()['success'];
+        // $ciudades = $response->json()['data'];
+        // $message = $response->json()['message'];
+        // $data['ciudades'] = $ciudades;
 
         $cache_keys = [
             'tipo_contrato',
