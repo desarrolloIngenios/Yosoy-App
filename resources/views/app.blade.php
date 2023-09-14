@@ -338,7 +338,7 @@
                     <h6 class="modal-title">Actualización Política de Datos</h6></button>
                 </div>
                 <div class="modal-body">
-                    <p>Actualizamos nuestra política de tratamiento de datos y nuestros términos y condiciones, versión
+                    <p>Actualizamos nuestra política de tratamiento de datos y aviso de privacidad, versión
                         {{ session('politica_actual') }}.
                         <br><br />
                         Al aceptarlas, confirmas tu acuerdo con las nuevas políticas y reglas establecidas.
@@ -346,6 +346,8 @@
 
                     </p>
                     <a target="_blank" href="{{ route('terminos_condiciones') }}">Ver politica de datos aquí.</a>
+                    <br>
+                    <a target="_blank" href="{{ route('aviso_privacidad') }}">Ver aviso de privacidad.</a>
                 </div>
                 <div class="modal-footer">
                     <button class="btn ripple btn-primary" id="aceptar_politica" type="button">Acepto</button>
@@ -381,6 +383,7 @@
 
 
             formularios.forEach(function(formulario) {
+                console.log(formulario)
                 formulario.addEventListener('submit', function() {
                     // Deshabilitar el botón de envío
                     var botonEnvio = formulario.querySelector(

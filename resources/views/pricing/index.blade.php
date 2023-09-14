@@ -10,7 +10,7 @@
                 </div>
                 <div class="modal-body">
                     <h6>Hola, te invitamos a adquirir uno de nuestros planes online a fin de acompañarte en tu búsqueda de
-                        servicio o vacante, y/o contáctanos WhatsApp 3219356028</h6>
+                        servicio o vacante, y/o contáctanos WhatsApp 3106433823</h6>
                 </div>
             </div>
         </div>
@@ -158,6 +158,64 @@
                                     <li class="list-group-item" style="text-transform: initial;">La plataforma entregará hasta 5 perfiles por cada servicio
                                         y/o vacantes, entre 2 y 4 días. Si no cumplen tu expectativa te damos 5 perfiles
                                         más.</li>
+                                    <li class="list-group-item" style="text-align: justify;text-transform: initial;">Garantía: Si tu servicio y/o
+                                        trabajador no cumple tus expectativas, dar click y solicita de nuevo tu servicio y/o
+                                        técnicos. Tiene un mes de vigencia y debes evaluar al trabajador y/o servicio a fin
+                                        de recibirla</li>
+                                    <li class="list-group-item" style="text-transform: initial;">Cobertura: Nacional</li>
+                                    <li class="list-group-item" style="text-transform: initial;">Listo para tu búsqueda, haz clic y en 5 pasos ágiles
+                                        escribe el servicio y/o vacante</li>
+                                </ul>
+                                <div class="panel-footer text-center">
+                                    {{-- <form id="2">
+                                        <script id="script2" src="https://checkout.wompi.co/widget.js" data-render="button"
+                                            data-public-key="{{ $public_key_wompi }}" data-currency="COP" data-cantidad-ofertas="1"
+                                            data-tipo-candidato="tecnico" data-amount-in-cents="{{ $tecnico_valor * 100 }}"
+                                            data-reference="{{ uniqid('ref_' . session()->get('user_id') . '_') }}"
+                                            data-redirect-url="{{ route('pricing.index') }}"></script>
+                                    </form> --}}
+                                    <!-- <a class="btn btn-warning" target="_blank" href="https://checkout.wompi.co/l/JJbr4j">Ir a pagar!</a> -->
+                                </div>
+                            </div>
+                        </div><!-- COL-END -->
+                        <div class="col-xs-6 col-sm-6 col-lg-6 col-xl-4">
+                            <div class="panel price panel-color">
+                                <div class="panel-heading bg-warning  p-0 text-center">
+                                    <h3>Plan Mes</h3>
+                                </div>
+                                <div class="panel-body text-center">
+                                    <li class="list-group-item">Contribuye desde: $500,000</li>
+                                    @if(is_null($tipo_candidato))
+										<form action="{{ route('pricing.edit.valor_pagar') }}" method="post">
+											@csrf
+											<input type="hidden" name="tipo_candidato" value="mensual">
+											<div class="panel-body text-center" style="display: flex; align-items: center;">
+												<label for="quantity" style="margin-right: 10px;">$</label>
+												<input class="form-control" type="number" id="quantity" name="quantity"
+													value="500000" step=1000 min="500000">
+												<button type="submit" class="btn btn-primary mt-0 mb-0 ">Contribuir</button>
+											</div>
+										</form>
+									@else
+										<p class="lead"><strong>${{ number_format($mensual, 0 , ',', '.') }}</strong></p>
+											<!-- <a class="btn btn-primary" target="_blank" href="https://checkout.wompi.co/l/FDGtt6">Ir a pagar!</a> -->
+											<form id="3">
+												<script id="script3" src="https://checkout.wompi.co/widget.js" data-render="button"
+													data-public-key="{{ $public_key_wompi }}" data-currency="COP" data-cantidad-ofertas="5"
+													data-tipo-candidato="tecnico" data-amount-in-cents="{{ $mensual * 100 }}"
+													data-reference="{{ uniqid('ref_' . session()->get('user_id') . '_') }}"
+													data-redirect-url="{{ route('pricing.index') }}"></script>
+											</form>
+											<br>
+											<a href="{{ route('pricing.index') }}">Modificar valor a contribuir</a>
+
+									@endif
+                                </div>
+                                <ul class="list-group list-group-flush text-center">
+                                    <li class="list-group-item">Cargos hasta estudios técnicos.</li>
+                                    <li class="list-group-item">5 Vacante</li>
+                                    <li class="list-group-item" style="text-transform: initial;">La plataforma entregará hasta 5 perfiles por cada servicio
+                                        y/o vacantes, entre 2 y 4 días.</li>
                                     <li class="list-group-item" style="text-align: justify;text-transform: initial;">Garantía: Si tu servicio y/o
                                         trabajador no cumple tus expectativas, dar click y solicita de nuevo tu servicio y/o
                                         técnicos. Tiene un mes de vigencia y debes evaluar al trabajador y/o servicio a fin

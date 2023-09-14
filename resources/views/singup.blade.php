@@ -216,7 +216,7 @@
 														</div>
 														<div class="custom-checkbox custom-control">
 															<input type="checkbox"  class="custom-control-input" id="checkbox-3">
-															<label for="checkbox-3" class="custom-control-label mt-1">He leído y acepto los <a target="_blank" href="{{ route('terminos_condiciones') }}">términos y condiciones.</a></label>
+															<label for="checkbox-3" class="custom-control-label mt-1">He leído y acepto <a target="_blank" href="{{ route('aviso_privacidad') }}">aviso de privacidad.</a></label>
 														</div>
 													</div>
 												

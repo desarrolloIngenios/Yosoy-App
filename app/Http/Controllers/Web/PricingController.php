@@ -29,11 +29,14 @@ class PricingController extends Controller
         $data['tipo_candidato'] = $tipo_candidato;
         $data['empirico_valor'] = 50000;
         $data['tecnico_valor'] = 135000;
+        $data['mensual'] = 500000;
 
         if($tipo_candidato == 'empirico' && $valor_ingresado > $data['empirico_valor']){
             $data['empirico_valor'] = $valor_ingresado;
         } else if($tipo_candidato == 'tecnico' && $valor_ingresado > $data['tecnico_valor']){
             $data['tecnico_valor'] = $valor_ingresado;
+        } else if($tipo_candidato == 'mensual' && $valor_ingresado > $data['mensual']){
+            $data['mensual'] = $valor_ingresado;
         }
 
         return view('pricing/index', $data);
