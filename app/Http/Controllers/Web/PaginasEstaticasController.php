@@ -12,8 +12,8 @@ class PaginasEstaticasController extends Controller
         return view('paginas_estaticas/terminos_condiciones');
     }
 
-    public function politica_privacidad()
+    public function aviso_privacidad()
     {
-        return view('paginas_estaticas/politica_privacidad');
+        return view('paginas_estaticas/aviso_privacidad');
     }
 }

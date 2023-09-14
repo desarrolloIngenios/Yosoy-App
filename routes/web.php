@@ -32,7 +32,7 @@ Route::get('/reset-password/{token}', function ($token) {
 Route::post('reset_password', [App\Http\Controllers\Web\LoginController::class, 'reset_password'])->name('password.update.web');
 
 Route::get('terminos_condiciones', [App\Http\Controllers\Web\PaginasEstaticasController::class, 'terminos_condiciones'])->name('terminos_condiciones');
-//Route::get('politica_privacidad', [App\Http\Controllers\Web\PaginasEstaticasController::class, 'politica_privacidad'])->name('politica_privacidad');
+Route::get('aviso_privacidad', [App\Http\Controllers\Web\PaginasEstaticasController::class, 'aviso_privacidad'])->name('aviso_privacidad');
 
 Route::get('registro/{tipo_usuario?}', [App\Http\Controllers\Web\LoginController::class, 'registro_index'])->name('registro.get');
 Route::post('registro', [App\Http\Controllers\Web\LoginController::class, 'registro_post'])->name('registro.post');
