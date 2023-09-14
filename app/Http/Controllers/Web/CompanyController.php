@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Http;
 use App\Models\ZenSmartRegimen;
 use App\Models\ZenSmartActividadEconomica;
 use App\Models\Base\TipoDocumento;
+use Illuminate\Support\Facades\Cache;
+
 
 
 class CompanyController extends Controller
@@ -19,6 +21,20 @@ class CompanyController extends Controller
     public function dashboard(Request $request)
     {
         $data = [];
+        ini_set('memory_limit', '300M');
+        $minutes = 1800;
+        if (Cache::has('ciudades')) {
+            $ciudades = Cache::get('ciudades');
+            $data['ciudades'] = $ciudades;
+        } else {
+            $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.ciudades'), []);
+            //$this->validar_success($response);
+            $success = $response->json()['success'];
+            $ciudades = $response->json()['data'];
+            $message = $response->json()['message'];
+            $data['ciudades'] = $ciudades;
+            Cache::put('ciudades', $ciudades, $minutes);
+        }
         return view('empresa/dashboard_empresa', $data);
     }
 
@@ -28,12 +44,25 @@ class CompanyController extends Controller
         $empresa_id = session('empresa');
        
         $data = []; 
-        $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.ciudades'), []);
-        //dd($response->json());
-        $success = $response->json()['success'];
-        $ciudades = $response->json()['data'];
-        $message = $response->json()['message'];
-        $data['ciudades'] = $ciudades;
+        if (Cache::has('ciudades')) {
+            $ciudades = Cache::get('ciudades');
+            $data['ciudades'] = $ciudades;
+        } else {
+            $minutes = 1800;
+            $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.ciudades'), []);
+            //$this->validar_success($response);
+            $success = $response->json()['success'];
+            $ciudades = $response->json()['data'];
+            $message = $response->json()['message'];
+            $data['ciudades'] = $ciudades;
+            Cache::put('ciudades', $ciudades, $minutes);
+        }
+        // $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.ciudades'), []);
+        // //dd($response->json());
+        // $success = $response->json()['success'];
+        // $ciudades = $response->json()['data'];
+        // $message = $response->json()['message'];
+        // $data['ciudades'] = $ciudades;
 
         $data['regimen'] = ZenSmartRegimen::all();
         $data['actividad_economica'] = ZenSmartActividadEconomica::all();
