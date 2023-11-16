@@ -78,6 +78,19 @@ class Offer extends Model
                     
                     );
     }
+
+    public function contratos_users()
+    {
+        return $this->belongsToMany(User::class, 'profile_contrato', 'offer_id', 'user_id')
+                ->with('profile.ciudad_residencia',
+                      'profile.genero',
+                      'profile.tipo_documento',
+                      'profile.genero',
+                      'profile.perfiles_laborales.nivel_experiencia',
+                      'profile.perfiles_laborales.cargo',
+                      'profile.perfiles_laborales.tiempo_experiencia',
+                    );
+    }
     
 
     
