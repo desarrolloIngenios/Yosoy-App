@@ -62,6 +62,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Offer::class, 'offer_user', 'user_id', 'offer_id');
     }
 
+    public function contratos()
+    {
+        return $this->belongsToMany(Offer::class, 'profile_contrato', 'user_id', 'offer_id')->withTimestamps();
+    }
+
     public static function getStarRating($user_id)
     {
         $rating = StarRating::where('user_id', $user_id)->avg('rating');

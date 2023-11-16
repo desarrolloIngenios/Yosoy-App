@@ -68,6 +68,7 @@ Route::get('offer/public/{id}', [App\Http\Controllers\Web\OfertaController::clas
 Route::get('offer/apply/{offer_id}', [App\Http\Controllers\Web\OfertaController::class, 'apply'])->name('offer.apply');
 Route::get('offer/detail/{offer_id}', [App\Http\Controllers\Web\OfertaController::class, 'show'])->name('offer.show');
 Route::get('offer/close/{offer_id}', [App\Http\Controllers\Web\OfertaController::class, 'close_offer'])->name('offer.close');
+Route::post('offer/contratar', [App\Http\Controllers\Web\OfertaController::class, 'contratar'])->name('offer.contratar');
 
 
 //Route::post('profile', [App\Http\Controllers\Web\ProfileController::class, 'store'])->name('profile.post');

@@ -50,193 +50,227 @@
                     <div class="row">
 
                         <!-- <div class="col-xs-6 col-sm-6 col-lg-6 col-xl-4">
-           <div class="panel price panel-color">
-            <div class="panel-heading bg-warning  p-0 text-center">
-             <h3>Buscas Servicio y/o Vacante Trabajadores informales y técnicos</h3>
-            </div>
-            <div class="panel-body text-center">
-             <p class="lead"><strong>Gratis</strong></p>
-            </div>
-            <ul class="list-group list-group-flush text-center">
-             <li class="list-group-item">La plataforma entregará hasta 5 contactos por cada servicio y/o vacantes, entre 3 y 6 días.</li>
-             <li class="list-group-item">1 Mes gratis para tu búsqueda de servicios y/o Vacantes</li>
-             <li class="list-group-item">Hasta 2 servicios y/o vacantes</li>
-             <li class="list-group-item">Cobertura : Nacional</li>
-             <li class="list-group-item border-bottom-0">Listo para tu búsqueda, haz clic y en 5 pasos ágiles escribe el servicio y/o vacante</li>
-            </ul>
-           </div>
-          </div> -->
+                   <div class="panel price panel-color">
+                    <div class="panel-heading bg-warning  p-0 text-center">
+                     <h3>Buscas Servicio y/o Vacante Trabajadores informales y técnicos</h3>
+                    </div>
+                    <div class="panel-body text-center">
+                     <p class="lead"><strong>Gratis</strong></p>
+                    </div>
+                    <ul class="list-group list-group-flush text-center">
+                     <li class="list-group-item">La plataforma entregará hasta 5 contactos por cada servicio y/o vacantes, entre 3 y 6 días.</li>
+                     <li class="list-group-item">1 Mes gratis para tu búsqueda de servicios y/o Vacantes</li>
+                     <li class="list-group-item">Hasta 2 servicios y/o vacantes</li>
+                     <li class="list-group-item">Cobertura : Nacional</li>
+                     <li class="list-group-item border-bottom-0">Listo para tu búsqueda, haz clic y en 5 pasos ágiles escribe el servicio y/o vacante</li>
+                    </ul>
+                   </div>
+                  </div> -->
 
-                        <div class="col-xs-6 col-sm-6 col-lg-6 col-xl-4">
+                  
+
+                  <div class="col-xs-12 col-sm-12 col-lg-12 col-xl-12">
+
+                    <ul class="list-group list-group-flush text-center">
+                        <li class="list-group-item" style="font-weight: bold;">Elige la suscripción</li>
+                        <li class="list-group-item" style="font-weight: bold;">Todas las suscripciones incluyen lo siguiente:</li>
+                        <li class="list-group-item" style="text-transform: initial;">La plataforma entregará
+                            hasta 5 perfiles por cada servicio
+                            y/o vacantes, entre 2 y 4 días. Si no cumplen tu expectativa te damos 5 perfiles
+                            más.</li>
+                        <li class="list-group-item" style="text-align: justify;text-transform: initial;">
+                            Garantía: Si tu servicio y/o
+                            trabajador no cumple tus expectativas, dar click y solicita de nuevo tu servicio y/o
+                            técnicos. Tiene un mes de vigencia y debes evaluar al trabajador y/o servicio a fin
+                            de recibirla</li>
+                        <li class="list-group-item" style="text-transform: initial;">Cobertura: Nacional</li>
+                         <li class="list-group-item" style="text-transform: initial;">Listo para tu búsqueda, haz
+                            clic y en 5 pasos ágiles escribe
+                            el servicio y/o vacante</li> 
+                    </ul>
+                </div>
+
+
+                        <div class="col-xs-6 col-sm-6 col-lg-3 col-xl-3">
                             <div class="panel price panel-color">
                                 <div class="panel-heading bg-primary p-0 text-center">
-                                    <h3>Empírico</h3>
+                                    <h3>Suscripción Mensual </h3>
                                 </div>
                                 <div class="panel-body text-center">
-                                    <li class="list-group-item">Contribuye desde: $50,000</li>
-									@if(is_null($tipo_candidato))
-										<form action="{{ route('pricing.edit.valor_pagar') }}" method="post">
-											@csrf
-											<input type="hidden" name="tipo_candidato" value="empirico">
-											<div class="panel-body text-center" style="display: flex; align-items: center;">
-												<label for="quantity" style="margin-right: 10px;">$</label>
-												<input class="form-control" type="number" id="quantity" name="quantity"
-													value="50000" step=1000 min="50000">
-												<button type="submit" class="btn btn-primary mt-0 mb-0 ">Contribuir</button>
-											</div>
-										</form>
-									@else
-										<p class="lead"><strong>${{ number_format($empirico_valor, 0 , ',', '.') }}</strong></p>
-											<!-- <a class="btn btn-primary" target="_blank" href="https://checkout.wompi.co/l/FDGtt6">Ir a pagar!</a> -->
-											<form id="1">
-												<script id="script1" src="https://checkout.wompi.co/widget.js" data-render="button"
-													data-public-key="{{ $public_key_wompi }}" data-currency="COP" data-cantidad-ofertas="1"
-													data-tipo-candidato="empirico" data-amount-in-cents="{{ $empirico_valor * 100 }}"
-													data-reference="{{ uniqid('ref_' . session()->get('user_id') . '_') }}"
-													data-redirect-url="{{ route('pricing.index') }}"></script>
-											</form>
-											<br>
-											<a href="{{ route('pricing.index') }}">Modificar valor a contribuir</a>
-									@endif
-								</div>
-
-                                <ul class="list-group list-group-flush text-center">
-                                    <li class="list-group-item">Empírico es una persona que ha aprendido desde la
-                                        experiencia.</li>
-                                    <li class="list-group-item">1 Vacante</li>
-                                    <li class="list-group-item" style="text-transform: initial;">La plataforma entregará hasta 5 perfiles por cada servicio
-                                        y/o vacantes, entre 2 y 4 días. Si no cumplen tu expectativa te damos 5 perfiles
-                                        más.</li>
-                                    <li class="list-group-item" style="text-align: justify;text-transform: initial;">Garantía: Si tu servicio y/o
-                                        trabajador no cumple tus expectativas, dar click y solicita de nuevo tu servicio y/o
-                                        técnicos. Tiene un mes de vigencia y debes evaluar al trabajador y/o servicio a fin
-                                        de recibirla</li>
-                                    <li class="list-group-item" style="text-transform: initial;">Cobertura: Nacional</li>
-                                    <li class="list-group-item" style="text-transform: initial;">Listo para tu búsqueda, haz clic y en 5 pasos ágiles escribe
-                                        el servicio y/o vacante</li>
-                                </ul>
-                               
-
-                            </div>
-                        </div><!-- COL-END -->
-                        <div class="col-xs-6 col-sm-6 col-lg-6 col-xl-4">
-                            <div class="panel price panel-color">
-                                <div class="panel-heading bg-warning  p-0 text-center">
-                                    <h3>Técnico</h3>
-                                </div>
-                                <div class="panel-body text-center">
-                                    <li class="list-group-item">Contribuye desde: $135,000</li>
-                                    @if(is_null($tipo_candidato))
-										<form action="{{ route('pricing.edit.valor_pagar') }}" method="post">
-											@csrf
-											<input type="hidden" name="tipo_candidato" value="tecnico">
-											<div class="panel-body text-center" style="display: flex; align-items: center;">
-												<label for="quantity" style="margin-right: 10px;">$</label>
-												<input class="form-control" type="number" id="quantity" name="quantity"
-													value="135000" step=1000 min="135000">
-												<button type="submit" class="btn btn-primary mt-0 mb-0 ">Contribuir</button>
-											</div>
-										</form>
-									@else
-										<p class="lead"><strong>${{ number_format($tecnico_valor, 0 , ',', '.') }}</strong></p>
-											<!-- <a class="btn btn-primary" target="_blank" href="https://checkout.wompi.co/l/FDGtt6">Ir a pagar!</a> -->
-											<form id="2">
-												<script id="script2" src="https://checkout.wompi.co/widget.js" data-render="button"
-													data-public-key="{{ $public_key_wompi }}" data-currency="COP" data-cantidad-ofertas="1"
-													data-tipo-candidato="tecnico" data-amount-in-cents="{{ $tecnico_valor * 100 }}"
-													data-reference="{{ uniqid('ref_' . session()->get('user_id') . '_') }}"
-													data-redirect-url="{{ route('pricing.index') }}"></script>
-											</form>
-											<br>
-											<a href="{{ route('pricing.index') }}">Modificar valor a contribuir</a>
-
-									@endif
-                                </div>
-                                <ul class="list-group list-group-flush text-center">
-                                    <li class="list-group-item">Cargos hasta estudios técnicos.</li>
-                                    <li class="list-group-item">1 Vacante</li>
-                                    <li class="list-group-item" style="text-transform: initial;">La plataforma entregará hasta 5 perfiles por cada servicio
-                                        y/o vacantes, entre 2 y 4 días. Si no cumplen tu expectativa te damos 5 perfiles
-                                        más.</li>
-                                    <li class="list-group-item" style="text-align: justify;text-transform: initial;">Garantía: Si tu servicio y/o
-                                        trabajador no cumple tus expectativas, dar click y solicita de nuevo tu servicio y/o
-                                        técnicos. Tiene un mes de vigencia y debes evaluar al trabajador y/o servicio a fin
-                                        de recibirla</li>
-                                    <li class="list-group-item" style="text-transform: initial;">Cobertura: Nacional</li>
-                                    <li class="list-group-item" style="text-transform: initial;">Listo para tu búsqueda, haz clic y en 5 pasos ágiles
-                                        escribe el servicio y/o vacante</li>
-                                </ul>
-                                <div class="panel-footer text-center">
-                                    {{-- <form id="2">
-                                        <script id="script2" src="https://checkout.wompi.co/widget.js" data-render="button"
+                                    <p class="lead">
+                                        <strong>${{ number_format(530000, 0, ',', '.') }}</strong>
+                                    </p>
+                                    <!-- <a class="btn btn-primary" target="_blank" href="https://checkout.wompi.co/l/FDGtt6">Ir a pagar!</a> -->
+                                    <form id="1">
+                                        <script id="script1" src="https://checkout.wompi.co/widget.js" data-render="button"
                                             data-public-key="{{ $public_key_wompi }}" data-currency="COP" data-cantidad-ofertas="1"
-                                            data-tipo-candidato="tecnico" data-amount-in-cents="{{ $tecnico_valor * 100 }}"
+                                            data-tipo-candidato="empirico" data-amount-in-cents="{{ 530000 * 100 }}"
                                             data-reference="{{ uniqid('ref_' . session()->get('user_id') . '_') }}"
                                             data-redirect-url="{{ route('pricing.index') }}"></script>
-                                    </form> --}}
-                                    <!-- <a class="btn btn-warning" target="_blank" href="https://checkout.wompi.co/l/JJbr4j">Ir a pagar!</a> -->
+                                    </form>
                                 </div>
-                            </div>
-                        </div><!-- COL-END -->
-                        <div class="col-xs-6 col-sm-6 col-lg-6 col-xl-4">
-                            <div class="panel price panel-color">
-                                <div class="panel-heading bg-warning  p-0 text-center">
-                                    <h3>Plan Mes</h3>
-                                </div>
-                                <div class="panel-body text-center">
-                                    <li class="list-group-item">Contribuye desde: $500,000</li>
-                                    @if(is_null($tipo_candidato))
-										<form action="{{ route('pricing.edit.valor_pagar') }}" method="post">
-											@csrf
-											<input type="hidden" name="tipo_candidato" value="mensual">
-											<div class="panel-body text-center" style="display: flex; align-items: center;">
-												<label for="quantity" style="margin-right: 10px;">$</label>
-												<input class="form-control" type="number" id="quantity" name="quantity"
-													value="500000" step=1000 min="500000">
-												<button type="submit" class="btn btn-primary mt-0 mb-0 ">Contribuir</button>
-											</div>
-										</form>
-									@else
-										<p class="lead"><strong>${{ number_format($mensual, 0 , ',', '.') }}</strong></p>
-											<!-- <a class="btn btn-primary" target="_blank" href="https://checkout.wompi.co/l/FDGtt6">Ir a pagar!</a> -->
-											<form id="3">
-												<script id="script3" src="https://checkout.wompi.co/widget.js" data-render="button"
-													data-public-key="{{ $public_key_wompi }}" data-currency="COP" data-cantidad-ofertas="5"
-													data-tipo-candidato="tecnico" data-amount-in-cents="{{ $mensual * 100 }}"
-													data-reference="{{ uniqid('ref_' . session()->get('user_id') . '_') }}"
-													data-redirect-url="{{ route('pricing.index') }}"></script>
-											</form>
-											<br>
-											<a href="{{ route('pricing.index') }}">Modificar valor a contribuir</a>
 
-									@endif
-                                </div>
                                 <ul class="list-group list-group-flush text-center">
-                                    <li class="list-group-item">Cargos hasta estudios técnicos.</li>
-                                    <li class="list-group-item">5 Vacante</li>
-                                    <li class="list-group-item" style="text-transform: initial;">La plataforma entregará hasta 5 perfiles por cada servicio
-                                        y/o vacantes, entre 2 y 4 días.</li>
-                                    <li class="list-group-item" style="text-align: justify;text-transform: initial;">Garantía: Si tu servicio y/o
+                                    {{-- <li class="list-group-item">Empírico es una persona que ha aprendido desde la
+                                        experiencia.</li> --}}
+                                    <li class="list-group-item">Hasta 5 vacantes o servicios</li>
+                                    {{-- <li class="list-group-item" style="text-transform: initial;">La plataforma entregará
+                                        hasta 5 perfiles por cada servicio
+                                        y/o vacantes, entre 2 y 4 días. Si no cumplen tu expectativa te damos 5 perfiles
+                                        más.</li>
+                                    <li class="list-group-item" style="text-align: justify;text-transform: initial;">
+                                        Garantía: Si tu servicio y/o
                                         trabajador no cumple tus expectativas, dar click y solicita de nuevo tu servicio y/o
                                         técnicos. Tiene un mes de vigencia y debes evaluar al trabajador y/o servicio a fin
                                         de recibirla</li>
                                     <li class="list-group-item" style="text-transform: initial;">Cobertura: Nacional</li>
-                                    <li class="list-group-item" style="text-transform: initial;">Listo para tu búsqueda, haz clic y en 5 pasos ágiles
-                                        escribe el servicio y/o vacante</li>
+                                    <li class="list-group-item" style="text-transform: initial;">Listo para tu búsqueda, haz
+                                        clic y en 5 pasos ágiles escribe
+                                        el servicio y/o vacante</li> --}}
                                 </ul>
-                                <div class="panel-footer text-center">
-                                    {{-- <form id="2">
-                                        <script id="script2" src="https://checkout.wompi.co/widget.js" data-render="button"
-                                            data-public-key="{{ $public_key_wompi }}" data-currency="COP" data-cantidad-ofertas="1"
-                                            data-tipo-candidato="tecnico" data-amount-in-cents="{{ $tecnico_valor * 100 }}"
-                                            data-reference="{{ uniqid('ref_' . session()->get('user_id') . '_') }}"
-                                            data-redirect-url="{{ route('pricing.index') }}"></script>
-                                    </form> --}}
-                                    <!-- <a class="btn btn-warning" target="_blank" href="https://checkout.wompi.co/l/JJbr4j">Ir a pagar!</a> -->
-                                </div>
+
+
                             </div>
                         </div><!-- COL-END -->
-                        {{-- <div class="col-xs-6 col-sm-6 col-lg-6 col-xl-4">
+                        <div class="col-xs-6 col-sm-6 col-lg-3 col-xl-3">
+                            <div class="panel price panel-color">
+                                <div class="panel-heading bg-warning p-0 text-center">
+                                    <h3>Suscripción Trimestral</h3>
+                                </div>
+                                <div class="panel-body text-center">
+                                    <p class="lead">
+                                        <strong>${{ number_format(1700000, 0, ',', '.') }}</strong>
+                                    </p>
+                                    <!-- <a class="btn btn-primary" target="_blank" href="https://checkout.wompi.co/l/FDGtt6">Ir a pagar!</a> -->
+                                    <form id="1">
+                                        <script id="script1" src="https://checkout.wompi.co/widget.js" data-render="button"
+                                            data-public-key="{{ $public_key_wompi }}" data-currency="COP" data-cantidad-ofertas="1"
+                                            data-tipo-candidato="empirico" data-amount-in-cents="{{ 1700000 * 100 }}"
+                                            data-reference="{{ uniqid('ref_' . session()->get('user_id') . '_') }}"
+                                            data-redirect-url="{{ route('pricing.index') }}"></script>
+                                    </form>
+                                </div>
+
+                                <ul class="list-group list-group-flush text-center">
+                                    {{-- <li class="list-group-item">Empírico es una persona que ha aprendido desde la
+                                        experiencia.</li> --}}
+                                    <li class="list-group-item">Hasta 6 vacantes o servicios mensuales</li>
+                                    <li class="list-group-item">Se podrá activar durante los 6 meses que adquiera la suscripción</li>
+                                    {{-- <li class="list-group-item" style="text-transform: initial;">La plataforma entregará
+                                        hasta 5 perfiles por cada servicio
+                                        y/o vacantes, entre 2 y 4 días. Si no cumplen tu expectativa te damos 5 perfiles
+                                        más.</li>
+                                    <li class="list-group-item" style="text-align: justify;text-transform: initial;">
+                                        Garantía: Si tu servicio y/o
+                                        trabajador no cumple tus expectativas, dar click y solicita de nuevo tu servicio y/o
+                                        técnicos. Tiene un mes de vigencia y debes evaluar al trabajador y/o servicio a fin
+                                        de recibirla</li>
+                                    <li class="list-group-item" style="text-transform: initial;">Cobertura: Nacional</li>
+                                    <li class="list-group-item" style="text-transform: initial;">Listo para tu búsqueda, haz
+                                        clic y en 5 pasos ágiles escribe
+                                        el servicio y/o vacante</li> --}}
+                                </ul>
+
+
+                            </div>
+                        </div><!-- COL-END -->
+                        <div class="col-xs-6 col-sm-6 col-lg-3 col-xl-3">
+                            <div class="panel price panel-color">
+                                <div class="panel-heading bg-primary p-0 text-center">
+                                    <h3>Suscripción Semestral </h3>
+                                </div>
+                                <div class="panel-body text-center">
+
+                                    <p class="lead">
+                                        <strong>${{ number_format(4200000, 0, ',', '.') }}</strong>
+                                    </p>
+                                    <!-- <a class="btn btn-primary" target="_blank" href="https://checkout.wompi.co/l/FDGtt6">Ir a pagar!</a> -->
+                                    <form id="1">
+                                        <script id="script1" src="https://checkout.wompi.co/widget.js" data-render="button"
+                                            data-public-key="{{ $public_key_wompi }}" data-currency="COP" data-cantidad-ofertas="1"
+                                            data-tipo-candidato="empirico" data-amount-in-cents="{{ 4200000 * 100 }}"
+                                            data-reference="{{ uniqid('ref_' . session()->get('user_id') . '_') }}"
+                                            data-redirect-url="{{ route('pricing.index') }}"></script>
+                                    </form>
+                                </div>
+
+                                <ul class="list-group list-group-flush text-center">
+                                    <li class="list-group-item">Hasta 6 vacantes o servicios mensuales</li>
+                                    <li class="list-group-item">Se podrá activar durante el año que adquiera la suscripción</li>
+                                    
+                                    {{-- <li class="list-group-item">Empírico es una persona que ha aprendido desde la
+                                        experiencia.</li> --}}
+                                    {{-- <li class="list-group-item">Hasta 5 vacantes o servicios</li>
+                                    <li class="list-group-item" style="text-transform: initial;">La plataforma entregará
+                                        hasta 5 perfiles por cada servicio
+                                        y/o vacantes, entre 2 y 4 días. Si no cumplen tu expectativa te damos 5 perfiles
+                                        más.</li>
+                                    <li class="list-group-item" style="text-align: justify;text-transform: initial;">
+                                        Garantía: Si tu servicio y/o
+                                        trabajador no cumple tus expectativas, dar click y solicita de nuevo tu servicio y/o
+                                        técnicos. Tiene un mes de vigencia y debes evaluar al trabajador y/o servicio a fin
+                                        de recibirla</li>
+                                    <li class="list-group-item" style="text-transform: initial;">Cobertura: Nacional</li>
+                                    <li class="list-group-item" style="text-transform: initial;">Listo para tu búsqueda,
+                                        haz
+                                        clic y en 5 pasos ágiles escribe
+                                        el servicio y/o vacante</li> --}}
+                                </ul>
+
+
+                            </div>
+                        </div><!-- COL-END -->
+                        <div class="col-xs-6 col-sm-6 col-lg-3 col-xl-3">
+                            <div class="panel price panel-color">
+                                <div class="panel-heading bg-warning p-0 text-center">
+                                    <h3>Suscripción Anual </h3>
+                                </div>
+                                <div class="panel-body text-center">
+
+                                    <p class="lead">
+                                        <strong>${{ number_format(9000000, 0, ',', '.') }}</strong>
+                                    </p>
+                                    <!-- <a class="btn btn-primary" target="_blank" href="https://checkout.wompi.co/l/FDGtt6">Ir a pagar!</a> -->
+                                    <form id="1">
+                                        <script id="script1" src="https://checkout.wompi.co/widget.js" data-render="button"
+                                            data-public-key="{{ $public_key_wompi }}" data-currency="COP" data-cantidad-ofertas="1"
+                                            data-tipo-candidato="empirico" data-amount-in-cents="{{ 9000000 * 100 }}"
+                                            data-reference="{{ uniqid('ref_' . session()->get('user_id') . '_') }}"
+                                            data-redirect-url="{{ route('pricing.index') }}"></script>
+                                    </form>
+                                </div>
+
+                                <ul class="list-group list-group-flush text-center">
+                                    <li class="list-group-item">Vacantes o servicios ilimitados</li>
+
+                                    {{-- <li class="list-group-item">Empírico es una persona que ha aprendido desde la
+                                        experiencia.</li> --}}
+                                    {{-- <li class="list-group-item">Hasta 5 vacantes o servicios</li>
+                                    <li class="list-group-item" style="text-transform: initial;">La plataforma entregará
+                                        hasta 5 perfiles por cada servicio
+                                        y/o vacantes, entre 2 y 4 días. Si no cumplen tu expectativa te damos 5 perfiles
+                                        más.</li>
+                                    <li class="list-group-item" style="text-align: justify;text-transform: initial;">
+                                        Garantía: Si tu servicio y/o
+                                        trabajador no cumple tus expectativas, dar click y solicita de nuevo tu servicio y/o
+                                        técnicos. Tiene un mes de vigencia y debes evaluar al trabajador y/o servicio a fin
+                                        de recibirla</li>
+                                    <li class="list-group-item" style="text-transform: initial;">Cobertura: Nacional</li>
+                                    <li class="list-group-item" style="text-transform: initial;">Listo para tu búsqueda,
+                                        haz
+                                        clic y en 5 pasos ágiles escribe
+                                        el servicio y/o vacante</li> --}}
+                                </ul>
+
+
+                            </div>
+                        </div><!-- COL-END -->
+
+
+                      
+
+
+                        {{-- <div class="col-xs-6 col-sm-6 col-lg-6 col-xl-6">
 							<div class="panel price panel-color">
 								<div class="panel-heading bg-warning  p-0 text-center">
 									<h3>Buscas más de una vacante</h3>
@@ -293,7 +327,7 @@
         <script type="text/javascript">
             $(window).on('load', function() {
                 // $('#modalIngresarValor').modal('show');
-                 $('#modaldemo1').modal('show');
+                $('#modaldemo1').modal('show');
 
 
                 $(".waybox-button").click(function() {
@@ -301,10 +335,10 @@
                     var referencia = $('#' + script_name).attr('data-reference');
                     var cantidad_ofertas = $('#' + script_name).attr('data-cantidad-ofertas');
                     var tipo_candidato = $('#' + script_name).attr('data-tipo-candidato');
-					console.log(tipo_candidato)
-					console.log(cantidad_ofertas)
-					console.log(referencia)
-					console.log(script_name)
+                    console.log(tipo_candidato)
+                    console.log(cantidad_ofertas)
+                    console.log(referencia)
+                    console.log(script_name)
                     var user_id = {{ session()->get('user_id') }}
                     $.get("{{ route('store_datos_transaccion') }}", {
                         user_id: user_id,

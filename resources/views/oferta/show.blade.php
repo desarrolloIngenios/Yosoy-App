@@ -52,7 +52,7 @@
                 <div class="main-content-label mg-b-5">
                     <h4>Búsqueda Inteligente (Match)</h4>
                 </div>
-                @include('profile/profiles_table', ['users' => $users_busqueda, 'style' => "display: none;", 'table_id'=>'tabla_busqueda'])
+                @include('profile/profiles_table_oferta', ['users' => $users_busqueda, 'style' => "display: none;", 'table_id'=>'tabla_busqueda'])
             </div>
             <div class="col-sm-3 col-md-3">
                 <button id="button_ver_mas" class="btn btn-success" >Ver más +</button>
@@ -65,7 +65,7 @@
                 <div class="main-content-label mg-b-5">
                     <h4>Postulados</h4>
                 </div>
-                @include('profile/profiles_table')
+                @include('profile/profiles_table_oferta')
             </div>
         </div>
     </div>

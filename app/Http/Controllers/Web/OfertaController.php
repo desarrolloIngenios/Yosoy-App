@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Offer;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -99,6 +101,17 @@ class OfertaController extends Controller
         }
 
         return view('oferta/create', $data);
+    }
+
+    public function contratar(Request $request)
+    {
+        $user_id = $request->input('user_id');
+        $user = User::find($user_id);
+        $offer_id = $request->input('offer_id');
+        $user->contratos()->detach($offer_id);
+        $user->contratos()->attach($offer_id);
+
+        return redirect()->back();
     }
 
     /**
@@ -215,6 +228,10 @@ class OfertaController extends Controller
         $message = $response->json()['message'];
         $data['users_busqueda'] = $profiles;
 
+        $offer_obj = Offer::find($offer_id);
+        $data['offer_obj'] = $offer_obj;
+        $data['user_with_contrato'] = $offer_obj->contratos_users->pluck('id')->toArray();
+        
         return view('oferta/show', $data);
     }
 
