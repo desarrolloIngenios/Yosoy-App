@@ -99,7 +99,6 @@
                                         <i class="las la-phone"></i>
                                     </a>
                                 </div>
-                                @if (session('role') == 'ADMIN')
                                     @if (isset($offer))
                                         @if (in_array($user['user_id'], $user_with_contrato))
                                             <div class="pr-1 mb-xl-0">
@@ -120,7 +119,6 @@
                                                 </form>
                                             </div>
                                         @endif
-                                    @endif
                                 @endif
                             </div>
                         </td>
