@@ -1,34 +1,64 @@
 @extends('app')
 @section('content')
-<!-- row -->
-<div class="row row-sm">
+    <!-- row -->
+    <div class="row row-sm">
 
-    <div class="col-12 col-sm-12 col-lg-12">
-        <div class="card card-primary">
-            <div class="card-header pb-0">
-                <h5 class="card-title ">{{$offer['cargo']['nombre']}} - {{$offer['sector']['nombre']}}  - {{$offer['tiempo_experiencia']['nombre']}}  </h5>
-                <h5 class="card-title ">
-                    @foreach($offer['tipo_contrato'] as $tipo_contrato)
-                        {{ $tipo_contrato['nombre'] }} @if(!$loop->last) {{", "}} @endif
-                    @endforeach
-                </h5>
-                <h5 class="card-title mb-0 pb-0">{{ $offer['nivel_educativo']['nombre'] }} </h5>
-            </div>
-            <div class="card-body text-primary">
-                {{$offer['description']}}
-            </div>
-            <div class="card-footer" >
-                {{ $offer['ciudad']['pais_departamento_ciudad'] }}
-                <br>
-                {{ \Carbon\Carbon::createFromTimeStamp(strtotime($offer['created_at']))->locale('es')->diffForHumans() }}
-            </div>
+        <div class="col-12 col-sm-12 col-lg-12">
+            <div class="card card-primary">
+                <div class="card-header pb-0">
+                    @if (!$offer['active'])
+                        <div class="badge bg-pink">OFERTA CERRADA</div>
+                    @endif
+                    @if ($offer['is_garantia'])
+                        <div class="badge bg-success">Garantía</div>
+                    @endif
+                    <h5 class="card-title ">{{ $offer['cargo']['nombre'] }} - {{ $offer['sector']['nombre'] }} -
+                        {{ $offer['tiempo_experiencia']['nombre'] }} </h5>
+                    <h5 class="card-title ">
+                        @foreach ($offer['tipo_contrato'] as $tipo_contrato)
+                            {{ $tipo_contrato['nombre'] }} @if (!$loop->last)
+                                {{ ', ' }}
+                            @endif
+                        @endforeach
+                    </h5>
+                    <h5 class="card-title mb-0 pb-0">{{ $offer['nivel_educativo']['nombre'] }} </h5>
+                </div>
+                <div class="card-body text-primary">
+                    {{ $offer['description'] }}
+                </div>
+                <div class="card-footer">
+                    {{ $offer['ciudad']['pais_departamento_ciudad'] }}
+                    <br>
+                    {{ \Carbon\Carbon::createFromTimeStamp(strtotime($offer['created_at']))->locale('es')->diffForHumans() }}
 
+                    @php
+                        $fechaCreacion = \Carbon\Carbon::parse($offer['created_at']);
+                        $fechaActual = \Carbon\Carbon::now();
+                        $diasRestantes = 20 - $fechaActual->diffInDays($fechaCreacion);
+                    @endphp
+                    <br>
+                    <br>
+                    @if (count($user_with_contrato) > 0)
+                        @if ($diasRestantes > 0 && !$offer['is_garantia'])
+                            <form action="{{ route('offer.garantia') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="offer_id" value="{{ $offer['id'] }}">
+                                <button type="submit" class="btn btn-success">Solicitar Garantía</button>
+                                Tienes ({{ $diasRestantes }}) días restantes para solicitar garantía.
+                            </form>
+                            {{-- <button id="button_ver_mas" class="btn btn-success">Solicitar Garantía</button> --}}
+                        @elseif(is_null($offer['is_garantia_date']) || (!is_null($offer['is_garantia_date']) && !$offer['active']))
+                            <a href="{{ route('oferta.create.copy', $offer['id']) }}" class="btn btn-success">Publicar Oferta</a>
+                        @endif
+                    @endif
+                </div>
+
+            </div>
         </div>
     </div>
-</div>
 
 
-{{-- <div >
+    {{-- <div >
     <h4>Búsqueda Inteligente (Match)</h4>
     @include('profile/profiles_table', ['users' => $users_busqueda, 'style' => "display: none;", 'table_id'=>'tabla_busqueda'])
 </div>
@@ -45,60 +75,73 @@
     @include('profile/profiles_table')
 </div> --}}
 
-<div class="row">
-    <div class="col-lg-12 col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="main-content-label mg-b-5">
-                    <h4>Búsqueda Inteligente (Match)</h4>
+    <div class="row">
+        @if ((!count($user_with_contrato) > 0 && $offer['active']) || ($offer['is_garantia'] && $offer['active']))
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="main-content-label mg-b-5">
+                            <h4>Búsqueda Inteligente (Match)</h4>
+                        </div>
+                        @include('profile/profiles_table_oferta', [
+                            'users' => $users_busqueda,
+                            'style' => 'display: none;',
+                            'table_id' => 'tabla_busqueda',
+                        ])
+                    </div>
+                    <div class="col-sm-3 col-md-3">
+                        <button id="button_ver_mas" class="btn btn-success">Ver más +</button>
+                    </div>
                 </div>
-                @include('profile/profiles_table_oferta', ['users' => $users_busqueda, 'style' => "display: none;", 'table_id'=>'tabla_busqueda'])
             </div>
-            <div class="col-sm-3 col-md-3">
-                <button id="button_ver_mas" class="btn btn-success" >Ver más +</button>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-12 col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="main-content-label mg-b-5">
-                    <h4>Postulados</h4>
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="main-content-label mg-b-5">
+                            <h4>Postulados</h4>
+                        </div>
+                        @include('profile/profiles_table_oferta')
+                    </div>
                 </div>
-                @include('profile/profiles_table_oferta')
             </div>
-        </div>
+        @else
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="main-content-label mg-b-5">
+                            <h4>Contratos</h4>
+                        </div>
+                        @include('profile/profiles_table_oferta', ['users' => $user_with_contrato_objs])
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
-</div>
 
 
-<!-- row -->
+    <!-- row -->
 @endsection
 
 @section('js')
-<script type="text/javascript">
-    $(window).on('load', function() {
-        
-        var index_show = 5;
+    <script type="text/javascript">
+        $(window).on('load', function() {
 
-        $("#button_ver_mas").click(function() {
-            index_show += 5;
+            var index_show = 5;
+
+            $("#button_ver_mas").click(function() {
+                index_show += 5;
+                show_hide_rows_user_table();
+            });
+
             show_hide_rows_user_table();
-        });
 
-        show_hide_rows_user_table();
-
-        function show_hide_rows_user_table(){
-            if(index_show < 0 ){
-                $('#tabla_busqueda .user_row').hide();
-            } else {
-                $('#tabla_busqueda .user_row:lt('+index_show+')').show();
+            function show_hide_rows_user_table() {
+                if (index_show < 0) {
+                    $('#tabla_busqueda .user_row').hide();
+                } else {
+                    $('#tabla_busqueda .user_row:lt(' + index_show + ')').show();
+                }
             }
-        }
-	});
-
-    
-	
-
-</script>
+        });
+    </script>
 @endsection

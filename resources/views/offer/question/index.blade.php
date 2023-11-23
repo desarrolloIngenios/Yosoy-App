@@ -27,7 +27,7 @@
             @foreach($offer_question_response as $key =>  $offer)
             <tr>
                 <td data-title="">
-                {{ \App\Models\Offer::find($key)->id; }} - {{ \App\Models\Offer::find($key)->cargo->nombre; }}
+                {{ \App\Models\Offer::find($key)->id }} - {{ \App\Models\Offer::find($key)->cargo->nombre }}
                 </td>
                 <td data-title="">
                     @if(isset($offer['App\Models\OfferQuestionStar']))

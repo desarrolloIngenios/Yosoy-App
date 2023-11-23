@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Offer;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -15,7 +16,7 @@ use App\Http\Controllers\Web\WompiController;
 
 class OfertaController extends Controller
 {
-    public function create(Request $request)
+    public function create(Request $request, $copy_id = null)
     {   
         $wompi_controller = new WompiController();
         if(session('role') == 'ADMIN'){
@@ -73,11 +74,6 @@ class OfertaController extends Controller
             Cache::put('ciudades', $ciudades, $minutes);
         }
 
-        // $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.ciudades'), []);
-        // $success = $response->json()['success'];
-        // $ciudades = $response->json()['data'];
-        // $message = $response->json()['message'];
-        // $data['ciudades'] = $ciudades;
 
         $cache_keys = [
             'tipo_contrato',
@@ -99,7 +95,13 @@ class OfertaController extends Controller
                 Cache::put($key, $data[$key], $minutes);
             }
         }
+        $data['offer_copy'] = null;
 
+        if(!is_null($copy_id)){
+            $offer_copy  = Offer::find($copy_id);
+            $data['offer_copy'] = $offer_copy;
+
+        }
         return view('oferta/create', $data);
     }
 
@@ -111,8 +113,29 @@ class OfertaController extends Controller
         $user->contratos()->detach($offer_id);
         $user->contratos()->attach($offer_id);
 
+        // Cerrar Oferta
+        $offer = Offer::find($offer_id);
+        $offer->active = false;
+        $offer->save();
+
         return redirect()->back();
     }
+
+    public function garantia(Request $request)
+    {
+        $offer_id = $request->input('offer_id');
+
+        // Cerrar Oferta
+        $offer = Offer::find($offer_id);
+        $offer->is_garantia = true;
+        $offer->active = true;
+        $offer->is_garantia_date = Carbon::now();
+        $offer->save();
+
+        return redirect()->back();
+    }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -139,7 +162,7 @@ class OfertaController extends Controller
         if(!$success){
             return redirect()->back()->withInput($request->only('email'))->with('status', 'Error!');
         }
-        return redirect()->back();
+        return redirect()->route('offer.index');
     }
 
     public function index(Request $request)
@@ -231,7 +254,13 @@ class OfertaController extends Controller
         $offer_obj = Offer::find($offer_id);
         $data['offer_obj'] = $offer_obj;
         $data['user_with_contrato'] = $offer_obj->contratos_users->pluck('id')->toArray();
-        
+        $profiles = [];
+        foreach($offer_obj->contratos_users as $user){
+            
+            $profiles[] = $user->profile;
+        }
+        $data['user_with_contrato_objs'] = $profiles;
+        //dd($data['user_with_contrato_objs']);
         return view('oferta/show', $data);
     }
 
