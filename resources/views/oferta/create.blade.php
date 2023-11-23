@@ -21,10 +21,10 @@
                             <p class="mg-b-10">Candidato</p><select class="form-control select2" name="tipo_candidato" placeholder="" required>
                             <option value=""></option>
                                     @if(isset($tipo_candidato_empirico) && $tipo_candidato_empirico )
-                                        <option value="empirico">Empírico</option>
+                                        <option value="empirico" @if($offer_copy && $offer_copy->is_empirico) selected @endif>Empírico</option>
                                     @endif
                                     @if(isset($tipo_candidato_tecnico) && $tipo_candidato_tecnico )
-                                        <option value="tecnico">Técnico</option>
+                                        <option value="tecnico" @if($offer_copy && $offer_copy->is_tecnico) selected @endif>Técnico</option>
                                     @endif
                             </select>
                         </div>   
@@ -35,7 +35,7 @@
                             <p class="mg-b-10">Cargo</p><select class="form-control select2" name="cargo_id" placeholder="" required>
                             <option value=""></option>
                                 @foreach($cargos as $item)
-                                    <option value="{{ $item['id'] }}">
+                                    <option value="{{ $item['id'] }}" @if($offer_copy && $offer_copy->cargo_id == $item['id']) selected @endif>
                                             {{ $item['nombre'] }}
                                         </option>
                                 @endforeach
@@ -45,7 +45,7 @@
                             <p class="mg-b-10">Tiempo de experiencia</p><select class="form-control select2" name="tiempo_experiencia_id" placeholder="País" required>
                             @foreach($tiempo_experiencia as $item)
                                     <option value=""></option>
-                                        <option value="{{ $item['id'] }}">
+                                        <option value="{{ $item['id'] }}" @if($offer_copy && $offer_copy->tiempo_experiencia_id == $item['id']) selected @endif>
                                             {{ $item['nombre'] }}
                                         </option>
                                 @endforeach
@@ -56,7 +56,7 @@
                             <p class="mg-b-10">Sector*</p><select class="form-control select2" name="sector_id" placeholder="" required>
                             <option value=""></option>
                                 @foreach($sector as $item)
-                                    <option value="{{ $item['id'] }}">
+                                    <option value="{{ $item['id'] }}" @if($offer_copy && $offer_copy->sector_id == $item['id']) selected @endif>
                                             {{ $item['nombre'] }}
                                         </option>
                                 @endforeach
@@ -66,7 +66,7 @@
                             <p class="mg-b-10">Ciudad*</p><select class="form-control select2" name="ciudad_id" placeholder="" required>
                             <option value=""></option>
                                 @foreach($ciudades as $item)
-                                    <option value="{{ $item['id'] }}">
+                                    <option value="{{ $item['id'] }}" @if($offer_copy && $offer_copy->ciudad_id == $item['id']) selected @endif>
                                             {{ $item['pais_departamento_ciudad'] }}
                                         </option>
                                 @endforeach
@@ -76,7 +76,7 @@
                             <p class="mg-b-10">Nivel Educativo*</p><select class="form-control select2" name="nivel_educativo_id" placeholder="Nivel Educativo" required>
                             <option value=""></option>
                                 @foreach($nivel_educativo as $item)
-                                    <option value="{{ $item['id'] }}">
+                                    <option value="{{ $item['id'] }}" @if($offer_copy && $offer_copy->nivel_educativo_id == $item['id']) selected @endif>
                                             {{ $item['nombre'] }}
                                         </option>
                                 @endforeach
@@ -85,24 +85,22 @@
                         <div class="col-lg-6 mg-b-12 mg-lg-b-6">
                             <p class="mg-b-10">Tipo de contrato / Servicio que esta buscando</p>
                             <select class="form-control select2" name="tipo_contrato[]" multiple="multiple" placeholder="Hola" required>
+                                <option value=""></option>
                                 @foreach($tipo_contrato as $item)
-                                    <option value=""></option>
-                                    @if(isset($perfil['tipo_contrato_id']) && $perfil['tipo_contrato_id'] == $item['id'])
-                                        <option value="{{ $item['id'] }}" selected>
-                                            {{ $item['nombre'] }}
-                                        </option>
-                                    @else
-                                        <option value="{{ $item['id'] }}">
-                                            {{ $item['nombre'] }}
-                                        </option>
+                                        <option value="{{ $item['id'] }}"  @if(isset($offer_copy) && in_array($item['id'], $offer_copy->tipo_contrato->pluck('id')->toArray()))
+                                        selected
                                     @endif
+                                >
+                                            {{ $item['nombre'] }}
+                                        </option>
                                 @endforeach    
                             </select>
                         </div>   
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="descripcion">Descripción</label>
-                                <textarea name="description" placeholder="Resume brevemente el perfil o servicio que estás buscando." maxlength="490" rows="4" class="form-control" required></textarea>
+                                <textarea name="description" placeholder="Resume brevemente el perfil o servicio que estás buscando." maxlength="490" rows="4" class="form-control" required>{{ isset($offer_copy) ? $offer_copy->description : '' }}
+                                </textarea>
                             </div>
                         </div>
                     </div>

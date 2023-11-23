@@ -99,26 +99,25 @@
                                         <i class="las la-phone"></i>
                                     </a>
                                 </div>
-                                    @if (isset($offer))
-                                        @if (in_array($user['user_id'], $user_with_contrato))
-                                            <div class="pr-1 mb-xl-0">
-                                                <a target="_blank"
-                                                    href="{{ route('star_rating.show', [$user['user_id'], $offer['id']]) }}"
-                                                    class="btn btn-danger btn-icon mr-2">
-                                                    <i class="las la-star"></i>
-                                                </a>
-                                            </div>
-                                        @else
-                                            <div class="">
-                                                <form action="{{ route('offer.contratar') }}" method="post">
-                                                    @csrf
-                                                    <input type="hidden" name="user_id"
-                                                        value="{{ $user['user_id'] }}">
-                                                    <input type="hidden" name="offer_id" value="{{ $offer['id'] }}">
-                                                    <button type="submit" class="btn btn-success">Contratar</button>
-                                                </form>
-                                            </div>
-                                        @endif
+                                @if (isset($offer))
+                                    @if (in_array($user['user_id'], $user_with_contrato))
+                                        <div class="pr-1 mb-xl-0">
+                                            <a target="_blank"
+                                                href="{{ route('star_rating.show', [$user['user_id'], $offer['id']]) }}"
+                                                class="btn btn-danger btn-icon mr-2">
+                                                <i class="las la-star"></i>
+                                            </a>
+                                        </div>
+                                    @else
+                                        <div class="">
+                                            <form action="{{ route('offer.contratar') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="user_id" value="{{ $user['user_id'] }}">
+                                                <input type="hidden" name="offer_id" value="{{ $offer['id'] }}">
+                                                <button type="submit" class="btn btn-success">Contratar</button>
+                                            </form>
+                                        </div>
+                                    @endif
                                 @endif
                             </div>
                         </td>
