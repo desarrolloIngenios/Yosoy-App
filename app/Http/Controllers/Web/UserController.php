@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RecordatorioLlenarPerfil;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 
 class UserController extends Controller
@@ -32,9 +35,28 @@ class UserController extends Controller
         $users = $response->json()['data'];
         $message = $response->json()['message'];
         $data['users'] = $users;
+
+        $users =  $profile = Profile::with(
+            'ciudad_residencia', 
+            'genero', 
+            'tipo_documento', 
+            'perfiles_laborales.nivel_experiencia', 
+            'perfiles_laborales.cargo',
+            'perfiles_laborales.tiempo_experiencia',
+            'user'
+            )->get();
+
+            $data['users'] = $users;
         
         return view('users/list', $data);
     }
+
+    public function recordatorio_llenar_perfil(Request $request)
+    {
+        $correo = new RecordatorioLlenarPerfil();
+        Mail::to('juandavid162@gmail.com')->send($correo);
+    }
+    
 
 
 }

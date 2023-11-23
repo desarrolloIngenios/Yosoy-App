@@ -31,6 +31,9 @@ Route::get('/reset-password/{token}', function ($token) {
 
 Route::post('reset_password', [App\Http\Controllers\Web\LoginController::class, 'reset_password'])->name('password.update.web');
 
+Route::get('recordatorio_llenar_perfil', [App\Http\Controllers\Web\UserController::class, 'recordatorio_llenar_perfil'])->name('recordatorio_llenar_perfil');
+
+
 Route::get('terminos_condiciones', [App\Http\Controllers\Web\PaginasEstaticasController::class, 'terminos_condiciones'])->name('terminos_condiciones');
 Route::get('aviso_privacidad', [App\Http\Controllers\Web\PaginasEstaticasController::class, 'aviso_privacidad'])->name('aviso_privacidad');
 
@@ -69,10 +72,12 @@ Route::get('offer/apply/{offer_id}', [App\Http\Controllers\Web\OfertaController:
 Route::get('offer/detail/{offer_id}', [App\Http\Controllers\Web\OfertaController::class, 'show'])->name('offer.show');
 Route::get('offer/close/{offer_id}', [App\Http\Controllers\Web\OfertaController::class, 'close_offer'])->name('offer.close');
 Route::post('offer/contratar', [App\Http\Controllers\Web\OfertaController::class, 'contratar'])->name('offer.contratar');
+Route::post('offer/garantia', [App\Http\Controllers\Web\OfertaController::class, 'garantia'])->name('offer.garantia');
 
 
 //Route::post('profile', [App\Http\Controllers\Web\ProfileController::class, 'store'])->name('profile.post');
 Route::get('oferta/create', [App\Http\Controllers\Web\OfertaController::class, 'create'])->name('oferta.create');
+Route::get('oferta/create/copy/{copy_id}', [App\Http\Controllers\Web\OfertaController::class, 'create'])->name('oferta.create.copy');
 
 Route::get('pricing/index/{tipo_candidato?}/{valor_ingresado?}', [App\Http\Controllers\Web\PricingController::class, 'index'])->name('pricing.index');
 Route::post('pricing/edit/valor_pagar', [App\Http\Controllers\Web\PricingController::class, 'edit_valor_pagar'])->name('pricing.edit.valor_pagar');

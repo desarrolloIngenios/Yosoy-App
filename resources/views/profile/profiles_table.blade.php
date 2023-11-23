@@ -27,7 +27,7 @@
 
                         </td>
                         <td data-title="Nombre">
-                            <i class="las la-{{ $user['is_empirico'] ? 'hammer' : 'graduation-cap' }} tx-20"></i>
+                            <i class="las la-{{ $user->is_empirico ? 'hammer' : 'graduation-cap' }} tx-20"></i>
                             @if (trim($user['full_name']) == '')
                                 {{ '-' }}
                             @else
@@ -99,6 +99,14 @@
                                         <i class="las la-phone"></i>
                                     </a>
                                 </div>
+
+                                <div class="pr-1 mb-xl-0">
+                                    <a target="_blank"
+                                        href="{{ route('recordatorio_llenar_perfil') }}"
+                                        class="btn btn-icon btn-primary mr-2">
+                                        <i class="las la-mail-bulk"></i>
+                                    </a>
+                                </div>
                                 @if (session('role') == 'ADMIN')
                                     @if(isset($offer))
                                         <div class="pr-1 mb-xl-0">
@@ -109,12 +117,14 @@
                                             </a>
                                         </div>
                                     @endif
+                                    @if($user->user->roles->contains('name', 'EMPRESARIO'))
                                     <div class="pr-1 mb-xl-0">
                                         <a href="{{ route('offer.agregar_gratis', [$user['user_id']]) }}"
                                             class="btn btn-primary">
                                             <i class="">Oferta de Prueba</i>
                                         </a>
                                     </div>
+                                    @endif
                                 @endif
                             </div>
                         </td>
