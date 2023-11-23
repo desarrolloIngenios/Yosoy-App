@@ -51,10 +51,12 @@ class UserController extends Controller
         return view('users/list', $data);
     }
 
-    public function recordatorio_llenar_perfil(Request $request)
+    public function recordatorio_llenar_perfil(Request $request, $user_id)
     {
+        $user = Profile::find($user_id);
         $correo = new RecordatorioLlenarPerfil();
-        Mail::to('juandavid162@gmail.com')->send($correo);
+        Mail::to($user->email)->send($correo);
+        return redirect()->back();
     }
     
 

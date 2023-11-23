@@ -101,8 +101,8 @@
                                 </div>
 
                                 <div class="pr-1 mb-xl-0">
-                                    <a target="_blank"
-                                        href="{{ route('recordatorio_llenar_perfil') }}"
+                                    <a
+                                        href="{{ route('recordatorio_llenar_perfil', [$user['id']]) }}"
                                         class="btn btn-icon btn-primary mr-2">
                                         <i class="las la-mail-bulk"></i>
                                     </a>

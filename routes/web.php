@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LexController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,7 +32,7 @@ Route::get('/reset-password/{token}', function ($token) {
 
 Route::post('reset_password', [App\Http\Controllers\Web\LoginController::class, 'reset_password'])->name('password.update.web');
 
-Route::get('recordatorio_llenar_perfil', [App\Http\Controllers\Web\UserController::class, 'recordatorio_llenar_perfil'])->name('recordatorio_llenar_perfil');
+Route::get('recordatorio_llenar_perfil/{user_id}', [App\Http\Controllers\Web\UserController::class, 'recordatorio_llenar_perfil'])->name('recordatorio_llenar_perfil');
 
 
 Route::get('terminos_condiciones', [App\Http\Controllers\Web\PaginasEstaticasController::class, 'terminos_condiciones'])->name('terminos_condiciones');
@@ -119,6 +120,12 @@ Route::get('facturacion/crearEmpresaZenSmart/{empresa_id}', [App\Http\Controller
 
 
 
+
+Route::get('/chatbot', function () {
+    return view('chatbot.chatbot'); // Renderiza la vista del chatbot
+});
+
+Route::post('/lex-webhook', [App\Http\Controllers\LexController::class, 'webhook'])->name('webhook');
 
 
 Route::get('send-mail', function () {
