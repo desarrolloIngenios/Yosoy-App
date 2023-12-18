@@ -190,13 +190,13 @@
             var tipoContrato = document.getElementById('tipoContrato').value;
             var fechaContrato = document.getElementById('fechaContrato').value;
 
-            document.getElementById(userId).insertAdjacentHTML('beforeend',
+            document.getElementById(""+userId).insertAdjacentHTML('beforeend',
                 '<input type="hidden" name="tipo_contrato_id" value="' + tipoContrato + '">');
-            document.getElementById(userId).insertAdjacentHTML('beforeend',
+            document.getElementById(""+userId).insertAdjacentHTML('beforeend',
                 '<input type="hidden" name="fecha_contrato" value="' + fechaContrato + '">');
 
             // Enviar el formulario
-            document.getElementById(userId).submit();
+            document.getElementById(""+userId).submit();
         }
     </script>
 @endsection
