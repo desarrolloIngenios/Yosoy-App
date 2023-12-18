@@ -64,7 +64,9 @@ class User extends Authenticatable
 
     public function contratos()
     {
-        return $this->belongsToMany(Offer::class, 'profile_contrato', 'user_id', 'offer_id')->withTimestamps();
+        return $this->belongsToMany(Offer::class, 'profile_contrato', 'user_id', 'offer_id')
+        ->withPivot(['tipo_contrato_id', 'fecha_contrato'])
+        ->withTimestamps();
     }
 
     public static function getStarRating($user_id)

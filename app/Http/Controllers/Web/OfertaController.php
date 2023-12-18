@@ -110,8 +110,14 @@ class OfertaController extends Controller
         $user_id = $request->input('user_id');
         $user = User::find($user_id);
         $offer_id = $request->input('offer_id');
+        $tipoContratoId = $request->input('tipo_contrato_id');
+        $fechaContrato = $request->input('fecha_contrato');
+    
         $user->contratos()->detach($offer_id);
-        $user->contratos()->attach($offer_id);
+        $user->contratos()->attach($offer_id, [
+            'tipo_contrato_id' => $tipoContratoId,
+            'fecha_contrato' => $fechaContrato,
+        ]);
 
         // Cerrar Oferta
         $offer = Offer::find($offer_id);

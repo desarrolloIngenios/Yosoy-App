@@ -47,8 +47,13 @@ input[type="radio"]:checked ~ label {
     <div class="col-12 col-sm-12 col-lg-12">
         <div class="card card-primary">
             <div class="card-header pb-0">
-                <h5 class="card-title ">Calificación  </h5>
+                <h5 class="card-title ">Calificación </h5>
                 <h5 class="card-title ">
+                    <span>{{ $offer->cargo->nombre }} - {{ $offer->sector->nombre }}</span>
+                    <br>
+                    <br>
+                    <span>{{ $user->profile->full_name }}</span>
+
                 @if(count($items)>0)
 
                         <form action="{{ route('star_rating.store') }}" method="post">

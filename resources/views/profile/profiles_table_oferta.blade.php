@@ -110,11 +110,12 @@
                                         </div>
                                     @else
                                         <div class="">
-                                            <form action="{{ route('offer.contratar') }}" method="post">
+                                            <form id="contratarForm" action="{{ route('offer.contratar') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="user_id" value="{{ $user['user_id'] }}">
                                                 <input type="hidden" name="offer_id" value="{{ $offer['id'] }}">
-                                                <button type="submit" class="btn btn-success">Contratar</button>
+                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#contratoModal">Contratar</button>
+   
                                             </form>
                                         </div>
                                     @endif
