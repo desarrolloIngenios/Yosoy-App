@@ -151,6 +151,38 @@
         </div>
     </div>
 
+    <div class="modal fade" id="contratoModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Seleccionar tipo de contrato y fecha</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="tipoContrato">Tipo de contrato:</label>
+                    <select class="form-control" id="tipoContrato" name="tipoContrato">
+                        <option value="1">Contrato por servicios</option>
+                        <option value="2">Contrato a término fijo</option>
+                        <option value="3">Contrato indefinido</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fechaContrato">Fecha del contrato:</label>
+                    <input type="date" class="form-control" id="fechaContrato" name="fechaContrato" value="<?php echo date('Y-m-d'); ?>">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="guardarContrato2()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
     <!-- row -->
 @endsection
@@ -190,6 +222,20 @@
 
                 // Enviar el formulario
                 document.getElementById('contratarForm').submit();
+            }
+
+            function guardarContrato2() {
+                // Agregar los valores seleccionados al formulario
+                var tipoContrato = document.getElementById('tipoContrato').value;
+                var fechaContrato = document.getElementById('fechaContrato').value;
+
+                document.getElementById('contratarForm').insertAdjacentHTML('beforeend',
+                    '<input type="hidden" name="tipo_contrato_id" value="' + tipoContrato + '">');
+                document.getElementById('contratarForm').insertAdjacentHTML('beforeend',
+                    '<input type="hidden" name="fecha_contrato" value="' + fechaContrato + '">');
+
+                // Enviar el formulario
+                document.getElementById('contratarForm2').submit();
             }
 
     </script>
