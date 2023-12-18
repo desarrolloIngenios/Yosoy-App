@@ -110,11 +110,11 @@
                                         </div>
                                     @else
                                         <div class="">
-                                            <form id="{{ isset($table_id)? 'contratarForm' : 'contratarForm2' }}" action="{{ route('offer.contratar') }}" method="post">
+                                            <form id="{{ $user['user_id'] }}" action="{{ route('offer.contratar') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="user_id" value="{{ $user['user_id'] }}">
                                                 <input type="hidden" name="offer_id" value="{{ $offer['id'] }}">
-                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#{{ isset($table_id)? 'contratoModal' : 'contratoModal2' }}">Contratar</button>
+                                                <button type="button" class="btn btn-success" data-toggle="modal" data-user-id="{{ $user['user_id'] }}" data-target="#contratoModal">Contratar</button>
                                             </form>
                                         </div>
                                     @endif

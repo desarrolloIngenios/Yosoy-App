@@ -130,6 +130,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <input type="hidden" id="modalUserId" value="">
                     <div class="form-group">
                         <label for="tipoContrato">Tipo de contrato:</label>
                         <select class="form-control" id="tipoContrato" name="tipoContrato">
@@ -140,7 +141,8 @@
                     </div>
                     <div class="form-group">
                         <label for="fechaContrato">Fecha del contrato:</label>
-                        <input type="date" class="form-control" id="fechaContrato" name="fechaContrato" value="<?php echo date('Y-m-d'); ?>">
+                        <input type="date" class="form-control" id="fechaContrato" name="fechaContrato"
+                            value="<?php echo date('Y-m-d'); ?>">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -151,39 +153,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="contratoModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Seleccionar tipo de contrato y fecha</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="tipoContrato">Tipo de contrato:</label>
-                    <select class="form-control" id="tipoContrato" name="tipoContrato">
-                        <option value="1">Contrato por servicios</option>
-                        <option value="2">Contrato a término fijo</option>
-                        <option value="3">Contrato indefinido</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="fechaContrato">Fecha del contrato:</label>
-                    <input type="date" class="form-control" id="fechaContrato" name="fechaContrato" value="<?php echo date('Y-m-d'); ?>">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" onclick="guardarContrato2()">Guardar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
     <!-- row -->
 @endsection
 
@@ -191,7 +160,12 @@
     <script type="text/javascript">
         $(window).on('load', function() {
 
-            
+            $('#contratoModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget); // Botón que activó la modal
+                var userId = button.data('user-id'); // Obtener el valor de user_id del botón
+                $('#modalUserId').val(userId); // Actualizar el campo oculto en la modal
+            });
+
             var index_show = 5;
 
             $("#button_ver_mas").click(function() {
@@ -211,32 +185,18 @@
         });
 
         function guardarContrato() {
-                // Agregar los valores seleccionados al formulario
-                var tipoContrato = document.getElementById('tipoContrato').value;
-                var fechaContrato = document.getElementById('fechaContrato').value;
+            var userId = $('#modalUserId').val();
+            // Agregar los valores seleccionados al formulario
+            var tipoContrato = document.getElementById('tipoContrato').value;
+            var fechaContrato = document.getElementById('fechaContrato').value;
 
-                document.getElementById('contratarForm').insertAdjacentHTML('beforeend',
-                    '<input type="hidden" name="tipo_contrato_id" value="' + tipoContrato + '">');
-                document.getElementById('contratarForm').insertAdjacentHTML('beforeend',
-                    '<input type="hidden" name="fecha_contrato" value="' + fechaContrato + '">');
+            document.getElementById(userId).insertAdjacentHTML('beforeend',
+                '<input type="hidden" name="tipo_contrato_id" value="' + tipoContrato + '">');
+            document.getElementById(userId).insertAdjacentHTML('beforeend',
+                '<input type="hidden" name="fecha_contrato" value="' + fechaContrato + '">');
 
-                // Enviar el formulario
-                document.getElementById('contratarForm').submit();
-            }
-
-            function guardarContrato2() {
-                // Agregar los valores seleccionados al formulario
-                var tipoContrato = document.getElementById('tipoContrato').value;
-                var fechaContrato = document.getElementById('fechaContrato').value;
-
-                document.getElementById('contratarForm').insertAdjacentHTML('beforeend',
-                    '<input type="hidden" name="tipo_contrato_id" value="' + tipoContrato + '">');
-                document.getElementById('contratarForm').insertAdjacentHTML('beforeend',
-                    '<input type="hidden" name="fecha_contrato" value="' + fechaContrato + '">');
-
-                // Enviar el formulario
-                document.getElementById('contratarForm2').submit();
-            }
-
+            // Enviar el formulario
+            document.getElementById(userId).submit();
+        }
     </script>
 @endsection
