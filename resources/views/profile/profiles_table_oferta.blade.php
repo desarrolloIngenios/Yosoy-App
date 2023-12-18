@@ -114,7 +114,7 @@
                                                 @csrf
                                                 <input type="hidden" name="user_id" value="{{ $user['user_id'] }}">
                                                 <input type="hidden" name="offer_id" value="{{ $offer['id'] }}">
-                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#contratoModal">Contratar</button>
+                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#{{ isset($table_id)? 'contratoModal' : 'contratoModal2' }}">Contratar</button>
                                             </form>
                                         </div>
                                     @endif
