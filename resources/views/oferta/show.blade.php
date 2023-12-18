@@ -201,9 +201,13 @@
             inputFechaContrato.value = fechaContrato;
 
             // Agregar los elementos de input al formulario
-            var form = document.getElementById(userId);
-            form.appendChild(inputTipoContrato);
-            form.appendChild(inputFechaContrato);
+            var form = $('#'+userId);
+            console.log("userId");
+            console.log(userId);
+            console.log(inputFechaContrato);
+            console.log(form);
+            form.append(inputTipoContrato);
+            form.append(inputFechaContrato);
 
             // Enviar el formulario
 
