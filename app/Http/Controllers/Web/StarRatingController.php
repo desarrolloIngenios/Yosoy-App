@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Offer;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -33,6 +35,14 @@ class StarRatingController extends Controller
 
         $data['user_id'] = $user_id;
         $data['offer_id'] = $offer_id;
+
+        $offer = Offer::find($offer_id);
+        $user = User::find($user_id);
+
+        $data['user'] = $user;
+        $data['offer'] = $offer;
+
+
 
         return view('rating/rating_user', $data);
     }

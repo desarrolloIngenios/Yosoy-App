@@ -34,7 +34,7 @@
                     @php
                         $fechaCreacion = \Carbon\Carbon::parse($offer['created_at']);
                         $fechaActual = \Carbon\Carbon::now();
-                        $diasRestantes = 20 - $fechaActual->diffInDays($fechaCreacion);
+                        $diasRestantes = 30 - $fechaActual->diffInDays($fechaCreacion);
                     @endphp
                     <br>
                     <br>
@@ -48,7 +48,8 @@
                             </form>
                             {{-- <button id="button_ver_mas" class="btn btn-success">Solicitar Garantía</button> --}}
                         @elseif(is_null($offer['is_garantia_date']) || (!is_null($offer['is_garantia_date']) && !$offer['active']))
-                            <a href="{{ route('oferta.create.copy', $offer['id']) }}" class="btn btn-success">Publicar Oferta</a>
+                            <a href="{{ route('oferta.create.copy', $offer['id']) }}" class="btn btn-success">Publicar
+                                Oferta</a>
                         @endif
                     @endif
                 </div>
@@ -118,6 +119,38 @@
         @endif
     </div>
 
+    <div class="modal fade" id="contratoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Seleccionar tipo de contrato y fecha</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="tipoContrato">Tipo de contrato:</label>
+                        <select class="form-control" id="tipoContrato" name="tipoContrato">
+                            <option value="1">Contrato por servicios</option>
+                            <option value="2">Contrato a término fijo</option>
+                            <option value="3">Contrato indefinido</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fechaContrato">Fecha del contrato:</label>
+                        <input type="date" class="form-control" id="fechaContrato" name="fechaContrato" value="<?php echo date('Y-m-d'); ?>">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarContrato()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- row -->
 @endsection
@@ -126,6 +159,7 @@
     <script type="text/javascript">
         $(window).on('load', function() {
 
+            
             var index_show = 5;
 
             $("#button_ver_mas").click(function() {
@@ -143,5 +177,20 @@
                 }
             }
         });
+
+        function guardarContrato() {
+                // Agregar los valores seleccionados al formulario
+                var tipoContrato = document.getElementById('tipoContrato').value;
+                var fechaContrato = document.getElementById('fechaContrato').value;
+
+                document.getElementById('contratarForm').insertAdjacentHTML('beforeend',
+                    '<input type="hidden" name="tipo_contrato_id" value="' + tipoContrato + '">');
+                document.getElementById('contratarForm').insertAdjacentHTML('beforeend',
+                    '<input type="hidden" name="fecha_contrato" value="' + fechaContrato + '">');
+
+                // Enviar el formulario
+                document.getElementById('contratarForm').submit();
+            }
+
     </script>
 @endsection
