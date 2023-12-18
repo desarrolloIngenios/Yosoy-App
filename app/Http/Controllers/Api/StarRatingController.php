@@ -32,11 +32,11 @@ class StarRatingController extends BaseController
     {
         $items = StarRatingItem::where('active', true)->get();
         $is_rating = StarRating::is_rating_user_offer($request->user_id, $request->offer_id);
-        if($is_rating){
-            return $this->sendResponse([], 'Items');
-        } else {
+        // if($is_rating){
+        //     return $this->sendResponse([], 'Items');
+        // } else {
             return $this->sendResponse($items, 'Items');
-        }
+        // }
     }
 
     public function storeStarRating(Request $request)
@@ -56,6 +56,17 @@ class StarRatingController extends BaseController
         $star_rating->comment = $comment;
         $star_rating->created_by = $user = $request->user()->id;
         $star_rating->save();
+        if($rating <= 2){
+            $details = [
+                'title' => 'Calificación de Usuario',
+                'body' => 'La calificación del usuario: '.$star_rating->user->profile->full_name.': '.$rating.' estrellas',
+            ];
+            \Mail::raw($details['body'], function ($message) use ($details) {
+                $message->to(['juandavid162@gmail.com'])
+                    ->subject($details['title']);
+            });
+        }
+
 
         if(!is_null($input_items_checkbox)){
             $star_rating->star_rating_items_selected()->sync($input_items_checkbox);
