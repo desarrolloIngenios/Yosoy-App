@@ -212,7 +212,6 @@
             // Enviar el formulario
 
             form.submit(); 
-
             
         }
     </script>
