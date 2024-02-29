@@ -211,7 +211,8 @@
 
             // Enviar el formulario
 
-            form.submit();
+            form.submit(); 
+            
         }
     </script>
 @endsection
