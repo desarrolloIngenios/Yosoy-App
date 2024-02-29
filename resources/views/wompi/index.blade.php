@@ -13,9 +13,9 @@
             <div class="card-body pt-0">
                 
 
-                <a href="{{ route('facturacion_electronica.index') }}" target="_blank" type="reset" class="btn btn-main-primary ">
+                {{-- <a href="{{ route('facturacion_electronica.index') }}" target="_blank" type="reset" class="btn btn-main-primary ">
                     <i class="fa fa-file"> Generar Facturas Electŕonicas</i>
-                </a>
+                </a> --}}
             <div class="table-responsive border-top userlist-table">
     <table class="table card-table table-striped table-vcenter text-nowrap mb-0">
         <thead>
