@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Mail\NuevoPagoWompi;
 use Illuminate\Http\Request;
 use App\Models\Offer;
 use App\Models\OfferQuestionResponse;
@@ -11,6 +12,8 @@ use App\Models\OfferQuestionText;
 use App\Models\WompiTransaccion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
+
 
 class WompiController extends Controller
 {
@@ -37,7 +40,7 @@ class WompiController extends Controller
             $response = Http::withToken($token)->accept('*/*')->get($url, 
                         [
                             'from_date' => '2020-07-01', 
-                            'until_date' =>'2024-01-01',
+                            'until_date' =>'2026-01-01',
                             'page' => 1,
                             'page_size' => 200
                         ]);
@@ -61,6 +64,7 @@ class WompiController extends Controller
             dd($text_errors);
         }
         $data = $response->json('data');
+        //dd($data);
         $objs_transactions = [];
         if($data){
             $transacciones = WompiTransaccion::all();
@@ -98,29 +102,41 @@ class WompiController extends Controller
         if(!is_null($user_id)){
             $transacciones_sin_confirmacion = WompiTransaccion::where('user_id', $user_id)->get();
         } else {
-            $transacciones_sin_confirmacion = WompiTransaccion::whereNull('transaccion_wompi_id')->get();
+            $transacciones_sin_confirmacion = WompiTransaccion::whereNull('transaccion_wompi_id')->orderByDesc('id')->get();
         }
         // APPROVED
         $objs_transactions = $this->llamado_transacciones_wompi();
+        //dd($objs_transactions);
         //dd($transacciones_sin_confirmacion);
-        //dd($transacciones_sin_confirmacion->get(['referencia']));
 
         $referencias = [];
         foreach($transacciones_sin_confirmacion as $transaccion){
             $referencias[] = $transaccion->referencia;
         }
+        //dd($referencias);
         foreach ($objs_transactions as $transaccion) {
-        //dd($transaccion->reference, $referencias);
+        //dd(in_array($transaccion->reference, $referencias));
 
             if(in_array($transaccion->reference, $referencias)){
                 $wompi_transacion = $transacciones_sin_confirmacion->where('referencia', $transaccion->reference)->first();
                 if(!is_null($wompi_transacion)){
+                    //dd($wompi_transacion);
 
                     $wompi_transacion->transaccion_wompi_id = $transaccion->id;
                     $wompi_transacion->estado_wompi = $transaccion->status;
                     $wompi_transacion->valor_wompi = number_format($transaccion->amount_in_cents/100);
                     $wompi_transacion->fecha_wompi = \Carbon\carbon::createFromFormat("Y-m-d\TH:i:s.uP",  $transaccion->created_at);
                     $wompi_transacion->save();
+                    if($transaccion->status === "APPROVED"){
+                        $email = 'desarrollo@authentic.com.co';
+                        if(env('APP_ENV') == 'production'){
+                            $email = 'administrativo@authentic.com.co';
+                        }
+                        $correo = new NuevoPagoWompi();
+                        Mail::to($email)->send($correo);
+                        return redirect()->back();
+                    }
+                    
                 }
             }
             //dd($transaccion->reference);
