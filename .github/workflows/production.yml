@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  AWS_REGION: us-east-1d
+  AWS_REGION: us-east-1
   APPLICATION: yosoyapp
   ECR_REPOSITORY: yosoyapp
 
