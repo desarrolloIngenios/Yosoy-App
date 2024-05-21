@@ -35,3 +35,7 @@ Local artisan server.
 ## DNS RECORDS
 - **app.yo-soy.co** pointing to ELB in Kubernetes cluster.
 - **app.yosoydev.tk** pointing to EC2 Instance public ip.
+
+
+## vista de test
+ejemplo de despliegue desde local a maquinas en aws
