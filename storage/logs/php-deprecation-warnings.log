@@ -1,0 +1,1 @@
+[2024-05-21 15:39:39] production.WARNING: strlen(): Passing null to parameter #1 ($string) of type string is deprecated in C:\laragon\www\Yosoy-App\vendor\laravel\framework\src\Illuminate\Foundation\Console\KeyGenerateCommand.php on line 76  
