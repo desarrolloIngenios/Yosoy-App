@@ -1,21 +1,15 @@
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: yosoyapp
-  namespace: default
+  namespace: apps
   labels:
     app: yosoyapp
 spec:
-  minReplicas: 1
-  maxReplicas: 10
-  metrics:
-    - resource:
-        name: cpu
-        target:
-          averageUtilization: 75
-          type: Utilization
-      type: Resource
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
     name: yosoyapp
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 75
