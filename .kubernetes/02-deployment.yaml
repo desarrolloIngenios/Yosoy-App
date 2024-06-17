@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: yosoyapp
-  namespace: default
+  namespace: apps
   labels:
     app: yosoyapp
 
@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: yosoyapp
-          image: 301002166745.dkr.ecr.us-east-1.amazonaws.com/yosoyapp:latest
+          image: us-central1-docker.pkg.dev/authenticfarma-425820/ingenios-artifact-registry/yosoyapp:latest
           env:
             - name: APP_NAME
               value: "Laravel"
@@ -31,15 +31,15 @@ spec:
             - name: DB_CONNECTION
               value: "mysql"
             - name: DB_HOST
-              value: "yo-soy.cdcwmzmjjdqh.us-east-1.rds.amazonaws.com"
+              value: "10.232.0.5"
             - name: DB_PORT
               value: "3306"
             - name: DB_DATABASE
               value: "yosoy"
             - name: DB_USERNAME
-              value: "admin"
+              value: "yosoydbuser"
             - name: DB_PASSWORD
-              value: "2eGhvW3WNjGYJ&%"
+              value: "DBLX5n^Tb9$2!7oJd2E2"
             - name: LOG_CHANNEL
               value: "stack"
             - name: LOG_LEVEL
@@ -81,11 +81,11 @@ spec:
               containerPort: 80
           resources:
             requests:
-              memory: "64Mi"
-              cpu: "400m"
+              memory: "100Mi"
+              cpu: "100m"
             limits:
-              memory: "700Mi"
-              cpu: "950m"
+              memory: "900Mi"
+              cpu: "900m"
           lifecycle:
             postStart:
               exec:
