@@ -45,12 +45,12 @@ spec:
             - name: web
               containerPort: 80
           resources:
-            limits:
-              cpu: 200m
-              memory: 128Mi
             requests:
-              cpu: 200m
-              memory: 128Mi
+              memory: "50Mi"
+              cpu: "10m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
 
 ---
 apiVersion: traefik.io/v1alpha1
