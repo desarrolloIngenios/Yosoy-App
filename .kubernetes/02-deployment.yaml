@@ -81,11 +81,11 @@ spec:
               containerPort: 80
           resources:
             requests:
-              memory: "100Mi"
-              cpu: "100m"
+              cpu: 100m
+              memory: 100Mi
             limits:
-              memory: "900Mi"
-              cpu: "900m"
+              cpu: 500m
+              memory: 512Mi
           lifecycle:
             postStart:
               exec:
