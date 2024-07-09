@@ -1,58 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="Description" content="Bootstrap Responsive Admin Web Dashboard HTML5 Template">
     <meta name="Author" content="Spruko Technologies Private Limited">
-    <meta name="Keywords"
-        content="admin,admin dashboard,admin dashboard template,admin panel template,admin template,admin theme,bootstrap 4 admin template,bootstrap 4 dashboard,bootstrap admin,bootstrap admin dashboard,bootstrap admin panel,bootstrap admin template,bootstrap admin theme,bootstrap dashboard,bootstrap form template,bootstrap panel,bootstrap ui kit,dashboard bootstrap 4,dashboard design,dashboard html,dashboard template,dashboard ui kit,envato templates,flat ui,html,html and css templates,html dashboard template,html5,jquery html,premium,premium quality,sidebar bootstrap 4,template admin bootstrap 4" />
+    <meta name="Keywords" content="admin,admin dashboard,admin dashboard template,admin panel template,admin template,admin theme,bootstrap 4 admin template,bootstrap 4 dashboard,bootstrap admin,bootstrap admin dashboard,bootstrap admin panel,bootstrap admin template,bootstrap admin theme,bootstrap dashboard,bootstrap form template,bootstrap panel,bootstrap ui kit,dashboard bootstrap 4,dashboard design,dashboard html,dashboard template,dashboard ui kit,envato templates,flat ui,html,html and css templates,html dashboard template,html5,jquery html,premium,premium quality,sidebar bootstrap 4,template admin bootstrap 4" />
 
-    <!-- Title -->
     <title> Yo Soy - test </title>
 
-    <!-- Favicon -->
     <link rel="icon" href="../../images/Logo1.png" type="image/x-icon" />
-
-    <!-- Icons css -->
     <link href="../../assets/css/icons.css" rel="stylesheet">
-
-    <!--  Right-sidemenu css -->
     <link href="../../assets/plugins/sidebar/sidebar.css" rel="stylesheet">
-
-    <!-- P-scroll bar css-->
     <link href="../../assets/plugins/perfect-scrollbar/p-scrollbar.css" rel="stylesheet" />
-
-    <!--  Left-Sidebar css -->
     <link rel="stylesheet" href="../../assets/css/closed-sidemenu.css">
-
-    <!--- Style css --->
     <link href="../../assets/css/style.css" rel="stylesheet">
-
-    <!--- Dark-mode css --->
     <link href="../../assets/css/style-dark.css" rel="stylesheet">
-
-    <!---Skinmodes css-->
     <link href="../../assets/css/skin-modes.css" rel="stylesheet" />
-
-    <!--- Animations css-->
     <link href="../../assets/css/animate.css" rel="stylesheet">
-
-    <script src='https://www.google.com/recaptcha/api.js'></script>
-
-
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body class="error-page1 main-body bg-light">
-
-    <!-- Loader -->
     <div id="global-loader">
         <img src="../../assets/img/loader.svg" class="loader-img" alt="Loader">
     </div>
-    <!-- /Loader -->
 
     <!-- Page -->
     <div class="page">
@@ -121,66 +94,57 @@
 														<button class="close-btn"><span class="close_icon"></span></button>
 													</div>
 													@endif
-													<!-- <div class="message-box info">
-														<p>Info: User pending action</p>
-														<button class="close-btn"><span class="close_icon"></span></button>
-													</div>
-
-													<div class="message-box warning">
-														<p>Warning: User has to be admin</p>
-														<button class="close-btn"><span class="close_icon"></span></button>
-													</div>
-
-													<div class="message-box error">
-														<p>Error: Internal Server Error</p>
-														<button class="close-btn"><span class="close_icon"></span></button>
-													</div>
-
-													<div class="message-box success">
-														<p>Success: Updated members status</p>
-														<button class="close-btn"><span class="close_icon"></span></button>
-													</div> -->
 												</div>
+
 
                                                 <form action="{{ route('login.post') }}" method="post">
                                                     @csrf
+
                                                     <div class="form-group">
-                                                        <label>Correo Electrónico</label> <input name="email"
-                                                            class="form-control"
-                                                            placeholder="Ingresa tu correo electrónico" type="email"
-                                                            value="{{ old('email') }}" required>
+                                                        <label for="email">Correo Electrónico</label>
+                                                        <input name="email" class="form-control" placeholder="Ingresa tu correo electrónico" type="email" value="{{ old('email') }}" required>
                                                     </div>
+
                                                     <div class="form-group">
-                                                        <label>Contraseña</label> <input id="password" name="password"
-                                                            class="form-control" placeholder="Ingresa tu contraseña"
-                                                            type="password" required>
-                                                        <input id="check" type="checkbox"
-                                                            onclick="(function(){
-																		var x = document.getElementById('password');
-																		if (x.type === 'password') {
-																		x.type = 'text';
-																		} else {
-																		x.type = 'password';
-																		}
-															})();return false;">Mostrar
-                                                        Contraseña
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="g-recaptcha"
-                                                            data-sitekey="6LfhkQcmAAAAAGj5lbqDgarTWSjo-ZFcyyatEPMk">
+                                                        <label for="password">Contraseña</label>
+                                                        <input id="password" name="password" class="form-control" placeholder="Ingresa tu contraseña" type="password" required>
+                                                        <br>
+                                                        <div class="form-check mt-2">
+                                                            <input class="form-check-input" type="checkbox" id="show-password">
+                                                            <label class="form-check-label" for="show-password">Mostrar Contraseña</label>
                                                         </div>
+                                                        <br>
                                                     </div>
-                                                    <button type="submit"
-                                                        class="btn btn-main-primary btn-block">Ingresar</button>
-                                                    <!-- <div class="row row-xs">
-               <div class="col-sm-6">
-                <button class="btn btn-block"><i class="fab fa-facebook-f"></i> Signup with Facebook</button>
-               </div>
-               <div class="col-sm-6 mg-t-10 mg-sm-t-0">
-                <button class="btn btn-info btn-block"><i class="fab fa-twitter"></i> Signup with Twitter</button>
-               </div>
-              </div> -->
+
+                                                    <div class="form-group">
+                                                        <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+                                                        @error('g-recaptcha-response')
+                                                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+
+                                                    <button type="submit" class="btn btn-main-primary btn-block">Ingresar</button>
                                                 </form>
+
+                                                <script>
+                                                    document.addEventListener('DOMContentLoaded', function() {
+                                                        var checkbox = document.getElementById('show-password');
+                                                        var passwordField = document.getElementById('password');
+
+                                                        checkbox.addEventListener('change', function() {
+                                                            if (checkbox.checked) {
+                                                                passwordField.type = 'text';
+                                                            } else {
+                                                                passwordField.type = 'password';
+                                                            }
+                                                        });
+                                                    });
+                                                </script>
+
+
+
+
+
                                                 <div class="main-signin-footer mt-5">
                                                     <p><a href="{{ route('forgot') }}">Olvidaste la contraseña?</a></p>
                                                     <p>Todavía no tienes cuenta? <a
@@ -196,34 +160,16 @@
                 </div><!-- End -->
             </div>
         </div>
-
     </div>
-    <!-- End Page -->
-
-    <!-- JQuery min js -->
     <script src="../../assets/plugins/jquery/jquery.min.js"></script>
-
-    <!-- Bootstrap Bundle js -->
     <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Ionicons js -->
     <script src="../../assets/plugins/ionicons/ionicons.js"></script>
-
-    <!-- Moment js -->
     <script src="../../assets/plugins/moment/moment.js"></script>
-
-    <!-- P-scroll js -->
     <script src="../../assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../../assets/plugins/perfect-scrollbar/p-scroll.js"></script>
-
-    <!-- eva-icons js -->
     <script src="../../assets/js/eva-icons.min.js"></script>
-
-    <!-- Rating js-->
     <script src="../../assets/plugins/rating/jquery.rating-stars.js"></script>
     <script src="../../assets/plugins/rating/jquery.barrating.js"></script>
-
-    <!-- custom js -->
     <script src="../../assets/js/custom.js"></script>
     <script>
 		  window.addEventListener('DOMContentLoaded', function() {

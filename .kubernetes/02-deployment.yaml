@@ -76,6 +76,13 @@ spec:
               value: "noreply.authenticfarma@gmail.com"
             - name: MAIL_FROM_NAME
               value: "Yo Soy"
+
+            - name: RECAPTCHA_SITE_KEY
+              value: "6Ld1fAsqAAAAANzajC8Iu96pX4SAQl2TKB3G53Zn"
+            - name: RECAPTCHA_SECRET_KEY
+              value: "6Ld1fAsqAAAAANoHUsYRxSOvGlBq8CF4ATzWeEQ-"
+
+
           ports:
             - name: web
               containerPort: 80

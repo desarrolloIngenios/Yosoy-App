@@ -11,15 +11,10 @@ use App\Models\PoliticaLog;
 use App\Models\PoliticaActual;
 use App\Models\Profile;
 use App\Models\ProfilePerfilLaboral;
-use Validator;
 use App\Models\Base\TiempoExperiencia;
 use App\Models\Base\NivelExperiencia;
 use App\Models\Code;
 use App\Rules\ReCaptcha;
-
-
-
-
 
 class LoginController extends Controller
 {
@@ -29,64 +24,55 @@ class LoginController extends Controller
         return view('login');
     }
 
-
     public function index_empresas()
     {
         return view('login_empresas');
     }
 
-    /**
-     * Login web
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function login(Request $request)
     {
         $credentials = $request->validate([
             'g-recaptcha-response' => ['required', new ReCaptcha]
         ]);
-        
+
         $email = $request->input('email');
         $password = $request->input('password');
         $response = Http::accept('application/json')->post(route('api.login'), [
             'email' => $email,
             'password' => $password,
         ]);
-        //dd($response->json());
+
         $success = $response->json()['success'];
         $data = $response->json()['data'];
-        $message = $response->json()['message'];
 
-        if(!$success){
+        if (!$success) {
             return redirect()->back()->withInput($request->only('email'))->with('status', 'Error al acceder a la cuenta!');
         }
+
         $token = $data['token'];
-        $request->session()->forget('token');
-        session(['token' => $token]);  
-        
+        session(['token' => $token]);
+
         $role = $data['role'];
-        $request->session()->forget('role');
-        session(['role' => $role]);  
+        session(['role' => $role]);
 
         $user_id = $data['user_id'];
-        $request->session()->forget('user_id');
-        session(['user_id' => $user_id]); 
+        session(['user_id' => $user_id]);
 
         $politica_actual = PoliticaActual::find(1);
         $politica_log = PoliticaLog::where('user_id', $user_id)->where('version', $politica_actual->version)->first();
 
         $politica_aceptada = 0;
-        if(!is_null($politica_log)){
-            $politica_log = 1;
+        if (!is_null($politica_log)) {
+            $politica_aceptada = 1;
         }
 
-        session(['politica_actual' => $politica_actual->version]);  
-        session(['user_politica_aceptada' => $politica_log]); 
+        session(['politica_actual' => $politica_actual->version]);
+        session(['user_politica_aceptada' => $politica_aceptada]);
 
-        if($role == 'EMPRESARIO') {
-            session(['empresa' => $data['empresa']]);  
+        if ($role == 'EMPRESARIO') {
+            session(['empresa' => $data['empresa']]);
         }
-        
+
         return redirect()->route('profile.get');
     }
 
@@ -94,12 +80,12 @@ class LoginController extends Controller
     {
         $data = [];
         if($tipo_usuario == 'tecnico'){
-            
+
             $data['nombre'] = 'Técnico';
             $data['is_empirico'] = false;
 
         } elseif($tipo_usuario == 'empirico') {
-           
+
             $data['nombre'] = 'Empírico / Informal';
             $data['is_empirico'] = true;
 
@@ -124,7 +110,7 @@ class LoginController extends Controller
         $request->session()->flush();
         return redirect()->to('https://yo-soy.co');
         return redirect()->route('login');
-        
+
     }
 
     public function registro_empresa()
@@ -142,7 +128,7 @@ class LoginController extends Controller
             'numero_contacto_1' => 'required',
             //'c_password' => 'required|same:password',
         ], ['email.unique' => "El correo ya está registrado"]);
-   
+
         if($validator->fails()){
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
         }
@@ -150,7 +136,7 @@ class LoginController extends Controller
         $input = $request->all();
 
         $input['password'] = bcrypt($input['password']);
-        
+
         // Creación del Usuario
         $user = User::create($input);
 
@@ -160,7 +146,7 @@ class LoginController extends Controller
         $profile->pais_residencia_id = 0;
         $profile->fill($request->except(['_token']));
         $profile->save();
-        
+
         if($profile->code){
             $code = Code::set_used($profile->code);
         }
@@ -175,7 +161,7 @@ class LoginController extends Controller
             $perfil_laboral->save();
         }
 
-        // si en el formulario viene el campo is_empresario verdadero, 
+        // si en el formulario viene el campo is_empresario verdadero,
         // se asigna el rol de empresario al Usuario
         if($input['is_empresario'] == 1){
             $user->setRoleEmpresario();
@@ -219,7 +205,7 @@ class LoginController extends Controller
         return redirect()->route('login')->with('success', 'Contraseña actualizada! Puedes inicar sesión de nuevo');
     }
 
-    
+
     public function registro_tipo_usuario()
     {
         return view('registro_tipo_usuario');
@@ -230,7 +216,7 @@ class LoginController extends Controller
     {
         $input = $request->all();
         $politica_log = PoliticaLog::create($input);
-        session(['user_politica_aceptada' => 1]); 
+        session(['user_politica_aceptada' => 1]);
     }
 
 
