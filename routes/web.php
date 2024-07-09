@@ -3,18 +3,7 @@
 use App\Http\Controllers\LexController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-if(env('WEB_FLAG')){
-
+if(env('WEB_FLAG')){ #se debe comentar esta linea y la de cierre para que funcione en local logica x
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -144,6 +133,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard.index');
 
-}
+} #comentar esta  linea y la apertura pra que funcione en local
 
 Route::post('image-upload', [App\Http\Controllers\Web\ProfileController::class, 'upload' ])->name('image.upload');
