@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: yosoyapp
-          image: us-central1-docker.pkg.dev/authenticfarma-425820/ingenios-artifact-registry/yosoyapp:latest
+          image: us-central1-docker.pkg.dev/authenticfarma-425820/ingenios-artifact-registry/yosoyapp:test01
           env:
             - name: APP_NAME
               value: "Laravel"
@@ -39,7 +39,7 @@ spec:
             - name: DB_USERNAME
               value: "yosoydbuser"
             - name: DB_PASSWORD
-              value: "DBLX5n^Tb9$2!7oJd2E2"
+              value: "6caKQSd@y8^t6yg8G7av"
             - name: LOG_CHANNEL
               value: "stack"
             - name: LOG_LEVEL
@@ -76,24 +76,26 @@ spec:
               value: "noreply.authenticfarma@gmail.com"
             - name: MAIL_FROM_NAME
               value: "Yo Soy"
-
             - name: RECAPTCHA_SITE_KEY
               value: "6Ld1fAsqAAAAANzajC8Iu96pX4SAQl2TKB3G53Zn"
             - name: RECAPTCHA_SECRET_KEY
               value: "6Ld1fAsqAAAAANoHUsYRxSOvGlBq8CF4ATzWeEQ-"
-
-
           ports:
             - name: web
               containerPort: 80
           resources:
             requests:
               cpu: 100m
-              memory: 100Mi
+              memory: 150Mi
             limits:
-              cpu: 500m
+              cpu: 250m
               memory: 512Mi
+          readinessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 300
+            periodSeconds: 10
           lifecycle:
             postStart:
               exec:
-                command: ["/bin/sh", "-c", "php artisan migrate --force && php artisan passport:install"]
+                command: ["/bin/sh", "-c", "php artisan passport:install"]
