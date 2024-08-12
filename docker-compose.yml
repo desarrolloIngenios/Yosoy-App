@@ -1,0 +1,55 @@
+# version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_app
+    ports:
+      - "80:80" # Asegúrate de que Apache está configurado para escuchar en el puerto 80
+    volumes:
+      - .:/var/www
+    env_file: .env
+    depends_on:
+      - db
+
+  # db:
+  #   image: mysql:8.0.37
+  #   container_name: laravel_db
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: laravel
+  #     MYSQL_USER: root
+  #     MYSQL_PASSWORD: root
+  db:
+    image: mysql:8.0.37
+    container_name: laravel_db
+    env_file: .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - dbdata:/var/lib/mysql
+    restart: always
+
+  artisan:
+    env_file: .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_artisan
+    command: >
+      sh -c "
+        sleep 30s
+        php artisan key:generate &&
+        php artisan migrate --force
+      "
+    depends_on:
+      - db
+
+volumes:
+  dbdata:
+

@@ -1,4 +1,4 @@
-FROM php:8.0-fpm
+FROM php:8.3-fpm
 
 # Set working directory
 WORKDIR /var/www
@@ -71,4 +71,4 @@ RUN crontab /etc/cron.d/laravel-cron
 RUN service cron start
 
 EXPOSE 80
-ENTRYPOINT ["/var/www/docker/run.sh"]
+CMD ["sh", "/var/www/docker/run.sh"]

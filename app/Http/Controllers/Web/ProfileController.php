@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
-
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -121,7 +121,7 @@ class ProfileController extends Controller
             'institucion_educativa',
             'star_rating'
         ];
-        
+
         foreach ($cache_keys as $key) {
             if (Cache::has($key)) {
                 $data[$key] = Cache::get($key);
@@ -134,7 +134,7 @@ class ProfileController extends Controller
                 Cache::put($key, $data[$key], $minutes);
             }
         }
-        
+
 
         // // Cache de bancarizaciones
         // if (Cache::has('bancarizaciones')) {
@@ -182,7 +182,7 @@ class ProfileController extends Controller
         // $tipo_documentos = $response->json()['data'];
         // $message = $response->json()['message'];
         // $data['ciudades'] = $tipo_documentos;
-        
+
         // $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.cargos'));
         // //dd($response->json());
         // $this->validar_success($response);
@@ -303,7 +303,7 @@ class ProfileController extends Controller
         $message = $response->json()['message'];
 
         return redirect()->route('profile.get');
-        
+
     }
 
     public function save_soy_empirico(Request $request)
@@ -325,24 +325,24 @@ class ProfileController extends Controller
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-    
-        $image_name = time().'.'.$request->image->extension();  
-     
+
+        $image_name = time().'.'.$request->image->extension();
+
         $path = \Storage::disk('s3')->put('images', $request->image);
         // Guardar path en base de datos
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.profile_post'), ['foto_perfil_url' => $path]);
         //\Storage::disk('s3')->setVisibility($path, 'public');
         $path = \Storage::disk('s3')->url($path);
         //\Storage::disk('s3')->setVisibility($path, 'public');
-        
-        
-       
-    
+
+
+
+
         return redirect()->back()
             ->with('success', 'Image uploaded successfully.')
-            ->with('image', $path); 
+            ->with('image', $path);
     }
 
-    
-    
+
+
 }
