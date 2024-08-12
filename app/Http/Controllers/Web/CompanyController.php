@@ -21,8 +21,8 @@ class CompanyController extends Controller
     public function dashboard(Request $request)
     {
         $data = [];
-        ini_set('memory_limit', '300M');
-        $minutes = 1800;
+        ini_set('memory_limit', '512M');
+        $minutes = 2880;
         if (Cache::has('ciudades')) {
             $ciudades = Cache::get('ciudades');
             $data['ciudades'] = $ciudades;
@@ -42,13 +42,13 @@ class CompanyController extends Controller
     {
         //dd(session('empresa'));
         $empresa_id = session('empresa');
-       
-        $data = []; 
+
+        $data = [];
         if (Cache::has('ciudades')) {
             $ciudades = Cache::get('ciudades');
             $data['ciudades'] = $ciudades;
         } else {
-            $minutes = 1800;
+            $minutes = 2880;
             $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.ciudades'), []);
             //$this->validar_success($response);
             $success = $response->json()['success'];
@@ -78,8 +78,8 @@ class CompanyController extends Controller
             $message = $response->json()['message'];
             $data['empresa'] = $empresa;
             return view('empresa/edit', $data);
-        } 
-        
+        }
+
         return view('empresa/create', $data);
     }
 
@@ -89,7 +89,7 @@ class CompanyController extends Controller
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.empresa.store'), $request->input());
         $empresa = $response->json()['data'];
         if(session('role') == 'EMPRESARIO') {
-            session(['empresa' => $empresa['id']]);  
+            session(['empresa' => $empresa['id']]);
         }
         //dd($response->json());
         //$success = $response->json()['success'];
@@ -97,7 +97,7 @@ class CompanyController extends Controller
        // $message = $response->json()['message'];
 
         return redirect()->back();
-        
+
     }
 
     public function empresa_update(Request $request)

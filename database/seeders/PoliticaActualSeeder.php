@@ -18,7 +18,7 @@ class PoliticaActualSeeder extends Seeder
         PoliticaActual::truncate();
 
         $politicas = [
-            ['id' => 1, 'version' => '1.0.0'],
+            ['id' => 1, 'version' => '1.0'],
         ];
 
         foreach ($politicas as $politica) {

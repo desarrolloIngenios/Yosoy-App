@@ -17,7 +17,7 @@ use App\Http\Controllers\Web\WompiController;
 class OfertaController extends Controller
 {
     public function create(Request $request, $copy_id = null)
-    {   
+    {
         $wompi_controller = new WompiController();
         if(session('role') == 'ADMIN'){
             $wompi_controller->actualizar_tabla_transacciones();
@@ -52,7 +52,7 @@ class OfertaController extends Controller
         $data = [];
         $tipo_candidato_empirico = $empirico_count > 0 ? true : false;
         $tipo_candidato_tecnico = $tecnico_count > 0 ? true : false;
-        
+
         $data['tipo_candidato_empirico'] = $tipo_candidato_empirico;
         $data['tipo_candidato_tecnico'] = $tipo_candidato_tecnico;
         //    dd($data);
@@ -64,7 +64,7 @@ class OfertaController extends Controller
             $ciudades = Cache::get('ciudades');
             $data['ciudades'] = $ciudades;
         } else {
-            $minutes = 1800;
+            $minutes = 2880;
             $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.ciudades'), []);
             //$this->validar_success($response);
             $success = $response->json()['success'];
@@ -82,8 +82,8 @@ class OfertaController extends Controller
             'tiempo_experiencia',
             'cargos',
         ];
-        
-        $minutes = 1800;
+
+        $minutes = 2880;
         foreach ($cache_keys as $key) {
             if (Cache::has($key)) {
                 $data[$key] = Cache::get($key);
@@ -112,7 +112,7 @@ class OfertaController extends Controller
         $offer_id = $request->input('offer_id');
         $tipoContratoId = $request->input('tipo_contrato_id');
         $fechaContrato = $request->input('fecha_contrato');
-    
+
         $user->contratos()->detach($offer_id);
         $user->contratos()->attach($offer_id, [
             'tipo_contrato_id' => $tipoContratoId,
@@ -157,13 +157,13 @@ class OfertaController extends Controller
         if($request->input('tipo_candidato') == "empirico"){
             $request->request->add(['is_empirico' => true]);
         }
-       
+
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.offer.store'), $request->input());
         //dd($response->json());
         $success = $response->json()['success'];
         $data = $response->json()['data'];
         $message = $response->json()['message'];
-       
+
 
         if(!$success){
             return redirect()->back()->withInput($request->only('email'))->with('status', 'Error!');
@@ -179,7 +179,7 @@ class OfertaController extends Controller
         $perfil = $response->json()['data'];
         $message = $response->json()['message'];
         $data['perfil'] = $perfil;
-        
+
         $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.offer.index'), []);
         //dd($response->json());
         $success = $response->json()['success'];
@@ -262,7 +262,7 @@ class OfertaController extends Controller
         $data['user_with_contrato'] = $offer_obj->contratos_users->pluck('id')->toArray();
         $profiles = [];
         foreach($offer_obj->contratos_users as $user){
-            
+
             $profiles[] = $user->profile;
         }
         $data['user_with_contrato_objs'] = $profiles;

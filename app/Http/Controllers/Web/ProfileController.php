@@ -13,32 +13,48 @@ use Illuminate\Support\Facades\Storage;
 class ProfileController extends Controller
 {
 
+    // public function validar_success($response)
+    // {
+    //     if(!is_null($response)){
+    //         if (!is_array($response->json()) && !array_key_exists('success', $response->json())) {
+    //             // $debugInfo = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1)[0];
+    //             // Log::info($debugInfo);
+    //             Log::info('Contenido de la sesión: ' . json_encode(session()->all()));
+    //             Log::info("Método ".__METHOD__." en linea ".__LINE__);
+    //             return redirect(\Request::url());
+    //             //return redirect()->back();
+    //         }
+    //     } else {
+    //         return redirect()->back();
+    //     }
+    // }
+
     public function validar_success($response)
     {
-        if(!is_null($response)){
-            if (!is_array($response->json()) && !array_key_exists('success', $response->json())) {
-                // $debugInfo = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1)[0];
-                // Log::info($debugInfo);
+        if (!is_null($response)) {
+            $responseData = $response->json();
+
+            if (is_array($responseData) && !array_key_exists('success', $responseData)) {
                 Log::info('Contenido de la sesión: ' . json_encode(session()->all()));
-                Log::info("Método ".__METHOD__." en linea ".__LINE__);
+                Log::info("Método " . __METHOD__ . " en línea " . __LINE__);
                 return redirect(\Request::url());
-                //return redirect()->back();
             }
         } else {
             return redirect()->back();
         }
     }
 
+
     public function index(Request $request)
     {
-        ini_set('memory_limit', '300M');
-        $minutes = 1800;
+        ini_set('memory_limit', '512M');
+        $minutes = 2880;
 
-        if(session('role') ==  'EMPRESARIO'){
+        if (session('role') ==  'EMPRESARIO') {
             return redirect()->route('dashboard.empresario');
         }
 
-        if(!session('token', false)){
+        if (!session('token', false)) {
             return redirect()->route('login');
         }
         //dd($debugInfo);
@@ -48,7 +64,7 @@ class ProfileController extends Controller
         $perfil = $response->json()['data'];
         $message = $response->json()['message'];
         $data['perfil'] = $perfil;
-        if(!isset($perfil['is_empirico']) ||  is_null($perfil['is_empirico'])){
+        if (!isset($perfil['is_empirico']) ||  is_null($perfil['is_empirico'])) {
             return redirect()->route('seleccionar_tipo_usuario.get');
         }
 
@@ -281,7 +297,7 @@ class ProfileController extends Controller
         $message = $response->json()['message'];
         //dd($profile);
 
-        if(!$success){
+        if (!$success) {
             return redirect()->back()->withInput($request->only('email'))->with('status', 'Error al acceder a la cuenta!');
         }
         return redirect()->back();
@@ -303,7 +319,6 @@ class ProfileController extends Controller
         $message = $response->json()['message'];
 
         return redirect()->route('profile.get');
-
     }
 
     public function save_soy_empirico(Request $request)
@@ -326,7 +341,7 @@ class ProfileController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $image_name = time().'.'.$request->image->extension();
+        $image_name = time() . '.' . $request->image->extension();
 
         $path = \Storage::disk('s3')->put('images', $request->image);
         // Guardar path en base de datos
@@ -342,7 +357,4 @@ class ProfileController extends Controller
             ->with('success', 'Image uploaded successfully.')
             ->with('image', $path);
     }
-
-
-
 }
