@@ -19,7 +19,7 @@
     <link href="../../assets/css/style-dark.css" rel="stylesheet">
     <link href="../../assets/css/skin-modes.css" rel="stylesheet" />
     <link href="../../assets/css/animate.css" rel="stylesheet">
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
 </head>
 
 <body class="error-page1 main-body bg-light">
@@ -116,12 +116,12 @@
                                                         <br>
                                                     </div>
 
-                                                    <div class="form-group">
+                                                    <!-- <div class="form-group">
                                                         <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
                                                         @error('g-recaptcha-response')
                                                             <div class="alert alert-danger mt-2">{{ $message }}</div>
                                                         @enderror
-                                                    </div>
+                                                    </div> -->
 
                                                     <button type="submit" class="btn btn-main-primary btn-block">Ingresar</button>
                                                 </form>
