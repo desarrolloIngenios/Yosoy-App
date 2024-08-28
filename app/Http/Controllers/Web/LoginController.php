@@ -14,7 +14,7 @@ use App\Models\ProfilePerfilLaboral;
 use App\Models\Base\TiempoExperiencia;
 use App\Models\Base\NivelExperiencia;
 use App\Models\Code;
-use App\Rules\ReCaptcha;
+// use App\Rules\ReCaptcha;
 
 class LoginController extends Controller
 {
@@ -31,9 +31,9 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'g-recaptcha-response' => ['required', new ReCaptcha]
-        ]);
+        // $credentials = $request->validate([
+        //     'g-recaptcha-response' => ['required', new ReCaptcha]
+        // ]);
 
         $email = $request->input('email');
         $password = $request->input('password');
