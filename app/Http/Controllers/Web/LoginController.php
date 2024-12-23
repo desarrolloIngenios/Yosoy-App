@@ -169,7 +169,7 @@ class LoginController extends Controller
 
 
         // Creación del Usuario
-        DB::beginTransaction();
+        // DB::beginTransaction();
 
         try {
             $input['password'] = bcrypt($input['password']);
@@ -222,10 +222,10 @@ class LoginController extends Controller
            
             
             
-            DB::commit();
+            // DB::commit();
 
         } catch (\Exception $e) {
-            DB::rollBack();
+            // DB::rollBack();
             // dd($e->getMessage());
         }
             
