@@ -17,32 +17,18 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name',
         'email',
         'password',
+        'id_lideresa'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -79,6 +65,14 @@ class User extends Authenticatable
     public function setRoleEmpresario()
     {
         $role = Role::where('name', 'like', 'EMPRESARIO')->first();
+        if(!is_null($role)){
+            $this->roles()->save($role);
+        }
+    }
+
+    public function setRoleLidereza()
+    {
+        $role = Role::where('name', 'like', 'LIDERESA')->first();
         if(!is_null($role)){
             $this->roles()->save($role);
         }

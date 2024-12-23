@@ -64,6 +64,7 @@
 					<!-- The content half -->
 					<div class="col-md-6 col-lg-6 col-xl-5 bg-white">
 						<div class="login d-flex align-items-center py-2">
+							
 							<!-- Demo content-->
 							<div class="container p-0">
 								<div class="row">
@@ -90,39 +91,43 @@
 												@csrf
 												<input name="is_empirico" type="hidden" value="{{ $is_empirico }}">
 													<div class="form-group">
-													<label>Yo soy</label><select class="form-control select2" name="cargo_id" placeholder="" required>
-														<option value=""></option>
-															@foreach($cargos as $cargo)
-																<option value="{{ $cargo->id }}">
-																		{{ $cargo->nombre }}
-																	</option>
-															@endforeach
-														</select>
-													</div>
-													<div class="row">
+													{{-- @if ($nombre!='Lideresa')	 --}}
+														<label>Yo soy</label><select class="form-control select2" name="cargo_id" placeholder="" required>
+															<option value=""></option>
+																@foreach($cargos as $cargo)
+																	<option value="{{ $cargo->id }}">
+																			{{ $cargo->nombre }}
+																		</option>
+																@endforeach
+															</select>
+														</div>
+														<div class="row">
+															<div class="col-lg-6 mg-b-6 mg-lg-b-6">
+																<label>Nivel de experiencia</label><select class="form-control select2" name="nivel_experiencia_id" placeholder="" required>
+																@foreach($nivel_experiencia as $item)
+																		<option value=""></option>
+																			<option value="{{ $item->id }}">
+																				{{ $item->nombre }}
+																			</option>
+																	@endforeach
+																</select>
+															</div>   
+															<div class="col-lg-6 mg-b-6 mg-lg-b-6">
+																<label>Tiempo de experiencia</label><select class="form-control select2" name="tiempo_experiencia_id" placeholder="" required>
+																@foreach($tiempo_experiencia as $item)
+																		<option value=""></option>
+																			<option value="{{ $item->id }}">
+																				{{ $item->nombre }}
+																			</option>
+																	@endforeach
+																</select>
+															</div>  
+														</div>
+													{{-- @endif --}}
 
-													<div class="col-lg-6 mg-b-6 mg-lg-b-6">
-														<label>Nivel de experiencia</label><select class="form-control select2" name="nivel_experiencia_id" placeholder="" required>
-														@foreach($nivel_experiencia as $item)
-																<option value=""></option>
-																	<option value="{{ $item->id }}">
-																		{{ $item->nombre }}
-																	</option>
-															@endforeach
-														</select>
-													</div>   
-													<div class="col-lg-6 mg-b-6 mg-lg-b-6">
-														<label>Tiempo de experiencia</label><select class="form-control select2" name="tiempo_experiencia_id" placeholder="" required>
-														@foreach($tiempo_experiencia as $item)
-																<option value=""></option>
-																	<option value="{{ $item->id }}">
-																		{{ $item->nombre }}
-																	</option>
-															@endforeach
-														</select>
-													</div>  
-													</div>
-
+													@if ($nombre=='Lideresa')
+														<input type="hidden" name="is_lideresa" value="1">
+													@endif
 													<div class="form-group">
 														<label>Nombre(s)</label> <input class="form-control" name="name" placeholder="Ingresa tu(s) nombre(s)" value="{{ old('name') }}" type="text" required>
 													</div>
@@ -163,7 +168,6 @@
 															<option value="4">Venezolanos</option>
 															<option value="5">Fundación Acción Interna</option>
 															<option value="7">Fundación Afro, Indígenas y Mestizos</option>
-															{{-- <option value="8">Fundación GAAT</option> --}}
 															<option value="9">Fundación Soy Oportunidad</option>
 															<option value="10">Mujeres Endógenas del Cauca</option>
 															<option value="11">Fundación Compromiso Valle</option>
@@ -179,11 +183,23 @@
 															<option value="21">Fundación poder joven</option>
 															<option value="22">Centro Mya</option>
 															<option value="23">Fundación AR</option>
-															
 															<option value="6">Otros</option>
 														</select>
 													</div>
-
+													@if ($nombre!='Lideresa')
+														<div class="form-group">
+															<label>¿Pertenece a algúna grupo lideresa?<</label>
+															<select class="form-control select2" name="id_lideresa" id="id_lideresa" placeholder="" required>
+																<option value="0">Sin lideresa</option>
+																@foreach($lideresas as $lider)
+																	<option value="{{ $lider->id }}">
+																			{{ $lider->profile->name }} {{ $lider->profile->last_name }}
+																		</option>
+																@endforeach
+															</select>
+																
+														</div>
+													@endif
 													<div id="alert_valido" class="alert alert-success alert-dismissible fade show mb-0" role="alert">
 														<span class="alert-inner--text"><strong></strong>Código Válido</span>
 														<button type="button" class="close" data-dismiss="alert" aria-label="Close">

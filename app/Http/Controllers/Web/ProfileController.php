@@ -318,6 +318,26 @@ class ProfileController extends Controller
         return redirect()->route('profile.get');
     }
 
+    public function save_soy_lideresa(Request $request)
+    {
+        $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.profile_post'), ['is_empirico' => false]);
+        $success = $response->json()['success'];
+        $data = $response->json()['data'];
+        $message = $response->json()['message'];
+
+        return redirect()->route('profile.get');  
+    }
+
+    public function save_soy_superlideresa(Request $request)
+    {
+        $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.profile_post'), ['is_empirico' => false]);
+        $success = $response->json()['success'];
+        $data = $response->json()['data'];
+        $message = $response->json()['message'];
+
+        return redirect()->route('profile.get');  
+    }
+
     public function upload(Request $request)
     {
         //dd(\Session::all());

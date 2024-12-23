@@ -26,7 +26,7 @@ class UserController extends Controller
                 Log::info('Contenido de la sesión: ' . json_encode(session()->all()));
                 Log::info("Método ".__METHOD__." en linea ".__LINE__);
                 return redirect(\Request::url());
-                //return redirect()->back();
+                
             }
         } else {
             return redirect()->back();

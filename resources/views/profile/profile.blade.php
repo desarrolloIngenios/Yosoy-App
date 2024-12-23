@@ -15,6 +15,7 @@
                 <h4 class="card-title mb-1">INFORMACIÓN PERSONAL</h4>
                 <p class="mb-2"></p>
             </div>
+
             <div class="card-body pt-0">
                 <form action="{{ route('profile.post') }}" method="post">
                     @csrf
