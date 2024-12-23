@@ -73,7 +73,7 @@
 										<div class="col-xs-6 col-sm-6 col-lg-6 col-xl-6">
 											<div class="panel price panel-color">
 												<div class="panel-heading bg-primary p-0 text-center">
-													<h3>Soy Empírico / Informal</h3>
+													<h3>Soy Empírica / Informal</h3>
 												</div>
 												<div class="panel-body text-center">
 													<div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto wd-100p">
@@ -95,7 +95,7 @@
 										<div class="col-xs-6 col-sm-6 col-lg-6 col-xl-6">
 											<div class="panel price panel-color">
 												<div class="panel-heading bg-warning  p-0 text-center">
-													<h3>Soy Técnico</h3>
+													<h3>Soy Lideresa</h3>
 												</div>
 												<div class="panel-body text-center">
 													<div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto wd-100p">
@@ -110,7 +110,7 @@
 													<li class="list-group-item border-bottom-0"><strong> 24/7</strong> support</li> -->
 												</ul>
 												<div class="panel-footer text-center">
-													<a class="btn btn-warning" href="{{ route('registro.get', ['tipo_usuario' => 'tecnico']) }}">Regístrate</a>
+													<a class="btn btn-warning" href="{{ route('registro.get', ['tipo_usuario' => 'lideresa']) }}">Regístrate</a>
 												</div>
 											</div>
 										</div>

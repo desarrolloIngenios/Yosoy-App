@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-if(env('API_FLAG')){
+// if(env('API_FLAG')){
 
 Route::post('register', [App\Http\Controllers\Api\LoginController::class, 'register'])->name('api.register');
 Route::post('validate_code', [App\Http\Controllers\Api\LoginController::class, 'validate_code'])->name('api.validate_code');
@@ -81,10 +81,11 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('generate_codes', [App\Http\Controllers\Api\CodeController::class, 'generate_codes'])->name('api.generate_codes');
 
-   
+    Route::get('candidato_index', [App\Http\Controllers\Api\CandidateController::class, 'index'])->name('api.candidato_index');
+    Route::get('candidato_index_lideresas', [App\Http\Controllers\Api\CandidateController::class, 'index_lideresas'])->name('api.candidato_index_lideresas');
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-}
+// }

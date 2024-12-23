@@ -36,9 +36,11 @@
 					<a class="side-menu__item" href="{{ route('offer.index') }}"><i class=" side-menu__icon fa fa-align-justify"></i><span class="side-menu__label">Ofertas</span></a>
 				</li>
 				<li class="slide">
+					<a class="side-menu__item" href="{{ route('entrenamiento.index') }}"><i class=" side-menu__icon fa fa-book"></i><span class="side-menu__label">Mi entrenamiento</span></a>
+				</li>
+				<li class="slide">
 					<a class="side-menu__item" href="{{ route('logout') }}"><i class=" side-menu__icon fa fa-sign-out" ></i><span class="side-menu__label">Salir</span></a>
 				</li>
-				
 			</ul>
 <!-- 			
 			<ul class="side-menu">

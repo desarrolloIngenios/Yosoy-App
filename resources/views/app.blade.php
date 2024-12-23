@@ -12,6 +12,10 @@
             @include('partials/left_sidebar_admin')
         @elseif(session('role') == 'EMPRESARIO')
             @include('partials/left_sidebar_empresario')
+        @elseif(session('role') == 'LIDERESA')
+            @include('partials/left_sidebar_lideresa')
+        @elseif(session('role') == 'SUPERLIDERESA')
+            @include('partials/left_sidebar_superlideresa')
         @else
             @include('partials/left_sidebar')
         @endif

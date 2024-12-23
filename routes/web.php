@@ -3,18 +3,21 @@
 use App\Http\Controllers\LexController;
 use Illuminate\Support\Facades\Route;
 
-if(env('WEB_FLAG')){ #se debe comentar esta linea y la de cierre para que funcione en local logica x
+// if(env('WEB_FLAG')){ #se debe comentar esta linea y la de cierre para que funcione en local logica x
 
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
 Route::get('login', [App\Http\Controllers\Web\LoginController::class, 'index'])->name('login');
-
+Route::get('suonos', [App\Http\Controllers\Web\LoginController::class, 'suonos'])->name('suonos');
 Route::get('login_empresas', [App\Http\Controllers\Web\LoginController::class, 'index_empresas'])->name('login_empresas');
 Route::post('login', [App\Http\Controllers\Web\LoginController::class, 'login'])->name('login.post');
+
 Route::get('forgot', [App\Http\Controllers\Web\LoginController::class, 'forgot'])->name('forgot');
 Route::post('forgot', [App\Http\Controllers\Web\LoginController::class, 'forgot_post'])->name('forgot.post');
+Route::get('lideresa', [App\Http\Controllers\Web\RoleController::class, 'create'])->name('rol.lideresa');
+
 Route::get('/reset-password/{token}', function ($token) {
     return view('auth.reset-password', ['token' => $token]);
 })->middleware('guest')->name('password.reset');
@@ -41,7 +44,8 @@ Route::get('profile', [App\Http\Controllers\Web\ProfileController::class, 'index
 Route::get('seleccionar_tipo_usuario', [App\Http\Controllers\Web\ProfileController::class, 'seleccionar_tipo_usuario'])->name('seleccionar_tipo_usuario.get');
 Route::get('save_soy_tecnico.get', [App\Http\Controllers\Web\ProfileController::class, 'save_soy_tecnico'])->name('save_soy_tecnico.get');
 Route::get('save_soy_empirico.get', [App\Http\Controllers\Web\ProfileController::class, 'save_soy_empirico'])->name('save_soy_empirico.get');
-
+Route::get('save_soy_lideresa.get', [App\Http\Controllers\Web\ProfileController::class, 'save_soy_lideresa'])->name('save_soy_lideresa.get');
+Route::get('save_soy_superlideresa.get', [App\Http\Controllers\Web\ProfileController::class, 'save_soy_superlideresa'])->name('save_soy_superlideresa.get');
 
 
 Route::post('profile_laboral', [App\Http\Controllers\Web\PerfilLaboralController::class, 'store'])->name('profile_laboral.post');
@@ -53,7 +57,11 @@ Route::get('delete_experiencia_laboral/{id}', [App\Http\Controllers\Web\Experien
 Route::post('educacion', [App\Http\Controllers\Web\EducacionController::class, 'store'])->name('educacion.post');
 Route::get('delete_educacion/{id}', [App\Http\Controllers\Web\EducacionController::class, 'delete'])->name('educacion.delete');
 
-Route::get('user/list', [App\Http\Controllers\Web\UserController::class, 'index'])->name('user_list');
+Route::middleware(['role:ADMIN,EMPRESARIO'])->group(function () {
+    Route::get('user/list', [App\Http\Controllers\Web\UserController::class, 'index'])->name('user_list');
+});
+
+
 
 Route::get('offer/index', [App\Http\Controllers\Web\OfertaController::class, 'index'])->name('offer.index');
 Route::post('offer', [App\Http\Controllers\Web\OfertaController::class, 'store'])->name('offer.post');
@@ -109,30 +117,22 @@ Route::get('facturacion/crearEmpresaZenSmart/{empresa_id}', [App\Http\Controller
 
 
 
-
 Route::get('/chatbot', function () {
     return view('chatbot.chatbot'); // Renderiza la vista del chatbot
 });
 
 Route::post('/lex-webhook', [App\Http\Controllers\LexController::class, 'webhook'])->name('webhook');
 
-
-Route::get('send-mail', function () {
-
-    $details = [
-        'title' => 'Mail from ItSolutionStuff.com',
-        'body' => 'This is for testing email using smtp'
-    ];
-
-    \Mail::to(['juandavid162@gmail.com'])->send(new \App\Mail\MyTestMail($details));
-
-    dd("Email is Sent.");
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard.index');
-
-} #comentar esta  linea y la apertura pra que funcione en local
-
 Route::post('image-upload', [App\Http\Controllers\Web\ProfileController::class, 'upload' ])->name('image.upload');
+
+Route::get('candidates', [App\Http\Controllers\Web\CandidateController::class, 'index' ])->name('candidate.index');
+Route::get('candidates_lideresas', [App\Http\Controllers\Web\CandidateController::class, 'index_lideresas' ])->name('candidate.index_lideresas');
+Route::get('programas', [App\Http\Controllers\Web\ProgramController::class, 'index' ])->name('program.index');
+Route::get('entrenamiento/index', [App\Http\Controllers\Web\ProgramController::class, 'index_candidato' ])->name('entrenamiento.index');
+Route::get('candidato/{id}', [App\Http\Controllers\Web\ProgramController::class, 'candidato' ])->name('entrenamiento.candidato.index');
+Route::post('asignar-candidato', [App\Http\Controllers\Web\ProgramController::class, 'asignar_candidato' ])->name('programa.candidato.index');
+
+
+Route::middleware(['role:SUPERLIDERESA'])->group(function () {
+    Route::get('analitics', [App\Http\Controllers\Web\EntrenamientoContoller::class, 'show_analitics' ])->name('analitics.index');
+});

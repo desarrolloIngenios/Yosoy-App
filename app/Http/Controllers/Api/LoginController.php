@@ -9,11 +9,11 @@ use App\Models\Profile;
 use App\Models\PoliticaLog;
 use App\Models\Code;
 use Illuminate\Support\Facades\Auth;
-use Validator;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends BaseController
 {
@@ -84,6 +84,7 @@ class LoginController extends BaseController
      */
     public function login(Request $request)
     {
+        
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
             $user = Auth::user(); 
             $success['token'] =  $user->createToken('MyApp')->accessToken; 
@@ -136,7 +137,5 @@ class LoginController extends BaseController
         return $this->sendResponse(false, 'No valido');
 
     }
-
-
 
 }
