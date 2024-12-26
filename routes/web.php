@@ -3,7 +3,7 @@
 use App\Http\Controllers\LexController;
 use Illuminate\Support\Facades\Route;
 
-// if(env('WEB_FLAG')){ #se debe comentar esta linea y la de cierre para que funcione en local logica x
+if(env('WEB_FLAG')){ #se debe comentar esta linea y la de cierre para que funcione en local logica x
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -136,3 +136,4 @@ Route::post('asignar-candidato', [App\Http\Controllers\Web\ProgramController::cl
 Route::middleware(['role:SUPERLIDERESA'])->group(function () {
     Route::get('analitics', [App\Http\Controllers\Web\EntrenamientoContoller::class, 'show_analitics' ])->name('analitics.index');
 });
+}
