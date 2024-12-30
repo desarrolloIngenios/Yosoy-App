@@ -125,20 +125,21 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4 mb-4">
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <div id="chart-perfil"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
         <div class="card">
             <div class="card-body">
                 <div id="chart-edad"></div>
             </div>
         </div>
     </div>
-    <div class="col-md-8 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <div id="chart-cargos"></div>
-            </div>
-        </div>
-    </div>
+  
 </div>
 <div class="row">
     <div class="col-md-6 mb-4">
@@ -157,10 +158,10 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-5 mb-4">
+    <div class="col-md-12 mb-4">
         <div class="card">
             <div class="card-body">
-                <div id="chart-perfil"></div>
+                <div id="chart-cargos"></div>
             </div>
         </div>
     </div>
@@ -213,7 +214,7 @@
                 categories: Object.keys(ageGroups)
             },
             title: {
-                text: 'Distribución por Edad'
+                text: 'Perfil completado y edades '
             },
             colors: ['#F1B715']
         };
@@ -275,7 +276,7 @@
                 categories: Object.keys(datosDocumentos), 
             },
             title: {
-                text: 'Perfiles completados por Tipo de Documento'
+                text: 'Perfiles completado y Documento'
             },
             colors: ['#5D1D88'], 
         };
@@ -297,7 +298,7 @@
                 categories: Object.keys(grupoSocial), 
             },
             title: {
-                text: 'Perfiles completados por grupo social'
+                text: 'Usuarios por grupo social'
             },
             colors: ['#F1B715'], 
         };

@@ -135,5 +135,6 @@ Route::post('asignar-candidato', [App\Http\Controllers\Web\ProgramController::cl
 
 Route::middleware(['role:SUPERLIDERESA'])->group(function () {
     Route::get('analitics', [App\Http\Controllers\Web\EntrenamientoContoller::class, 'show_analitics' ])->name('analitics.index');
+    Route::get('dashboard', [App\Http\Controllers\Web\DashboardController::class, 'index' ])->name('analitics.yosoy.index');
 });
 }
