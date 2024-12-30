@@ -237,7 +237,7 @@
 													</div>
 												
 													<br>
-													<button id="submit_button" type="submit" class="btn btn-main-primary btn-block">Regístrate</button>
+													<button id="submit_button" type="submit" class="btn btn-main-primary btn-block" disabled> Regístrate</button>
 												</form>
 												<div class="main-signup-footer mt-5">
 													<p>Ya tienes un cuenta? <a href="{{ route('login') }}">Inicia Sesión</a></p>
@@ -324,6 +324,13 @@
 							$('#alert_no_valido').show('slow');
 						}
 					});
+				});
+				$('#checkbox-2, #checkbox-3').change(function() {
+					if ($('#checkbox-2').is(':checked') && $('#checkbox-3').is(':checked')) {
+						$('#submit_button').prop('disabled', false);  
+					} else {
+						$('#submit_button').prop('disabled', true);  
+					}
 				});
 			});
 		</script>
