@@ -70,7 +70,7 @@
                 <div class="acordeon">
                     {{-- {{ $programas[0]['show__title'] }} --}}
                     <input type="checkbox" id="acordeon{{$programa['show__id']}}">
-                    <label for="acordeon{{ $programa['show__id'] }}">{{ $programa['show__title'] }} - PROGRESO {{ $programa['show__user__progress__total'] }} %</label>
+                    <label for="acordeon{{ $programa['show__id'] }}">{{ $programa['show__title'] }} - PROGRESO {{ $programa['show__user__progress__percent'] }} %</label>
                     <div class="contenido">
                         <iframe id="iframe_embed" width="100%" height="800" src="https://business.suonos.co/es/snippet/show/{{ $programa['show__id']}}?api_key=45bf480161eb6be5179b5a4a1a13228588071064&user_email={{$user->email}}" referrerpolicy="origin"
                         title="Suonos Audio Player" frameborder="0"></iframe>

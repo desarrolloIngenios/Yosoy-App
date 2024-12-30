@@ -15,4 +15,9 @@ class EntrenamientoContoller extends Controller
     {
         return view('analitics');
     }
+    public function show_analitics_yosoy()
+    {
+        return view('dashboard.index');
+    }
+    
 }

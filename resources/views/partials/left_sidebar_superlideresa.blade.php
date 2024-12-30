@@ -65,13 +65,16 @@
 					<a class="side-menu__item" target="_blank" href="{{ route('terminos_condiciones') }}"><i class=" side-menu__icon fa fa-file"></i><span class="side-menu__label">Política de datos.</span></a>
 				</li>
 				<li class="slide">
-					<a class="side-menu__item" href="{{ route('analitics.index') }}"><i class=" side-menu__icon fa fa-industry"></i><span class="side-menu__label">Analiticas Suonos</span></a>
+					<a class="side-menu__item" href="{{ route('analitics.yosoy.index') }}"><i class=" side-menu__icon fa fa-tachometer-alt"></i><span class="side-menu__label">Analiticas Yo Soy</span></a>
+				</li>
+				<li class="slide">
+					<a class="side-menu__item" href="{{ route('analitics.index') }}"><i class=" side-menu__icon fa fa-chart-line"></i><span class="side-menu__label">Analiticas Suonos</span></a>
 				</li>
 				<li class="slide">
 					<a class="side-menu__item" href="{{ route('candidate.index_lideresas') }}"><i class=" side-menu__icon fa fa-users"></i><span class="side-menu__label">Candidatas</span></a>
 				</li>
 				<li class="slide">
-					<a class="side-menu__item" href="{{ route('program.index') }}"><i class=" side-menu__icon fa fa-book"></i><span class="side-menu__label">Programas</span></a>
+					<a class="side-menu__item" href="{{ route('program.index') }}"><i class=" side-menu__icon fa fa-book-open"></i><span class="side-menu__label">Programas</span></a>
 				</li>
 				<li class="slide">
 					<a class="side-menu__item" href="{{ route('entrenamiento.index') }}"><i class=" side-menu__icon fa fa-book"></i><span class="side-menu__label">Mi entrenamiento</span></a>

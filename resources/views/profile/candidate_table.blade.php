@@ -160,7 +160,7 @@
                           response.programas.forEach(function(programa) {
                               var listItem = `
                                   <div class="border mb-1 rounded">
-                                      <p class='text-center'>${programa.show__title}  -  <small class='h2' style="color: #5F208A">${programa.show__user__progress__total} %</small> </p>
+                                      <p class='text-center'>${programa.show__title}  -  <small class='h2' style="color: #5F208A">${programa.show__user__progress__percent} %</small> </p>
                                   </div>
                               `;
                               modalContent.append(listItem);
