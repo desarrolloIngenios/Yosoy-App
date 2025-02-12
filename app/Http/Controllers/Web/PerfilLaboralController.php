@@ -23,9 +23,10 @@ class PerfilLaboralController extends Controller
 
     public function delete(Request $request, $id)
     {
-        //dd($id);
+       
         $response = Http::withToken(session('token'))->accept('application/json')->delete(route('api.peril_labora_perfil.delete', ['id' => $id]));
-        //dd($response->json());
+        
+        
 
         $success = $response->json()['success'];
         $data = $response->json()['data'];

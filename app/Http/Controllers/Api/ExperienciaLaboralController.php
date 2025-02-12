@@ -13,7 +13,10 @@ class ExperienciaLaboralController extends BaseController
     
     public function store(Request $request)
     {
+        // return $this->sendResponse($request->all(), 'Perfil');
         $profile = $request->user()->profile;
+
+        
         //$profile = Profile::find(1);
         $experiencia_laboral = new ProfileExperienciaLaboral();
         $experiencia_laboral->fill($request->except(['_token']));
@@ -21,6 +24,7 @@ class ExperienciaLaboralController extends BaseController
         $experiencia_laboral->pais_id = 0;
         $experiencia_laboral->empleador_id = 0;
         $experiencia_laboral->empleador = ucwords($request->input('empleador'));
+        // $experiencia_laboral->contrato = $request->input('contrato');
         $experiencia_laboral->save();
         
         return $this->sendResponse($profile, 'Perfil');

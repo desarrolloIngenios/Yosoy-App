@@ -29,7 +29,9 @@ class Profile extends Model
                             'foto_perfil_url',
                             'code',
                             'grupo_social_id',
-                            'bancarizacion_id'
+                            'bancarizacion_id',
+                            'banco',
+                            'billetera',
                         ];
     
     protected $appends = ['full_name', 'grupo_social_nombre'];

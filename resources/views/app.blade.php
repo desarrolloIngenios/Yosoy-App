@@ -387,7 +387,7 @@
 
 
             formularios.forEach(function(formulario) {
-                console.log(formulario)
+                // console.log(formulario)
                 formulario.addEventListener('submit', function() {
                     // Deshabilitar el botón de envío
                     var botonEnvio = formulario.querySelector(

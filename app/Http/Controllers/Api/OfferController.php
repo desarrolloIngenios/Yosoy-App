@@ -194,43 +194,6 @@ class OfferController extends BaseController
         $offer->save();
         return $this->sendResponse($offer, 'Offer');
     }
-
-    
-
-    
-    
-
-    // public function storePerfilLaboral(Request $request)
-    // {
-    //     $profile = $request->user()->profile;
-    //     //dd(Auth::user());
-
-    //     //$profile = Profile::find(1);
-    //     $profile->perfiles_laborales;
-
-    //     $perfil_laboral = new ProfilePerfilLaboral();
-    //     $perfil_laboral->fill($request->except(['_token']));
-    //     $perfil_laboral->profile_id = $profile->id;
-    //     $perfil_laboral->save();
-
-    //     $profile->perfiles_laborales;
-        
-    //     return $this->sendResponse($profile, 'Perfil');
-    //     //$profile = Profile::where('user_id', $user_id)->first();
-    //     //return $this->sendResponse($profile, 'Perfil');
-    // }
-
-    // public function deletePerfilLaboral(Request $request, $id)
-    // {
-
-    //     $perfil_laboral = ProfilePerfilLaboral::find($id);
-    //     $perfil_laboral->delete();
-        
-    //     return $this->sendResponse([], 'Perfil Laboral Eliminado');
-    //     //$profile = Profile::where('user_id', $user_id)->first();
-    //     //return $this->sendResponse($profile, 'Perfil');
-    // }
-
     
 
 }

@@ -59,7 +59,7 @@
                               modalContent.append(listItem);
                           });
                       } else {
-                          modalContent.html('<div class="border mb-1 rounded">No hay programas disponibles.</div>');
+                          modalContent.html('<div class="border mb-1 rounded">No se han asignado programas.</div>');
                       }
                   },
                   error: function(error) {

@@ -188,7 +188,7 @@
 													</div>
 													@if ($nombre!='Lideresa')
 														<div class="form-group">
-															<label>¿Pertenece a algúna grupo lideresa?<</label>
+															<label>¿Pertenece a algúna lideresa?</label>
 															<select class="form-control select2" name="id_lideresa" id="id_lideresa" placeholder="" required>
 																<option value="0">Sin lideresa</option>
 																@foreach($lideresas as $lider)

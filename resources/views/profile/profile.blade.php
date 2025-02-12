@@ -7,8 +7,6 @@
     @include('profile/partial_profile_perfil_laboral')
 @else
 
-
-    
     <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
         <div class="card  box-shadow-0 ">
             <div class="card-header">
@@ -115,37 +113,11 @@
                                 </div>
                             </div>
 
-                            <!-- <div class="col-lg-6 mg-b-6 mg-lg-b-0">
-                                <p class="mg-b-10">País residencia</p><select class="form-control select2" name="pais_residencia_id" placeholder="País" required>
-                                    <option value=""></option>
-                                    @foreach($paises as $pais)
-                                        @if(isset($perfil['pais_residencia_id']) && $perfil['pais_residencia_id'] == $pais['id'])
-                                            <option value="{{ $pais['id'] }}" selected>
-                                                {{ $pais['nombre'] }}
-                                            </option>
-                                        @else
-                                            <option value="{{ $pais['id'] }}">
-                                                {{ $pais['nombre'] }}
-                                            </option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>    -->
+                         
 
                             <div class="col-lg-6 mg-b-6 mg-lg-b-0">
-                                <p class="mg-b-10">Ciudad de residencia</p><select class="form-control select2" name="ciudad_residencia_id" placeholder="País" required>
+                                <p class="mg-b-10">Ciudad de residencia</p><select class="form-control select2" name="ciudad_residencia_id" id="ciudad_residencia_id" placeholder="País" required>
                                     <option value=""></option>
-                                    @foreach($ciudades as $ciudad)
-                                        @if(isset($perfil['ciudad_residencia_id']) && $perfil['ciudad_residencia_id'] == $ciudad['id'])
-                                            <option value="{{ $ciudad['id'] }}" selected>
-                                                {{ $ciudad['pais_departamento_ciudad'] }}
-                                            </option>
-                                        @else
-                                            <option value="{{ $ciudad['id'] }}">
-                                                {{ $ciudad['pais_departamento_ciudad'] }}
-                                            </option>
-                                        @endif
-                                    @endforeach
                                 </select>
                             </div>   
                            
@@ -160,7 +132,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 mg-b-6 mg-lg-b-0">
-                                <p class="mg-b-10">Bancarización</p><select name="bancarizacion_id" class="form-control select2" placeholder="Bancarización"  required>
+                                <p class="mg-b-10">Bancarización</p><select id="bancarizacion_id" name="bancarizacion_id" class="form-control select2" placeholder="Bancarización"  required>
                                     <option value=""></option>
                                     @foreach($bancarizaciones as $bancarizacion)
                                        
@@ -176,6 +148,40 @@
                                     @endforeach
                                 </select>
                             </div>   
+                            
+                            <div class="col-lg-6 mg-b-6 mg-lg-b-0" id="banco" style="display: none;">
+                                <p class="mg-b-10">Banco</p><select name="banco"  class="form-control select2" placeholder="Banco">
+                                    <option value=""></option>
+                                        @foreach($banco as $banco)                                       
+                                            @if(isset($perfil['banco']) && $perfil['banco'] == $banco['description'])
+                                                <option value="{{ $banco['description'] }}" selected>
+                                                    {{ $banco['description'] }}
+                                                </option>
+                                            @else
+                                                <option value="{{ $banco['description'] }}">
+                                                    {{ $banco['description'] }}
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                </select>
+                            </div>   
+                            <div class="col-lg-6 mg-b-6 mg-lg-b-0" id="monedero" style="display: none;">
+                                <p class="mg-b-10">Billeteras digitales</p><select name="billetera"  class="form-control select2" placeholder="Monedero">
+                                    <option value=""></option>
+                                        @foreach($billetera as $billetera)                                       
+                                            @if(isset($perfil['billetera']) && $perfil['billetera'] == $billetera['description'])
+                                                <option value="{{ $billetera['description'] }}" selected>
+                                                    {{ $billetera['description'] }}
+                                                </option>
+                                            @else
+                                                <option value="{{ $billetera['description'] }}">
+                                                    {{ $billetera['description'] }}
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                </select>
+                            </div>  
+
                         </div>
 
                         
@@ -280,7 +286,9 @@
                                         <td>{{$perfil_laboral['nivel_experiencia']['nombre']}}</td>
                                         <td>{{$perfil_laboral['tiempo_experiencia']['nombre']}}</td>
                                         <td>
-                                            <a href="{{ route('profile_laboral.delete', $perfil_laboral['id'])}}" class="card-link text-secondary"><i class="typcn typcn-trash"></i> Eliminar</a>
+                                            @if ($perfil['perfiles_laborales'][0]['id'] != $perfil_laboral['id'])
+                                                <a href="{{ route('profile_laboral.delete', $perfil_laboral['id'])}}" class="card-link text-secondary"><i class="typcn typcn-trash"></i> Eliminar</a>
+                                            @endif 
                                         </td>
                                     </tr>
                                     @endforeach
@@ -320,16 +328,6 @@
                             <input name="empleador" class="form-control" placeholder="Empleador" type="text" required>
                         </div>
                     </div> 
-                    <!-- <div class="col-lg-4 mg-b-12 mg-lg-b-6">
-                        <p class="mg-b-10">Empleador*</p><select class="form-control select2" name="empleador_id" placeholder="">
-                        <option value=""></option>
-                            @foreach($empleador as $item)
-                                <option value="{{ $item['id'] }}">
-                                        {{ $item['nombre'] }}
-                                    </option>
-                            @endforeach
-                        </select>
-                    </div>    -->
                     <div class="col-lg-4 mg-b-12 mg-lg-b-6">
                         <p class="mg-b-10">Sector*</p><select class="form-control select2" name="sector_id" placeholder="">
                         <option value=""></option>
@@ -340,25 +338,36 @@
                             @endforeach
                         </select>
                     </div> 
-                    <!-- <div class="col-lg-4 mg-b-12 mg-lg-b-6">
-                        <p class="mg-b-10">Pais*</p><select class="form-control select2" name="pais_id" placeholder="">
-                        <option value=""></option>
-                            @foreach($paises as $item)
-                                <option value="{{ $item['id'] }}">
-                                        {{ $item['nombre'] }}
-                                    </option>
-                            @endforeach
-                        </select>
-                    </div>  -->
+              
                     <div class="col-lg-4 mg-b-12 mg-lg-b-6">
-                        <p class="mg-b-10">Ciudad*</p><select class="form-control select2" name="ciudad_id" placeholder="">
+                        <p class="mg-b-10">Ciudad*</p><select class="form-control select2" name="ciudad_id" id="ciudad_id" placeholder="">
                         <option value=""></option>
-                            @foreach($ciudades as $item)
-                                <option value="{{ $item['id'] }}">
-                                        {{ $item['pais_departamento_ciudad'] }}
-                                    </option>
-                            @endforeach
                         </select>
+                    </div> 
+                    <div class="col-lg-4 mg-b-12 mg-lg-b-6">
+                        <p class="mg-b-10">Tipo de contrato*</p>
+                            <select class="form-control select2"name='contrato_id' placeholder="Hola">
+                                @foreach($tipo_contrato as $item)
+                                    <option value=""></option>
+                                    @if(isset($perfil['tipo_contrato_id']) && $perfil['tipo_contrato_id'] == $item['id'])
+                                        <option value="{{ $item['id'] }}" selected>
+                                            {{ $item['nombre'] }}
+                                        </option>
+                                    @else
+                                        <option value="{{ $item['id'] }}">
+                                            {{ $item['nombre'] }}
+                                        </option>
+                                    @endif
+                                @endforeach  
+                            </select>
+                        {{-- <select class="form-control select2" name="contrato" id="contrato_id" placeholder="">
+                            <option value="Por horas">Por horas</option>
+                            <option value="medio tiempo">medio tiempo</option>
+                            <option value="Horas y emprenderismo">Horas y emprenderismo</option>
+                            <option value="medio tiempo y emprenderismo">medio tiempo y emprenderismo</option>
+                            <option value="tiempo completo">tiempo completo</option>
+                            <option value="Sabatinas">Sabatinas</option>
+                        </select> --}}
                     </div> 
 
 
@@ -368,12 +377,21 @@
                             <input class="form-control fc-datepicker" name="fecha_inicio" placeholder="MM/DD/YYYY" value="" type="text" autocomplete="off" required>
                         </div>
                     </div>
-                    <div class="col-lg-2">
+                    
+                    <div class="col-lg-2" id="fecha_fin">
                         <div class="form-group">
                             <label for="fecha_fin">Fecha Fin</label>
-                            <input class="form-control fc-datepicker" name="fecha_fin" placeholder="MM/DD/YYYY" value="" autocomplete="off" type="text">
+                            <input class="form-control fc-datepicker" id="fin" name="fecha_fin" placeholder="MM/DD/YYYY" value="" autocomplete="off" type="text">
                         </div>
                     </div>
+
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label for="fecha_fin">Actualidad</label>
+                            <input id="actual" class="" name="" placeholder="" value=""  type="checkbox">
+                        </div>
+                    </div>
+                    
 
                     <div class="col-lg-2 mg-b-6 mg-lg-b-6">
                         <button type="submit" class="btn btn-primary mt-6 mb-0">Agregar</button>
@@ -392,8 +410,9 @@
                                     <th></th>
                                     <th>Cargo</th>
                                     <th>Empleador</th>
-                                    <th>Sector</th>
-                                    <th>País - Ciudad</th>
+                                    {{-- <th>Sector</th>
+                                    <th>País - Ciudad</th> --}}
+                                    <th>Tipo contrato</th>
                                     <th>Fecha</th>
                                     <th>
                                     </th>
@@ -405,9 +424,16 @@
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{$experiencia_laboral['cargo']['nombre']}}</td>
                                     <td>{{$experiencia_laboral['empleador']}}</td>
-                                    <td>{{$experiencia_laboral['sector']['nombre']}}</td>
-                                    <td>{{$experiencia_laboral['ciudad']['departamento']['pais']['nombre']}} - {{$experiencia_laboral['ciudad']['departamento']['nombre']}} - {{$experiencia_laboral['ciudad']['nombre']}}</td>
-                                    <td>{{explode(' ', $experiencia_laboral['fecha_inicio'])[0] ." / ". explode(' ', $experiencia_laboral['fecha_fin'])[0]}}</td>
+
+                                    
+                                    <td>{{$experiencia_laboral['contrato']['nombre']}}</td>
+                                    {{-- <td>{{$experiencia_laboral['sector']['nombre']}}</td>
+                                    <td>{{$experiencia_laboral['ciudad']['departamento']['pais']['nombre']}} - {{$experiencia_laboral['ciudad']['departamento']['nombre']}} - {{$experiencia_laboral['ciudad']['nombre']}}</td> --}}
+                                    @if ($experiencia_laboral['fecha_fin'] == null)
+                                        <td>{{explode(' ', $experiencia_laboral['fecha_inicio'])[0] ." / Actualidad"}}</td>
+                                    @else
+                                        <td>{{explode(' ', $experiencia_laboral['fecha_inicio'])[0] ." / ". explode(' ', $experiencia_laboral['fecha_fin'])[0]}}</td>
+                                    @endif
                                     <td>
                                         <a href="{{ route('experiencia_laboral.delete', $experiencia_laboral['id'])}}" class="card-link text-secondary"><i class="typcn typcn-trash"></i> Eliminar</a>
                                     </td>
@@ -468,13 +494,8 @@
                         </select>
                     </div> 
                     <div class="col-lg-6 mg-b-12 mg-lg-b-6">
-                        <p class="mg-b-10">Ciudad*</p><select class="form-control select2" name="ciudad_id" placeholder="">
+                        <p class="mg-b-10">Ciudad*</p><select class="form-control select2" name="ciudad_id" id="ciudad_id2" placeholder="">
                         <option value=""></option>
-                            @foreach($ciudades as $item)
-                                <option value="{{ $item['id'] }}">
-                                        {{ $item['pais_departamento_ciudad'] }}
-                                    </option>
-                            @endforeach
                         </select>
                     </div> 
                     <div class="col-lg-2 mg-b-6 mg-lg-b-6">
@@ -577,31 +598,13 @@
     </div>
 
 
-        <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
+        {{-- <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
             <div class="card  box-shadow-0 ">
                 <div class="card-header">
                     <h4 class="card-title mb-1">Visibilidad / Configuraciones</h4>
                     <p class="mb-2"></p>
                 </div>
                 <div class="card-body pt-0">
-                    <!-- <form >
-                        <div class="">
-
-                            <div class="row row-sm">
-                            <p class="mg-b-10">Calificación de las empresas</p>
-                                <div class="col-lg-12 mg-b-20 mg-lg-b-0">
-                                    <div class="main-toggle">
-                                    <style>#sino:after { content: "NO";} #sino:before { content: "SI";}</style>
-                                        <span id="sino"></span>
-                                    </div>
-                                </div>   
-                            </div>
-
-                          
-
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-3 mb-0">Actualizar</button>
-                    </form> -->
                     <br>
                     <div class="row row-sm">
                         <div class="col-lg-12 mg-b-20 mg-lg-b-0">
@@ -610,8 +613,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-
+        </div> --}}
 
 
 
@@ -629,3 +631,86 @@
 </div>
 <!-- row -->
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetchCiudades();
+
+        const bancarizacionId = {{ $perfil['bancarizacion_id'] ?? 'null' }};
+        const banco = document.getElementById('banco');
+        const monedero = document.getElementById('monedero');
+        
+        if (bancarizacionId == 1) {
+            banco.style.display = 'block';
+        } else if (bancarizacionId == 2) {
+            monedero.style.display = 'block';
+        }
+        
+        document.getElementById('actual').addEventListener('click', function() {
+            var dechaFinInput = document.getElementById('fecha_fin');
+            var FinInput = document.getElementById('fin');
+            if (this.checked) {
+                dechaFinInput.style.display = 'none';
+            FinInput.value = '';
+            } else {
+                dechaFinInput.style.display = 'block';
+            }
+        });
+
+        const selectElement = $('#bancarizacion_id');
+        selectElement.select2();
+
+        selectElement.on('select2:select', function (e) {
+            var data = e.params.data;
+            console.log(data.id);
+            
+            var banco = document.getElementById('banco');
+            var monedero = document.getElementById('monedero');
+            
+            if (data.id == '' || data.id == 3) {
+                banco.style.display = 'none';
+                monedero.style.display = 'none';
+            } else if (data.id == 2) {  
+                banco.style.display = 'none';
+                monedero.style.display = 'block';
+            } else if (data.id == 1) {
+                banco.style.display = 'block';
+                monedero.style.display = 'none';
+            }
+        });
+    });
+
+    function fetchCiudades() {
+        fetch('/api/ciudades')
+            .then(response => response.json())
+            .then(data => {
+                const ciudadSelect = document.getElementById('ciudad_residencia_id');
+                const ciudadSelect1 = document.getElementById('ciudad_id');
+                const ciudadSelect2 = document.getElementById('ciudad_id2');
+                const ciudadResidenciaId = {{ $perfil['ciudad_residencia_id'] ?? 'null' }};
+                
+                data.forEach(ciudad => {
+                    const option = document.createElement('option');
+                    option.value = ciudad.id;
+                    option.text = ciudad.pais_departamento_ciudad;
+                    if (ciudadResidenciaId && ciudadResidenciaId == ciudad.id) {
+                        option.selected = true;
+                    }
+                    ciudadSelect.appendChild(option);
+                });
+                data.forEach(ciudad => {
+                    const option = document.createElement('option');
+                    option.value = ciudad.id;
+                    option.text = ciudad.pais_departamento_ciudad;
+                    ciudadSelect2.appendChild(option);
+                });
+                data.forEach(ciudad => {
+                    const option = document.createElement('option');
+                    option.value = ciudad.id;
+                    option.text = ciudad.pais_departamento_ciudad;
+                    ciudadSelect1.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching ciudades:', error));
+    }
+</script>

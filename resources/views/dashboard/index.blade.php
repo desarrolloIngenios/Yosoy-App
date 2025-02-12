@@ -158,7 +158,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12 mb-4">
+    <div class="col-md-12 mb-4 pb-5">
         <div class="card">
             <div class="card-body">
                 <div id="chart-cargos"></div>
@@ -227,7 +227,7 @@
         var options2 = {
             chart: {
                 type: 'bar', 
-                height: 350
+                height: 500
             },
             series: [{
                 name: 'Cantidad',
@@ -235,11 +235,23 @@
             }],
             xaxis: {
                 categories: cargosData.map(cargo => cargo.cargo),
+                labels: {
+                    style: {
+                        fontSize: '0px', // Reduce el tamaño de la fuente
+                        fontFamily: 'Helvetica, Arial, sans-serif',
+                        cssClass: 'apexcharts-xaxis-label'
+                    }
+                }
             },
             title: {
                 text: 'Los 5 Cargos Más Registrados'
             },
-            colors: ['#5D1D88'] 
+            colors: ['#5D1D88'],
+            grid: {
+                padding: {
+                    bottom: 100 // Aumenta el margen inferior
+                }
+            } 
         };
         var chart2 = new ApexCharts(document.querySelector("#chart-cargos"), options2);
         chart2.render();

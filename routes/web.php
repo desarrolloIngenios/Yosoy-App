@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\LexController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Web\CiudadController;
 
-if(env('WEB_FLAG')){ #se debe comentar esta linea y la de cierre para que funcione en local logica x
+// if(env('WEB_FLAG')){ #se debe comentar esta linea y la de cierre para que funcione en local logica x
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -137,4 +138,7 @@ Route::middleware(['role:SUPERLIDERESA'])->group(function () {
     Route::get('analitics', [App\Http\Controllers\Web\EntrenamientoContoller::class, 'show_analitics' ])->name('analitics.index');
     Route::get('dashboard', [App\Http\Controllers\Web\DashboardController::class, 'index' ])->name('analitics.yosoy.index');
 });
-}
+
+Route::get('/api/ciudades', [CiudadController::class, 'index']);
+
+// } #se debe comentar esta linea y la de apertura para que funcione en local logica x
