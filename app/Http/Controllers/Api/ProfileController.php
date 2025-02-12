@@ -19,12 +19,9 @@ class ProfileController extends BaseController
      */
     public function store(Request $request)
     {
-        //$user_id = $request->input('user_id');
-        //$profile = Profile::where('user_id', $user_id)->first();
+
         $profile = $request->user()->profile;
-        //return $request->user()->id;
-        //return $request->except(['_token']);
-       // dd($profile);
+
         if(is_null($profile)){
             $profile = new Profile();
         }
@@ -48,7 +45,7 @@ class ProfileController extends BaseController
         //dd(Auth::user());
         if(!is_null($profile)){
             $profile->perfiles_laborales = $profile->perfiles_laborales()->with(['cargo', 'nivel_experiencia', 'tiempo_experiencia'])->get();
-            $profile->experiencias_laborales = $profile->experiencias_laborales()->with(['cargo', 'sector', 'pais', 'ciudad'])->get();
+            $profile->experiencias_laborales = $profile->experiencias_laborales()->with(['cargo', 'sector', 'pais', 'ciudad','contrato'])->get();
             $profile->educaciones = $profile->educaciones()->with(['nivel_educativo', 'titulo_educativo', 'ciudad', 'institucion_educativa'])->get();
         } else {
             $profile = new Profile();
@@ -80,15 +77,13 @@ class ProfileController extends BaseController
         //return $this->sendResponse($profile, 'Perfil');
     }
 
-    public function deletePerfilLaboral(Request $request, $id)
-    {
-
+    public function deletePerfilLaboral($id)
+    {        
         $perfil_laboral = ProfilePerfilLaboral::find($id);
         $perfil_laboral->delete();
         
         return $this->sendResponse([], 'Perfil Laboral Eliminado');
-        //$profile = Profile::where('user_id', $user_id)->first();
-        //return $this->sendResponse($profile, 'Perfil');
+
     }
 
     

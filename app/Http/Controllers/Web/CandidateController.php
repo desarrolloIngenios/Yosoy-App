@@ -23,9 +23,11 @@ class CandidateController extends Controller
             $success = $response->json()['success'];
             $candidatas = $response->json()['data'];
             $message = $response->json()['message'];
-    
+            
+
             
             $data['candidatas'] = $candidatas;
+            // dd($data);
             
             return view('candidato/index', $data);
         }else{
@@ -53,6 +55,7 @@ class CandidateController extends Controller
     
             
             $data['candidatas'] = $candidatas;
+            // dd($data);
             
             return view('candidato/index', $data);
         }else{

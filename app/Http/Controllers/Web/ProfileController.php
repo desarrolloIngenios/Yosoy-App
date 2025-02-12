@@ -95,18 +95,18 @@ class ProfileController extends Controller
         }
 
         // Cache de ciudades
-        if (Cache::has('ciudades')) {
-            $ciudades = Cache::get('ciudades');
-            $data['ciudades'] = $ciudades;
-        } else {
-            $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.ciudades'), []);
-            $this->validar_success($response);
-            $success = $response->json()['success'];
-            $ciudades = $response->json()['data'];
-            $message = $response->json()['message'];
-            $data['ciudades'] = $ciudades;
-            Cache::put('ciudades', $ciudades, $minutes);
-        }
+        // if (Cache::has('ciudades')) {
+        //     $ciudades = Cache::get('ciudades');
+        //     $data['ciudades'] = $ciudades;
+        // } else {
+        //     $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.ciudades'), []);
+        //     $this->validar_success($response);
+        //     $success = $response->json()['success'];
+        //     $ciudades = $response->json()['data'];
+        //     $message = $response->json()['message'];
+        //     $data['ciudades'] = $ciudades;
+        //     Cache::put('ciudades', $ciudades, $minutes);
+        // }
 
         $cache_keys = [
             'bancarizaciones',
@@ -119,7 +119,9 @@ class ProfileController extends Controller
             'nivel_educativo',
             'titulo_educativo',
             'institucion_educativa',
-            'star_rating'
+            'star_rating',
+            'banco',
+            'billetera'
         ];
         
         foreach ($cache_keys as $key) {
@@ -134,127 +136,9 @@ class ProfileController extends Controller
                 Cache::put($key, $data[$key], $minutes);
             }
         }
+        // dd($perfil['experiencias_laborales']);
         
-
-        // // Cache de bancarizaciones
-        // if (Cache::has('bancarizaciones')) {
-        //     $bancarizaciones = Cache::get('bancarizaciones');
-        //     $data['bancarizaciones'] = $bancarizaciones;
-        // } else {
-        //     $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.bancarizaciones'), []);
-        //     $this->validar_success($response);
-        //     $success = $response->json()['success'];
-        //     $bancarizaciones = $response->json()['data'];
-        //     $message = $response->json()['message'];
-        //     $data['bancarizaciones'] = $bancarizaciones;
-        //     Cache::put('bancarizaciones', $bancarizaciones, $minutes);
-        // }
-
-
-        // $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.genero'), []);
-        // //dd($response->json());
-        // $this->validar_success($response);
-        // $success = $response->json()['success'];
-        // $generos = $response->json()['data'];
-        // $message = $response->json()['message'];
-        // $data['generos'] = $generos;
-
-        // $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.bancarizaciones'), []);
-        // //dd($response->json());
-        // $this->validar_success($response);
-        // $success = $response->json()['success'];
-        // $bancarizaciones = $response->json()['data'];
-        // $message = $response->json()['message'];
-        // $data['bancarizaciones'] = $bancarizaciones;
-
-        // $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.tipo_documentos'), []);
-        // //dd($response->json());
-        // $this->validar_success($response);
-        // $success = $response->json()['success'];
-        // $tipo_documentos = $response->json()['data'];
-        // $message = $response->json()['message'];
-        // $data['tipo_documentos'] = $tipo_documentos;
-
-        // $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.ciudades'), []);
-        // //dd($response->json());
-        // $this->validar_success($response);
-        // $success = $response->json()['success'];
-        // $tipo_documentos = $response->json()['data'];
-        // $message = $response->json()['message'];
-        // $data['ciudades'] = $tipo_documentos;
         
-        // $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.cargos'));
-        // //dd($response->json());
-        // $this->validar_success($response);
-        // $success = $response->json()['success'];
-        // $cargos = $response->json()['data'];
-        // $message = $response->json()['message'];
-        // $data['cargos'] = $cargos;
-
-        // $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.tiempo_experiencia'));
-        // //dd($response->json());
-        // $this->validar_success($response);
-        // $success = $response->json()['success'];
-        // $tiempo_experiencia = $response->json()['data'];
-        // $message = $response->json()['message'];
-        // $data['tiempo_experiencia'] = $tiempo_experiencia;
-
-        // $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.nivel_experiencia'));
-        // //dd($response->json());
-        // $this->validar_success($response);
-        // $success = $response->json()['success'];
-        // $nivel_experiencia = $response->json()['data'];
-        // $message = $response->json()['message'];
-        // $data['nivel_experiencia'] = $nivel_experiencia;
-
-        // $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.tipo_contrato'));
-        // // dd($response->json());
-        // $this->validar_success($response);
-        // $success = $response->json()['success'];
-        // $tipo_contrato = $response->json()['data'];
-        // $message = $response->json()['message'];
-        // $data['tipo_contrato'] = $tipo_contrato;
-
-        // $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.sector'));
-        // // dd($response->json());
-        // $this->validar_success($response);
-        // $success = $response->json()['success'];
-        // $sector = $response->json()['data'];
-        // $message = $response->json()['message'];
-        // $data['sector'] = $sector;
-
-        // $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.empleador'));
-        // // dd($response->json());
-        // $this->validar_success($response);
-        // $success = $response->json()['success'];
-        // $empleador = $response->json()['data'];
-        // $message = $response->json()['message'];
-        // $data['empleador'] = $empleador;
-
-        // $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.nivel_educativo'));
-        // // dd($response->json());
-        // $this->validar_success($response);
-        // $success = $response->json()['success'];
-        // $nivel_educativo = $response->json()['data'];
-        // $message = $response->json()['message'];
-        // $data['nivel_educativo'] = $nivel_educativo;
-
-        // $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.titulo_educativo'));
-        // // dd($response->json());
-        // $this->validar_success($response);
-        // $success = $response->json()['success'];
-        // $titulo_educativo = $response->json()['data'];
-        // $message = $response->json()['message'];
-        // $data['titulo_educativo'] = $titulo_educativo;
-
-        // $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.institucion_educativa'));
-        // // dd($response->json());
-        // $this->validar_success($response);
-        // $success = $response->json()['success'];
-        // $institucion_educativa = $response->json()['data'];
-        // $message = $response->json()['message'];
-        // $data['institucion_educativa'] = $institucion_educativa;
-
         return view('profile/profile', $data);
     }
 
@@ -273,6 +157,7 @@ class ProfileController extends Controller
             'fecha_nacimiento' => $fecha_con_formato,
         ]);
 
+       
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.profile_post'), $request->input());
         //  dd($response);
 

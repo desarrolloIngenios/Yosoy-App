@@ -24,6 +24,7 @@ class ProfileExperienciaLaboral extends Model
         'fecha_fin',
         'is_actual',
         'empleador',
+        'contrato_id'
     ];
 
     public function profile () {
@@ -44,6 +45,9 @@ class ProfileExperienciaLaboral extends Model
 
     public function ciudad() {
         return $this->belongsTo(\App\Models\Base\Ciudad::class, 'ciudad_id');
+    }
+    public function contrato() {
+        return $this->belongsTo(\App\Models\Base\TipoContrato::class, 'contrato_id');
     }
 
     /*public function empleador() {

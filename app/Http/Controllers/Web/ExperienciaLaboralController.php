@@ -11,6 +11,8 @@ class ExperienciaLaboralController extends Controller
 {
     public function store(Request $request)
     {
+
+        
         $is_actual = true;
         $fecha_inicio = $request->input('fecha_inicio');
         $date = \Carbon\Carbon::createFromFormat('m/d/Y', $fecha_inicio);
@@ -27,8 +29,9 @@ class ExperienciaLaboralController extends Controller
             'fecha_fin' => $fecha_fin,
             'is_actual' => $is_actual,
         ]);
+        
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.experiencia_laboral.store'), $request->input());
-        //dd($response->json());
+        // dd($response->json());
         $success = $response->json()['success'];
         $data = $response->json()['data'];
         $message = $response->json()['message'];

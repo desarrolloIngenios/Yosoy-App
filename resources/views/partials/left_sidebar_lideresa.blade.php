@@ -11,7 +11,7 @@
 				<div class="dropdown user-pro-body">
 					<div class="">
 						@if(isset($perfil['foto_perfil_url']))
-						<img alt="user-img" class="avatar avatar-xl brround" src="{{ \Storage::disk('s3')->temporaryUrl($perfil['foto_perfil_url'], '+10 minutes') }}"><span class="avatar-status profile-status bg-green"></span>
+							<img alt="user-img" class="avatar avatar-xl brround" src="{{ \Storage::disk('s3')->temporaryUrl($perfil['foto_perfil_url'], '+10 minutes') }}"><span class="avatar-status profile-status bg-green"></span>
 						@endif
 					</div>
 					<div class="user-info">

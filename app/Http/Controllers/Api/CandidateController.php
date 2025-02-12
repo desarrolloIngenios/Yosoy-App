@@ -12,18 +12,23 @@ class CandidateController extends BaseController
 
     public function index()
     {
-        $candidatas = User::with('profile.perfiles_laborales.nivel_experiencia','profile.perfiles_laborales.tiempo_experiencia','profile.perfiles_laborales.cargo')->where('id_lideresa', auth()->user()->id)->get();
+        $candidatas = User::with('profile.perfiles_laborales.nivel_experiencia',
+                'profile.perfiles_laborales.tiempo_experiencia',
+                'profile.perfiles_laborales.cargo',
+                'profile.experiencias_laborales.contrato'
+                )->where('id_lideresa', auth()->user()->id)->get();
+    
         return $this->sendResponse($candidatas, 'candidatas');
     }
 
     public function index_lideresas()
     {
-        $candidatas = User::with('profile.perfiles_laborales.nivel_experiencia','profile.perfiles_laborales.tiempo_experiencia','profile.perfiles_laborales.cargo')->whereHas('profile', function($query) {
+        $candidatas = User::with('profile.perfiles_laborales.nivel_experiencia','profile.perfiles_laborales.tiempo_experiencia','profile.perfiles_laborales.cargo','profile.experiencias_laborales.contrato')->whereHas('profile', function($query) {
                 $query->whereNotNull('numero_documento'); 
             })->whereDoesntHave('roles')->orWhereHas('roles', function($query) {
             $query->where('role_id', 3); 
         })->get();
-
+        // dd($candidatas);
         return $this->sendResponse($candidatas, 'candidatas');
     }
 
