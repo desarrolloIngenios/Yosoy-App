@@ -18,7 +18,8 @@ spec:
     spec:
       containers:
         - name: yosoyapp
-          image: us-central1-docker.pkg.dev/authenticfarma-425820/ingenios-artifact-registry/yosoyapp:test01
+          image: us-central1-docker.pkg.dev/authenticfarma-425820/ingenios-artifact-registry/yosoyapp:test12
+          # command: ["/bin/sh", "-c", "php artisan serve --host=0.0.0.0 --port=80"]
           env:
             - name: APP_NAME
               value: "Laravel"
