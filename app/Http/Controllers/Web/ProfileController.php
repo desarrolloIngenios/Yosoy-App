@@ -136,9 +136,7 @@ class ProfileController extends Controller
                 Cache::put($key, $data[$key], $minutes);
             }
         }
-        // dd($perfil['experiencias_laborales']);
-        
-        
+          
         return view('profile/profile', $data);
     }
 
