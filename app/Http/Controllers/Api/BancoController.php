@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Banco;
@@ -11,7 +11,7 @@ class BancoController extends BaseController
 
     public function index()
     {
-        $bancos = Banco::get();
+        $bancos = Banco::all();
         return $this->sendResponse($bancos, 'bancos');
     }
 }

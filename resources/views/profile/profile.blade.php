@@ -627,15 +627,15 @@
 
 
 
-   
+
 </div>
 <!-- row -->
 @endsection
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        fetchCiudades();
-
+        
+        
         const bancarizacionId = {{ $perfil['bancarizacion_id'] ?? 'null' }};
         const banco = document.getElementById('banco');
         const monedero = document.getElementById('monedero');
@@ -659,7 +659,6 @@
 
         const selectElement = $('#bancarizacion_id');
         selectElement.select2();
-
         selectElement.on('select2:select', function (e) {
             var data = e.params.data;
             console.log(data.id);
@@ -679,6 +678,8 @@
             }
         });
     });
+    
+    fetchCiudades();
 
     function fetchCiudades() {
         fetch('/api/ciudades')
