@@ -73,7 +73,7 @@
 										<div class="col-xs-6 col-sm-6 col-lg-6 col-xl-6">
 											<div class="panel price panel-color">
 												<div class="panel-heading bg-primary p-0 text-center">
-													<h3>Soy Candidata</h3>
+													<h3>Soy Promotora</h3>
 												</div>
 												<div class="panel-body text-center">
 													<div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto wd-100p">

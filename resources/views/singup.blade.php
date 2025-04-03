@@ -70,7 +70,7 @@
 								<div class="row">
 									<div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
 										<div class="card-sigin">
-											<div class="mb-5 d-flex"> <h1 class="text-primary"><a href="{{ route('login') }}"><img src="../../images/Logo1.png" class="sign-favicon ht-40" alt="logo"></a> {{ $nombre }}</h1></div>
+											<div class="mb-5 d-flex"> <h1 class="text-primary"><a href="{{ route('login') }}"><img src="../../images/Logo1.png" class="sign-favicon ht-40" alt="logo"></a> {{ $nombre !== 'Lideresa' ? 'Promotora' : $nombre }}</h1></div>
 											<div class="main-signup-header">
 												<h2 class="text-primary">Crea tu perfil</h2>
 												<h5 class="font-weight-normal mb-4">Solo te toma un minuto.</h5>
