@@ -1,0 +1,34 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: yosoyapp-ingress
+  namespace: apps
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: "yosoy-static-ip"
+    
+spec:
+  tls:
+  - hosts:
+    - app.yo-soy.co
+    secretName: yosoy-tls-secret
+  rules:
+  - host: app.yo-soy.co
+    http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: yosoyapp-clusterip
+            port:
+              number: 80
+  - http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific  
+        backend:
+          service:
+            name: yosoyapp-clusterip
+            port:
+              number: 80

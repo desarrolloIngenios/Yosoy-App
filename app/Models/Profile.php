@@ -12,35 +12,41 @@ class Profile extends Model
     protected $table = 'profile';
 
     protected $fillable = [
-                            'name',
-                            'last_name',
-                            'user_id',
-                            'tipo_documento_id',
-                            'numero_documento',
-                            'genero_id',
-                            'email',
-                            'ciudad_residencia_id',
-                            'direccion_residencia',
-                            'numero_contacto_1',
-                            'numero_contacto_2',
-                            'fecha_nacimiento',
-                            'pais_residencia_id',
-                            'is_empirico',
-                            'foto_perfil_url',
-                            'code',
-                            'grupo_social_id',
-                            'bancarizacion_id',
-                            'banco',
-                            'billetera',
-                        ];
-    
+        'name',
+        'last_name',
+        'user_id',
+        'tipo_documento_id',
+        'numero_documento',
+        'genero_id',
+        'email',
+        'ciudad_residencia_id',
+        'direccion_residencia',
+        'numero_contacto_1',
+        'numero_contacto_2',
+        'fecha_nacimiento',
+        'pais_residencia_id',
+        'is_empirico',
+        'foto_perfil_url',
+        'code',
+        'grupo_social_id',
+        'bancarizacion_id',
+        'banco',
+        'billetera',
+        'eps',
+        'nombre_eps',
+        'numero_hijos',
+        'currently_works'
+    ];
+
     protected $appends = ['full_name', 'grupo_social_nombre'];
 
-    public function getFullNameAttribute($value) {
+    public function getFullNameAttribute($value)
+    {
         return $this->name . ' ' . $this->last_name;
     }
-    public function getGrupoSocialNombreAttribute($value) {
-        
+    public function getGrupoSocialNombreAttribute($value)
+    {
+
         $array_grupo_social = [];
         $array_grupo_social[1] = '-';
         $array_grupo_social[2] = "Grupos étnicos";
@@ -65,8 +71,8 @@ class Profile extends Model
         $array_grupo_social[22] = "Centro Mya";
         $array_grupo_social[23] = "Fundación AR";
         $array_grupo_social[6] = "Otros";
-															
-        if(isset($array_grupo_social[$this->grupo_social_id])){
+
+        if (isset($array_grupo_social[$this->grupo_social_id])) {
             return $array_grupo_social[$this->grupo_social_id];
         } else {
             return "";
@@ -88,28 +94,35 @@ class Profile extends Model
         return $this->hasMany(ProfileEducacion::class, 'profile_id');
     }
 
-    public function ciudad_residencia() {
+    public function ciudad_residencia()
+    {
         return $this->belongsTo(\App\Models\Base\Ciudad::class, 'ciudad_residencia_id');
     }
 
-    public function genero() {
+    public function genero()
+    {
         return $this->belongsTo(\App\Models\Base\Genero::class, 'genero_id');
     }
 
-    public function tipo_documento() {
+    public function tipo_documento()
+    {
         return $this->belongsTo(\App\Models\Base\TipoDocumento::class, 'tipo_documento_id');
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(\App\Models\User::class, 'user_id');
     }
 
-    public function bancarizacion() {
+    public function bancarizacion()
+    {
         return $this->belongsTo(\App\Models\Base\Bancarizacion::class, 'bancarizacion_id');
     }
 
-    public function is_complete_form() {
-        if(!is_null($this->tipo_documento_id) &&
+    public function is_complete_form()
+    {
+        if (
+            !is_null($this->tipo_documento_id) &&
             !is_null($this->numero_documento) &&
             !is_null($this->name) &&
             !is_null($this->last_name) &&
@@ -121,9 +134,9 @@ class Profile extends Model
             !is_null($this->ciudad_residencia_id) &&
             !is_null($this->direccion_residencia) &&
             !is_null($this->bancarizacion_id)
-            ){
+        ) {
             return true;
-        }    
+        }
         return false;
     }
 }

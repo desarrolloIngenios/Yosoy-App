@@ -13,7 +13,7 @@
 		<title> Yo Soy </title>
 
 		<!--- Favicon --->
-		<link rel="icon" href="../../images/Logo1.png" type="image/x-icon"/>
+		<link rel="icon" href="../../images/ico.png" type="image/x-icon"/>
 
 		<!--- Icons css --->
 		<link href="../../assets/css/icons.css" rel="stylesheet">
@@ -54,29 +54,24 @@
 			<div class="container-fluid">
 				<div class="row no-gutter">
 					<!-- The image half -->
-					<div class="col-md-6 col-lg-6 col-xl-7 d-none d-md-flex bg-primary-transparent">
-						<div class="row wd-100p mx-auto text-center">
-							<div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto wd-100p">
-								<img src="../../images/Logo1.png" class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto" alt="logo">
-							</div>
-						</div>
+					<div class="col-md-6 col-lg-6 col-xl-7 bg-primary-transparent" style="display: flex; align-items: center; justify-content: center; height: 100vh;">
+						<img src="../../images/Logo1.png" class="logo1-crop" style="max-height: 65vh; max-width: 65vw; width: auto; height: auto;" alt="logo">
 					</div>
 					<!-- The content half -->
-					<div class="col-md-6 col-lg-6 col-xl-5 bg-white">
-						<div class="login d-flex align-items-center py-2">
-							
-							<!-- Demo content-->
-							<div class="container p-0">
-								<div class="row">
-									<div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
-										<div class="card-sigin">
-											<div class="mb-5 d-flex"> <h1 class="text-primary"><a href="{{ route('login') }}"><img src="../../images/Logo1.png" class="sign-favicon ht-40" alt="logo"></a> {{ $nombre !== 'Lideresa' ? 'Promotora' : $nombre }}</h1></div>
+					<div class="col-md-6 col-lg-6 col-xl-5 bg-white py-3 pb-5" style="height: 100vh; overflow-y: auto;">
+						<div class="login d-flex align-items-center py-2" style="height: 100%;">
+							<div class="container p-0" style="height: 100%;">
+								<div class="row" style="height: 100%;">
+									<div class="col-md-10 col-lg-10 col-xl-9 mx-auto" style="height: 100%;">
+										<div class="card-sigin" style="height: 100%;">
+											<div class="mb-5 d-flex"> <h1 class="text-primary"><a href="{{ route('login') }}"><img
+                                                            src="../../images/Logo1.png" class="sign-favicon" style="width: 10rem;"
+                                                            alt="logo"></a> {{ $nombre !== 'Lideresa' ? 'Mentee' : $nombre }}</h1></div>
 											<div class="main-signup-header">
 												<h2 class="text-primary">Crea tu perfil</h2>
 												<h5 class="font-weight-normal mb-4">Solo te toma un minuto.</h5>
 												@if ( $errors->count() > 0 )
 													<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
-
 													@foreach( $errors->all() as $message )
 														<span class="alert-inner--icon"><i class="fe fe-slash"></i></span>
 														<span class="alert-inner--text"><strong></strong> {{ $message }}</span>
@@ -86,45 +81,11 @@
 														</button>
 													</div>
 												@endif
-
 												<form action="{{ route('registro.post') }}" method="post">
 												@csrf
 												<input name="is_empirico" type="hidden" value="{{ $is_empirico }}">
-													<div class="form-group">
-													{{-- @if ($nombre!='Lideresa')	 --}}
-														<label>Yo soy</label><select class="form-control select2" name="cargo_id" placeholder="" required>
-															<option value=""></option>
-																@foreach($cargos as $cargo)
-																	<option value="{{ $cargo->id }}">
-																			{{ $cargo->nombre }}
-																		</option>
-																@endforeach
-															</select>
-														</div>
-														<div class="row">
-															<div class="col-lg-6 mg-b-6 mg-lg-b-6">
-																<label>Nivel de experiencia</label><select class="form-control select2" name="nivel_experiencia_id" placeholder="" required>
-																@foreach($nivel_experiencia as $item)
-																		<option value=""></option>
-																			<option value="{{ $item->id }}">
-																				{{ $item->nombre }}
-																			</option>
-																	@endforeach
-																</select>
-															</div>   
-															<div class="col-lg-6 mg-b-6 mg-lg-b-6">
-																<label>Tiempo de experiencia</label><select class="form-control select2" name="tiempo_experiencia_id" placeholder="" required>
-																@foreach($tiempo_experiencia as $item)
-																		<option value=""></option>
-																			<option value="{{ $item->id }}">
-																				{{ $item->nombre }}
-																			</option>
-																	@endforeach
-																</select>
-															</div>  
-														</div>
-													{{-- @endif --}}
-
+													{{-- @if ($nombre!='Lideresa')    --}}
+													{{-- Eliminados selects: cargo_id, nivel_experiencia_id, tiempo_experiencia_id --}}
 													@if ($nombre=='Lideresa')
 														<input type="hidden" name="is_lideresa" value="1">
 													@endif
@@ -135,13 +96,12 @@
 														<label>Apellidos</label> <input class="form-control" name="last_name" placeholder="Ingresa tus apellidos" value="{{ old('last_name') }}" type="text" required>
 													</div>
 													<div class="form-group">
-														<label>Correo Electrónico</label> <input class="form-control" name="email" placeholder="Ingresa tu Correo Electrónico" value="{{ old('email') }}" type="email" required>
-													</div>
-													<div class="form-group">
 														<label for="numero_contacto_1">Número de contacto / Celular</label>
 														<input class="form-control" value="{{ old('numero_contacto_1') }}" placeholder="Número contacto" name="numero_contacto_1" type="number" required>
 													</div>
-
+													<div class="form-group">
+														<label>Correo Electrónico</label> <input class="form-control" name="email" placeholder="Ingresa tu Correo Electrónico" value="{{ old('email') }}" type="email" required>
+													</div>
 													<div class="form-group">
 														<label>Contraseña</label> <input class="form-control" id="password" name="password" placeholder="Ingresa tu contraseña" type="password" required>
 														<input id ="check" type="checkbox" onclick="(function(){
@@ -152,20 +112,22 @@
 																	x.type = 'password';
 																	}
 														})();return false;">Mostrar Contraseña
-<br>
+					<br>
 													</div>
 													
 													<div class="form-group">
 														<input type="hidden" name="is_empresario" value="0">
 													</div>
-
 													<div class="form-group">
 														<label>¿Pertenece a algún grupo social?</label>
 														<select class="form-control select2" name="grupo_social_id" id="grupo_social_id" placeholder="" required>
+															<option value="" selected disabled>Seleccione una opción</option>	
 															<option value="1">No</option>
-															<option value="2">Grupos étnicos</option>
-															<option value="3">Afros</option>
-															<option value="4">Venezolanos</option>
+															<option value="2">Grupos étnicos</option>{{--daniela--}}
+															<option value="3">Afrodecelendientes</option>{{--emilia--}}
+															<option value="24">Con hijos familiares con discapacidad</option>{{--emilia--}}
+															<option value="25">Jóvenes 18 a 35 años</option>{{--daniela--}}
+															<option value="4">Venezolanas</option>
 															<option value="5">Fundación Acción Interna</option>
 															<option value="7">Fundación Afro, Indígenas y Mestizos</option>
 															<option value="9">Fundación Soy Oportunidad</option>
@@ -190,14 +152,14 @@
 														<div class="form-group">
 															<label>¿Pertenece a algúna lideresa?</label>
 															<select class="form-control select2" name="id_lideresa" id="id_lideresa" placeholder="" required>
-																<option value="0">Sin lideresa</option>
+																{{-- <option value="0">Sin lideresa</option> --}}
 																@foreach($lideresas as $lider)
-																	<option value="{{ $lider->id }}">
+																	<option value="{{ $lider->id }}"> 
 																			{{ $lider->profile->name }} {{ $lider->profile->last_name }}
 																		</option>
 																@endforeach
 															</select>
-																
+                                            
 														</div>
 													@endif
 													<div id="alert_valido" class="alert alert-success alert-dismissible fade show mb-0" role="alert">
@@ -213,7 +175,6 @@
 															<span aria-hidden="true">x</span>
 														</button>
 													</div>
-													
 													<div  id="code_div" class="row">
 														<div class="col-lg-8 mg-b-8 mg-lg-b-8">
 															<input class="form-control" id="code" name="code" placeholder="Ingresa tu código de registro" type="text" required>
@@ -222,20 +183,17 @@
 															<button type="button" id="validar_button" class="btn btn-main-primary btn-block" >Validar</button>
 														</div>
 													</div>
-													
 													<div class="form-group mb-0 justify-content-end">
-														
 													<div class="checkbox">
 														<div class="custom-checkbox custom-control">
-															<input type="checkbox"  class="custom-control-input" id="checkbox-2">
+															<input type="checkbox"  class="custom-control-input" id="checkbox-2" required>
 															<label for="checkbox-2" class="custom-control-label mt-1">He leído y acepto <a target="_blank" href="{{ route('terminos_condiciones') }}">la política de privacidad de datos.</a></label>
 														</div>
 														<div class="custom-checkbox custom-control">
-															<input type="checkbox"  class="custom-control-input" id="checkbox-3">
+															<input type="checkbox"  class="custom-control-input" id="checkbox-3" required>
 															<label for="checkbox-3" class="custom-control-label mt-1">He leído y acepto <a target="_blank" href="{{ route('aviso_privacidad') }}">aviso de privacidad.</a></label>
 														</div>
 													</div>
-												
 													<br>
 													<button id="submit_button" type="submit" class="btn btn-main-primary btn-block" disabled> Regístrate</button>
 												</form>
@@ -287,14 +245,41 @@
 
         @include('partials/include_js')
 
-		<script type="text/javascript">
-			$(window).on('load', function() {
+			<script type="text/javascript">
+				// Devuelve true si ambos checkboxes de términos/aviso están marcados (implementación jQuery)
+				function areTermsAccepted() {
+					return $('#checkbox-2').is(':checked') && $('#checkbox-3').is(':checked');
+				}
+				$(window).on('load', function() {
 				$('#code').prop('required',false);
 				$('#code_div').hide();
 				$('#alert_valido').hide();
 				$('#alert_no_valido').hide();
 
+				const lideresas = @json($lideresas);
+
+				// Buscar lideresas con category 1 y 2 (desde profile)
+				// const lideresaCategoria1 = lideresas.find(l => l.category == 1);
+				// const lideresaCategoria2 = lideresas.find(l => l.category == 2);
+
+				
+
 				$('#grupo_social_id').on('change', function() {
+					const selectedValue = parseInt(this.value);
+
+					// Limpiar y habilitar por defecto
+					// $('#id_lideresa').val('0').prop('disabled', false).trigger('change');
+
+					// if ((selectedValue === 2 || selectedValue === 25) && lideresaCategoria1) {
+					// 	$('#id_lideresa').val(String(lideresaCategoria1.id)).prop('disabled', true).trigger('change');
+					// }
+
+					// if ((selectedValue === 3 || selectedValue === 24) && lideresaCategoria2) {
+					// 	$('#id_lideresa').val(String(lideresaCategoria2.id)).prop('disabled', true).trigger('change');
+					// }
+
+
+
 					if(this.value == 5) // Fundación Acción Interna
 					{
 						$('#code').prop('required',true);
@@ -305,33 +290,65 @@
 					{
 						$('#code').prop('required',false);
 						$('#code_div').hide('slow');
-						$('#submit_button').prop('disabled', false);
-						$('#code').val('')
+						$('#code').val('');
+						// habilitar solo si ambos checkboxes están marcados
+						if (areTermsAccepted()) {
+							$('#submit_button').prop('disabled', false);
+						} else {
+							$('#submit_button').prop('disabled', true);
+						}
 					}
 				});
+
+				// Centraliza la lógica para habilitar/deshabilitar el botón de submit
+				function updateSubmitState() {
+					var grupoVal = $('#grupo_social_id').val();
+					var termsOk = areTermsAccepted();
+
+					// Si el grupo social requiere código (value 5)
+					if (String(grupoVal) === '5') {
+						var codeValidated = $('#alert_valido').is(':visible');
+						// Habilita solo si código validado y términos aceptados
+						if (codeValidated && termsOk) {
+							$('#submit_button').prop('disabled', false);
+						} else {
+							$('#submit_button').prop('disabled', true);
+						}
+					} else {
+						// Si no requiere código, solo depende de términos
+						if (termsOk) {
+							$('#submit_button').prop('disabled', false);
+						} else {
+							$('#submit_button').prop('disabled', true);
+						}
+					}
+				}
 
 				$('#validar_button').click(function() {
 					var code = $('#code').val();
 					$.post("{{route('api.validate_code')}}", {code: code}, function(data, status){
 						if(data.data){
-							$('#submit_button').prop('disabled', false);
 							$('#alert_valido').show('slow');
 							$('#alert_no_valido').hide('slow');
-							$('#code_div').hide('slow'	);
+							$('#code_div').hide('slow');
+							// Solo habilitar si los checkboxes también están aceptados
+							updateSubmitState();
 
 						} else {
 							$('#alert_valido').hide('slow');
 							$('#alert_no_valido').show('slow');
+							updateSubmitState();
 						}
 					});
 				});
-				$('#checkbox-2, #checkbox-3').change(function() {
-					if ($('#checkbox-2').is(':checked') && $('#checkbox-3').is(':checked')) {
-						$('#submit_button').prop('disabled', false);  
-					} else {
-						$('#submit_button').prop('disabled', true);  
-					}
+
+				// Cuando cambian los checkboxes, reevaluar el estado del botón
+				$('#checkbox-2, #checkbox-3').on('change', function() {
+					updateSubmitState();
 				});
+
+				// Llamar al inicio para establecer el estado correcto
+				updateSubmitState();
 			});
 		</script>
 

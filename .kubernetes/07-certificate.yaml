@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: yosoy-tls
+  namespace: apps
+spec:
+  secretName: yosoy-tls-secret
+  issuerRef:
+    name: letsencrypt-dns-prod
+    kind: ClusterIssuer
+    group: cert-manager.io
+  dnsNames:
+  - app.yo-soy.co

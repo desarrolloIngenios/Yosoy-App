@@ -10,7 +10,7 @@
     <title> {{$offer['cargo']['nombre']}} - Yo Soy </title>
 
 		<!-- Favicon -->
-		<link rel="icon" href="../../images/Logo1.png" type="image/x-icon"/>
+		<link rel="icon" href="../../images/ico.png" type="image/x-icon"/>
 
 		<!-- Icons css -->
 		<link href="../../assets/css/icons.css" rel="stylesheet">

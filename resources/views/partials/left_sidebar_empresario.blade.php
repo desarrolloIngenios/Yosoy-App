@@ -36,13 +36,13 @@
 				<li class="slide">
 					<a class="side-menu__item" href="{{ route('empresa.empresario') }}"><i class=" side-menu__icon fa fa-industry"></i><span class="side-menu__label">Mi Empresa</span></a>
 				</li>
-				<li class="slide">
+				{{-- <li class="slide">
 					<a class="side-menu__item" href="{{ route('offer.index') }}"><i class=" side-menu__icon fa fa-align-justify"></i><span class="side-menu__label">Mis Ofertas</span></a>
-				</li>
+				</li> --}}
 				@if(session('empresa') > 0)
-				<li class="slide">
+				{{-- <li class="slide">
 					<a class="side-menu__item" href="{{ route('oferta.create') }}"><i class=" side-menu__icon fa fa-plus"></i><span class="side-menu__label">Crear Oferta</span></a>
-				</li>
+				</li> --}}
 				<li class="slide">
 					<a class="side-menu__item" href="{{ route('logout') }}"><i class=" side-menu__icon fa fa-sign-out" ></i><span class="side-menu__label">Salir</span></a>
 				</li>

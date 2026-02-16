@@ -29,6 +29,7 @@ class ProfileController extends BaseController
         $profile->user_id = $request->user()->id;
         $profile->pais_residencia_id = 0;
         $profile->save();
+        
         return $this->sendResponse($profile, 'Perfil');
     }
 

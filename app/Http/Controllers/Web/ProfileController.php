@@ -15,12 +15,12 @@ class ProfileController extends Controller
 
     public function validar_success($response)
     {
-        if(!is_null($response)){
+        if (!is_null($response)) {
             if (!is_array($response->json()) && !array_key_exists('success', $response->json())) {
                 // $debugInfo = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1)[0];
                 // Log::info($debugInfo);
                 Log::info('Contenido de la sesión: ' . json_encode(session()->all()));
-                Log::info("Método ".__METHOD__." en linea ".__LINE__);
+                Log::info("Método " . __METHOD__ . " en linea " . __LINE__);
                 return redirect(\Request::url());
                 //return redirect()->back();
             }
@@ -34,11 +34,11 @@ class ProfileController extends Controller
         ini_set('memory_limit', '300M');
         $minutes = 1800;
 
-        if(session('role') ==  'EMPRESARIO'){
+        if (session('role') ==  'EMPRESARIO') {
             return redirect()->route('dashboard.empresario');
         }
 
-        if(!session('token', false)){
+        if (!session('token', false)) {
             return redirect()->route('login');
         }
         //dd($debugInfo);
@@ -48,7 +48,7 @@ class ProfileController extends Controller
         $perfil = $response->json()['data'];
         $message = $response->json()['message'];
         $data['perfil'] = $perfil;
-        if(!isset($perfil['is_empirico']) ||  is_null($perfil['is_empirico'])){
+        if (!isset($perfil['is_empirico']) ||  is_null($perfil['is_empirico'])) {
             return redirect()->route('seleccionar_tipo_usuario.get');
         }
 
@@ -121,14 +121,17 @@ class ProfileController extends Controller
             'institucion_educativa',
             'star_rating',
             'banco',
-            'billetera'
+            'billetera',
+            'eps',
+
         ];
-        
+
         foreach ($cache_keys as $key) {
             if (Cache::has($key)) {
                 $data[$key] = Cache::get($key);
             } else {
                 $response = Http::withToken(session('token'))->accept('application/json')->get(route('api.' . $key));
+                // dd($response->json());
                 $this->validar_success($response);
                 $success = $response->json()['success'];
                 $data[$key] = $response->json()['data'];
@@ -136,7 +139,7 @@ class ProfileController extends Controller
                 Cache::put($key, $data[$key], $minutes);
             }
         }
-          
+        // dd($data['billetera']);
         return view('profile/profile', $data);
     }
 
@@ -155,16 +158,20 @@ class ProfileController extends Controller
             'fecha_nacimiento' => $fecha_con_formato,
         ]);
 
-       
-        $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.profile_post'), $request->input());
-        //  dd($response);
+        // Si selecciona 'ninguna', guardar null en eps y nombre_eps
+        if ($request->input('eps') === 'ninguna') {
+            $request->merge(['eps' => null, 'nombre_eps' => null]);
+        }
 
+        $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.profile_post'), $request->input());
+
+        //dd($response->json());
         $success = $response->json()['success'];
         $data = $response->json()['data'];
         $message = $response->json()['message'];
         //dd($profile);
 
-        if(!$success){
+        if (!$success) {
             return redirect()->back()->withInput($request->only('email'))->with('status', 'Error al acceder a la cuenta!');
         }
         return redirect()->back();
@@ -186,7 +193,6 @@ class ProfileController extends Controller
         $message = $response->json()['message'];
 
         return redirect()->route('profile.get');
-        
     }
 
     public function save_soy_empirico(Request $request)
@@ -208,7 +214,7 @@ class ProfileController extends Controller
         $data = $response->json()['data'];
         $message = $response->json()['message'];
 
-        return redirect()->route('profile.get');  
+        return redirect()->route('profile.get');
     }
 
     public function save_soy_superlideresa(Request $request)
@@ -218,7 +224,7 @@ class ProfileController extends Controller
         $data = $response->json()['data'];
         $message = $response->json()['message'];
 
-        return redirect()->route('profile.get');  
+        return redirect()->route('profile.get');
     }
 
     public function upload(Request $request)
@@ -228,24 +234,21 @@ class ProfileController extends Controller
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-    
-        $image_name = time().'.'.$request->image->extension();  
-     
+
+        $image_name = time() . '.' . $request->image->extension();
+
         $path = \Storage::disk('s3')->put('images', $request->image);
         // Guardar path en base de datos
         $response = Http::withToken(session('token'))->accept('application/json')->post(route('api.profile_post'), ['foto_perfil_url' => $path]);
         //\Storage::disk('s3')->setVisibility($path, 'public');
         $path = \Storage::disk('s3')->url($path);
         //\Storage::disk('s3')->setVisibility($path, 'public');
-        
-        
-       
-    
+
+
+
+
         return redirect()->back()
             ->with('success', 'Image uploaded successfully.')
-            ->with('image', $path); 
+            ->with('image', $path);
     }
-
-    
-    
 }

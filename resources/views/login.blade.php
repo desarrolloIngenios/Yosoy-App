@@ -10,7 +10,7 @@
 
     <title> Yo Soy - test </title>
 
-    <link rel="icon" href="../../images/Logo1.png" type="image/x-icon" />
+    <link rel="icon" href="../../images/ico.png" type="image/x-icon" />
     <link href="../../assets/css/icons.css" rel="stylesheet">
     <link href="../../assets/plugins/sidebar/sidebar.css" rel="stylesheet">
     <link href="../../assets/plugins/perfect-scrollbar/p-scrollbar.css" rel="stylesheet" />
@@ -33,14 +33,9 @@
         <div class="container-fluid">
             <div class="row no-gutter">
                 <!-- The image half -->
-                <div class="col-md-6 col-lg-6 col-xl-7 d-none d-md-flex bg-primary-transparent">
-                    <div class="row wd-100p mx-auto text-center">
-                        <div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto wd-100p">
-                            <img src="../../images/Logo1.png" class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto"
-                                alt="logo">
-                        </div>
-                    </div>
-                </div>
+                <div class="col-md-6 col-lg-6 col-xl-7 bg-primary-transparent" style="display: flex; align-items: center; justify-content: center; height: 100vh;">
+						<img src="../../images/Logo1.png" class="logo1-crop" style="max-height: 65vh; max-width: 65vw; width: auto; height: auto;" alt="logo">
+					</div>
                 <!-- The content half -->
                 <div class="col-md-6 col-lg-6 col-xl-5 bg-white">
                     <div class="login d-flex align-items-center py-2">
@@ -52,7 +47,7 @@
                                         <div class="card-sigin">
                                             <div class="main-signup-header">
                                                 <h2 style="font-size: 37px;"><a href="{{ route('login') }}"><img
-                                                            src="../../images/Logo1.png" class="sign-favicon ht-40"
+                                                            src="../../images/Logo1.png" class="sign-favicon" style="width: 10rem;"
                                                             alt="logo"></a> Usuario!</h2>
                                                 @if (session('status'))
                                                     <div class="alert alert-danger alert-dismissible fade show mb-0"

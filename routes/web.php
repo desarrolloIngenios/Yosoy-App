@@ -1,10 +1,15 @@
 <?php
 
 use App\Http\Controllers\LexController;
+use App\Http\Controllers\Web\MenteeCommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\CiudadController;
 
-if(env('WEB_FLAG')){ #se debe comentar esta linea y la de cierre para que funcione en local logica x
+//if(env('WEB_FLAG')){ #se debe comentar esta linea y la de cierre para que funcione en local logica x
+
+Route::get('/health', function () {
+    return response('OK', 200);
+});
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -24,6 +29,18 @@ Route::get('/reset-password/{token}', function ($token) {
 })->middleware('guest')->name('password.reset');
 
 Route::post('reset_password', [App\Http\Controllers\Web\LoginController::class, 'reset_password'])->name('password.update.web');
+
+// Rutas de verificación de correo
+Route::get('/email/verify/{id}/{hash}', [App\Http\Controllers\Web\VerificationController::class, 'verify'])
+    ->middleware(['signed'])
+    ->name('verification.verify');
+
+Route::get('/email/verification-notice', [App\Http\Controllers\Web\VerificationController::class, 'notice'])
+    ->name('verification.notice');
+
+Route::post('/email/verification-notification', [App\Http\Controllers\Web\VerificationController::class, 'resend'])
+    ->middleware(['throttle:6,1'])
+    ->name('verification.resend');
 
 Route::get('recordatorio_llenar_perfil/{user_id}', [App\Http\Controllers\Web\UserController::class, 'recordatorio_llenar_perfil'])->name('recordatorio_llenar_perfil');
 
@@ -124,21 +141,35 @@ Route::get('/chatbot', function () {
 
 Route::post('/lex-webhook', [App\Http\Controllers\LexController::class, 'webhook'])->name('webhook');
 
-Route::post('image-upload', [App\Http\Controllers\Web\ProfileController::class, 'upload' ])->name('image.upload');
+Route::post('image-upload', [App\Http\Controllers\Web\ProfileController::class, 'upload'])->name('image.upload');
 
-Route::get('candidates', [App\Http\Controllers\Web\CandidateController::class, 'index' ])->name('candidate.index');
-Route::get('candidates_lideresas', [App\Http\Controllers\Web\CandidateController::class, 'index_lideresas' ])->name('candidate.index_lideresas');
-Route::get('programas', [App\Http\Controllers\Web\ProgramController::class, 'index' ])->name('program.index');
-Route::get('entrenamiento/index', [App\Http\Controllers\Web\ProgramController::class, 'index_candidato' ])->name('entrenamiento.index');
-Route::get('candidato/{id}', [App\Http\Controllers\Web\ProgramController::class, 'candidato' ])->name('entrenamiento.candidato.index');
-Route::post('asignar-candidato', [App\Http\Controllers\Web\ProgramController::class, 'asignar_candidato' ])->name('programa.candidato.index');
+Route::get('candidates', [App\Http\Controllers\Web\CandidateController::class, 'index'])->name('candidate.index');
+Route::get('candidates_lideresas', [App\Http\Controllers\Web\CandidateController::class, 'index_lideresas'])->name('candidate.index_lideresas');
+Route::get('programas', [App\Http\Controllers\Web\ProgramController::class, 'index'])->name('program.index');
+Route::get('entrenamiento/index', [App\Http\Controllers\Web\ProgramController::class, 'index_candidato'])->name('entrenamiento.index');
+Route::get('candidato/{id}', [App\Http\Controllers\Web\ProgramController::class, 'candidato'])->name('entrenamiento.candidato.index');
+Route::post('asignar-candidato', [App\Http\Controllers\Web\ProgramController::class, 'asignar_candidato'])->name('programa.candidato.index');
 
 
 Route::middleware(['role:SUPERLIDERESA'])->group(function () {
-    Route::get('analitics', [App\Http\Controllers\Web\EntrenamientoContoller::class, 'show_analitics' ])->name('analitics.index');
-    Route::get('dashboard', [App\Http\Controllers\Web\DashboardController::class, 'index' ])->name('analitics.yosoy.index');
+    Route::get('analitics', [App\Http\Controllers\Web\EntrenamientoContoller::class, 'show_analitics'])->name('analitics.index');
+    Route::get('dashboard', [App\Http\Controllers\Web\DashboardController::class, 'index'])->name('analitics.yosoy.index');
 });
 
 Route::get('/api/ciudades', [CiudadController::class, 'index']);
 
-} #se debe comentar esta linea y la de apertura para que funcione en local logica x
+Route::post('mentee-comments', [MenteeCommentController::class, 'store']);
+Route::get('mentee-comments/{mentee}', [MenteeCommentController::class, 'index']);
+Route::delete('mentee-comments/{id}', [MenteeCommentController::class, 'destroy']);
+
+
+// Diagnostic route to check session/auth status via AJAX
+Route::get('debug/whoami', function () {
+    return response()->json([
+        'id' => auth()->id(),
+        'user' => auth()->user(),
+        'authenticated' => auth()->check(),
+    ]);
+});
+
+//} #se debe comentar esta linea y la de apertura para que funcione en local logica x

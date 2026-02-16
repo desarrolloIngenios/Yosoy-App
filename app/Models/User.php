@@ -13,7 +13,7 @@ use App\Models\Empresa;
 use App\Models\StarRating;
 use Illuminate\Contracts\Auth\CanResetPassword;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -51,8 +51,8 @@ class User extends Authenticatable
     public function contratos()
     {
         return $this->belongsToMany(Offer::class, 'profile_contrato', 'user_id', 'offer_id')
-        ->withPivot(['tipo_contrato_id', 'fecha_contrato'])
-        ->withTimestamps();
+            ->withPivot(['tipo_contrato_id', 'fecha_contrato'])
+            ->withTimestamps();
     }
 
     public static function getStarRating($user_id)
@@ -65,7 +65,7 @@ class User extends Authenticatable
     public function setRoleEmpresario()
     {
         $role = Role::where('name', 'like', 'EMPRESARIO')->first();
-        if(!is_null($role)){
+        if (!is_null($role)) {
             $this->roles()->save($role);
         }
     }
@@ -73,7 +73,7 @@ class User extends Authenticatable
     public function setRoleLidereza()
     {
         $role = Role::where('name', 'like', 'LIDERESA')->first();
-        if(!is_null($role)){
+        if (!is_null($role)) {
             $this->roles()->save($role);
         }
     }
@@ -81,5 +81,21 @@ class User extends Authenticatable
     public function empresa()
     {
         return $this->hasOne(Empresa::class);
+    }
+
+    /**
+     * Comentarios recibidos por este usuario (como mentee).
+     */
+    public function menteeComments()
+    {
+        return $this->hasMany(\App\Models\MenteeComment::class, 'mentee_id');
+    }
+
+    /**
+     * Comentarios escritos por este usuario.
+     */
+    public function authoredComments()
+    {
+        return $this->hasMany(\App\Models\MenteeComment::class, 'author_id');
     }
 }
