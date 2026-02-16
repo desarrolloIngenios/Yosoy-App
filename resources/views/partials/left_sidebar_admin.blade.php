@@ -1,9 +1,9 @@
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 	<aside class="app-sidebar sidebar-scroll">
 		<div class="main-sidebar-header active">
-			<a class="desktop-logo logo-light active" href="{{route('profile.get')}}"><img src="{{URL::asset('/images/Logo1.png')}}" class="main-logo" alt="logo"></a>
+			<a class="desktop-logo logo-light active" href="{{route('profile.get')}}"><img src="{{URL::asset('/images/Logo1-viejo2.png')}}" class="main-logo" alt="logo"></a>
 			<a class="desktop-logo logo-dark active" href="index.html"><img src="{{URL::asset('/assets/img/brand/logo-white.png')}}" class="main-logo dark-theme" alt="logo"></a>
-			<a class="logo-icon mobile-logo icon-light active" href="index.html"><img src="{{URL::asset('/images/Logo1.png')}}" class="logo-icon" alt="logo"></a>
+			<a class="logo-icon mobile-logo icon-light active" href="index.html"><img src="{{URL::asset('/images/Logo1-viejo2.png')}}" class="logo-icon" alt="logo"></a>
 			<a class="logo-icon mobile-logo icon-dark active" href="index.html"><img src="{{URL::asset('/assets/img/brand/favicon-white.png')}}" class="logo-icon dark-theme" alt="logo"></a>
 		</div>
 		<div class="main-sidemenu">
@@ -36,10 +36,10 @@
 				<li class="slide">
 					<a class="side-menu__item" href="{{ route('user_list') }}"><i class=" side-menu__icon fa fa-users"></i><span class="side-menu__label">Usuarios</span></a>
 				</li>
-				<li class="slide">
+				{{-- <li class="slide">
 					<a class="side-menu__item" href="{{ route('empresa.index') }}"><i class=" side-menu__icon fa fa-industry"></i><span class="side-menu__label">Empresas</span></a>
-				</li>
-				<li class="slide">
+				</li> --}}
+				{{-- <li class="slide">
 					<a class="side-menu__item" href="{{ route('offer.index') }}"><i class=" side-menu__icon fa fa-align-justify"></i><span class="side-menu__label">Ofertas</span></a>
 				</li>
 				<li class="slide">
@@ -47,12 +47,12 @@
 				</li>
 				<li class="slide">
 					<a class="side-menu__item" href="{{ route('offer.questions.show') }}"><i class=" side-menu__icon fa fa-star"></i><span class="side-menu__label">Calificación Oferta</span></a>
-				</li>
+				</li> --}}
 				
-				<li class="slide">
+				{{-- <li class="slide">
 					<a class="side-menu__item" href="{{ route('oferta.create') }}"><i class=" side-menu__icon fa fa-plus"></i><span class="side-menu__label">Crear Oferta</span></a>
-				</li>
-				<li class="slide">
+				</li> --}}
+				{{-- <li class="slide">
 					<a class="side-menu__item" href="{{ route('web.generate_codes') }}"><i class=" side-menu__icon fa fa-barcode"></i><span class="side-menu__label">Generar Codigos</span></a>
 				</li>
 				<li class="slide">
@@ -60,7 +60,7 @@
 				</li>
 				<li class="slide">
 					<a class="side-menu__item" href="{{ route('wompi.index') }}"><i class=" side-menu__icon fa fa-file"></i><span class="side-menu__label">Facturación</span></a>
-				</li>
+				</li> --}}
 				<li class="slide">
 					<a class="side-menu__item" target="_blank" href="{{ route('terminos_condiciones') }}"><i class=" side-menu__icon fa fa-file"></i><span class="side-menu__label">Política de datos.</span></a>
 				</li>

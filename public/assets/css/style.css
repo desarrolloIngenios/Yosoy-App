@@ -1,3 +1,23 @@
+/* Recorte visual para Logo1.png */
+.logo1-crop {
+    width: 100%;
+    /* max-width: 500px; */
+    height: 300px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    margin: 0 auto;
+}
+/* Ajuste específico para Logo1.png */
+.logo1-ajustada {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    min-width: 300px;
+    max-width: 600px;
+}
 /*------------------------------------------------------------------
 [Master Stylesheet]
 
@@ -1221,8 +1241,8 @@ fieldset:disabled a.btn {
 
 .btn-primary {
     color: #fff;
-    background-color: #5f3a89;
-    border-color: #5f3a89;
+    background-color: #e787da;
+    border-color: #e787da;
 }
 
 .btn-primary:hover {
@@ -1405,8 +1425,8 @@ fieldset:disabled a.btn {
 
 .btn-warning {
     color: #fff;
-    background-color: #fdb733;
-    border-color: #fdb733;
+    background-color: #2e757c;
+    border-color: #2e757c;
 }
 
 .btn-warning:hover {
@@ -2532,14 +2552,14 @@ input[type="button"].btn-block {
 /* ###### 5.1 Buttons  ###### */
 .btn-main-primary {
     color: #fff;
-    background-color: #5f3a89;
-    border-color: #5f3a89;
+    background-color: #e787da;
+    border-color: #e787da;
 }
 
 .btn-main-primary:hover {
     color: #fff;
-    background-color: #5f3a89;
-    border-color: #5f3a89;
+    background-color: #e787da;
+    border-color: #e787da;
 }
 
 .btn-main-primary:focus,
@@ -36720,7 +36740,7 @@ textarea.parsley-success:focus {
 
 .main-signup-header h2 {
     font-weight: 500;
-    color: #fdb733;
+    color: #2e757c;
     letter-spacing: -1px;
 }
 
@@ -37954,7 +37974,7 @@ button.bg-success:focus {
 }
 
 .bg-info {
-    background-color: #5f3a89 !important;
+    background-color: #e787da !important;
 }
 
 a.bg-info:hover,
@@ -37968,7 +37988,7 @@ button.bg-info:focus {
 }
 
 .bg-warning {
-    background-color: #fdb733 !important;
+    background-color: #2e757c !important;
 }
 
 a.bg-warning:hover,
@@ -38240,7 +38260,7 @@ button.bg-dark:focus {
 }
 
 .bg-primary {
-    background-color: #5f3a89 !important;
+    background-color: #e787da !important;
 }
 
 .bg-primary-gradient {
@@ -38256,7 +38276,7 @@ button.bg-dark:focus {
 }
 
 .bg-warning-gradient {
-    background-image: linear-gradient(to left, #5f3a89, #fdb733) !important;
+    background-image: linear-gradient(to left, #e787da, #2e757c) !important;
     /* background-image: linear-gradient(to left, #efa65f, #f76a2d) !important; */
 }
 
@@ -77292,7 +77312,7 @@ button.bg-dark:focus {
 }
 
 .text-primary {
-    color: #5f3a89 !important;
+    color: #e787da !important;
 }
 
 a.text-primary:hover,

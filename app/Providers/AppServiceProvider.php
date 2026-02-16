@@ -11,10 +11,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
-    {
-
-    }
+    public function register() {}
 
     /**
      * Bootstrap any application services.
@@ -23,9 +20,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if($this->app->environment('production')) {
+        // Forzar HTTPS en producción
+        if ($this->app->environment('production')) {
             \URL::forceScheme('https');
+            \URL::forceRootUrl(config('app.url'));
         }
-        
     }
 }

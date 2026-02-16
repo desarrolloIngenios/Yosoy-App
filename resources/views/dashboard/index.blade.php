@@ -115,7 +115,7 @@
                     </div>
                     <div class="col-6">
                         <div class="mt-0 text-center">
-                            <span class="text-white">CANDIDATAS</span>
+                            <span class="text-white">Mentees</span>
                             <h2 class="text-white mb-0">{{ $candidatas }}</h2>
                         </div>
                     </div>

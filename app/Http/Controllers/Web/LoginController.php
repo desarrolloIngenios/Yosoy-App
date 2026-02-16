@@ -16,7 +16,10 @@ use App\Models\Base\NivelExperiencia;
 use App\Models\Code;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VerificarCorreo;
 
 // use App\Rules\ReCaptcha;
 
@@ -34,6 +37,20 @@ class LoginController extends Controller
     }
     public function login(Request $request)
     {
+        // Validar si el usuario existe y si ha verificado su correo
+        $user = User::where('email', $request->input('email'))->first();
+
+        if ($user->email_verified_at == null && $user->created_at < '2026-01-13 00:00:00') {
+            $user->email_verified_at = now();
+            $user->save();
+        }
+
+
+        if ($user && is_null($user->email_verified_at)) {
+            return redirect()->back()
+                ->withInput($request->only('email'))
+                ->with('status', 'Debes verificar tu correo electrónico antes de iniciar sesión. Por favor revisa tu bandeja de entrada.');
+        }
 
         $email = $request->input('email');
         $password = $request->input('password');
@@ -41,54 +58,64 @@ class LoginController extends Controller
             'email' => $email,
             'password' => $password,
         ]);
-        
+
+
+
         $success = $response->json()['success'];
         $data = $response->json()['data'];
 
         if (!$success) {
-            return redirect()->back()->withInput($request->only('email'))->with('status', 'Error al acceder a la cuenta!');
+            return redirect()->back()->withInput($request->only('email'))->with('status', 'Error al acceder a la cuenta!' . $response->json()['message']);
         }
 
-        $client = new Client(); 
-        $response1 = $client->post(config('suonos.base_url').'business/api/v1/get_user/'.$request->email, [
-            'json' => [
-                'organization_code'=> "YOSOY",
-            ],  
-            'headers' => [
-                'Authorization' => 'Token ' .config('suonos.token'),
-                'Content-Type' => 'application/json',
-                'Accept' => 'application/json',  
-            ]
-            ]);
-        $data1 = json_decode($response1->getBody(), true);
-
-
-        if (empty($data1)) {
-            $user = User::where('email',$request->email)->first();
-            $response = $client->post(config('suonos.base_url').'business/api/v1/create_account', [
-                'json' => [
-                    'email' => $request->email,
-                    'country' => 'Colombia',
-                    'name' => $user->name,
-                    'password' => $request->password,
-                    'organization_code'=> "YOSOY"
-                    
-                ],  
-                'headers' => [
-                    'Authorization' => 'Token ' .config('suonos.token'),
-                    'Content-Type' => 'application/json',
-                    'Accept' => 'application/json',  
-                ]
-                ]);
-        } 
-        
-        
 
         $token = $data['token'];
         session(['token' => $token]);
 
+
         $role = $data['role'];
+
         session(['role' => $role]);
+
+        if ($role == 'LIDERESA' ||  $role == '') {
+            try {
+
+                $client = new Client();
+                $response1 = $client->post(config('suonos.base_url') . 'business/api/v1/get_user/' . $request->email, [
+                    'json' => [
+                        'organization_code' => "YOSOY",
+                    ],
+                    'headers' => [
+                        'Authorization' => 'Token ' . config('suonos.token'),
+                        'Content-Type' => 'application/json',
+                        'Accept' => 'application/json',
+                    ]
+                ]);
+                $data1 = json_decode($response1->getBody(), true);
+                // dd($data1);
+
+                if (empty($data1)) {
+                    $user = User::where('email', $request->email)->first();
+                    $response = $client->post(config('suonos.base_url') . 'business/api/v1/create_account', [
+                        'json' => [
+                            'email' => $request->email,
+                            'country' => 'Colombia',
+                            'name' => $user->name,
+                            'password' => $request->password,
+                            'organization_code' => "YOSOY"
+
+                        ],
+                        'headers' => [
+                            'Authorization' => 'Token ' . config('suonos.token'),
+                            'Content-Type' => 'application/json',
+                            'Accept' => 'application/json',
+                        ]
+                    ]);
+                }
+            } catch (\Throwable $th) {
+                Log::error($th);
+            }
+        }
 
         $user_id = $data['user_id'];
         session(['user_id' => $user_id]);
@@ -113,40 +140,54 @@ class LoginController extends Controller
     public function registro_index(Request $request, $tipo_usuario = null)
     {
         $data = [];
-        if($tipo_usuario == 'tecnico'){
+        if ($tipo_usuario == 'tecnico') {
 
             $data['nombre'] = 'Técnico';
             $data['is_empirico'] = false;
-
-        } elseif($tipo_usuario == 'empirico') {
+        } elseif ($tipo_usuario == 'empirico') {
 
             $data['nombre'] = 'Empírico / Informal';
             $data['is_empirico'] = true;
-
-        }elseif($tipo_usuario == 'lideresa') {
+        } elseif ($tipo_usuario == 'lideresa') {
 
             $data['nombre'] = 'Lideresa';
             $data['is_empirico'] = false;
-
-        }
-         else {
+        } else {
             return redirect()->route('registro_tipo_usuario.get');
         }
-        
-        $data['lideresas'] = User::with('roles','profile') ->whereHas('roles', function($query) {$query->where('name', 'LIDERESA');})->get();
+
+        $data['lideresas'] = User::with('roles', 'profile')->whereHas('roles', function ($query) {
+            $query->where('name', 'LIDERESA');
+        })->get();
+
+
+        $data['lideresas'] = $data['lideresas']->map(function ($user) {
+            $fullName = trim($user->profile->name . ' ' . $user->profile->last_name);
+
+            if ($fullName === 'Daniela Nez') {
+                $user->category = 1;
+                $user->fullname = $user->profile->name . ' ' . $user->profile->last_name;
+            } else {
+                $user->category = null;
+                $user->fullname = $user->profile->name . ' ' . $user->profile->last_name;
+            }
+
+            return $user;
+        });
+
+
         $data['cargos'] = Cargo::orderBy('nombre')->get();
         $data['tiempo_experiencia'] = TiempoExperiencia::all();
         $data['nivel_experiencia'] = NivelExperiencia::all();
 
-        return view('singup', $data);
 
+        return view('singup', $data);
     }
     public function logout(Request $request)
     {
         $request->session()->flush();
         return redirect()->to('https://yo-soy.co');
         return redirect()->route('login');
-
     }
     public function registro_empresa()
     {
@@ -154,7 +195,7 @@ class LoginController extends Controller
     }
     public function registro_post(Request $request)
     {
-        // dd($request->all());
+
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email|unique:users',
@@ -162,7 +203,7 @@ class LoginController extends Controller
             'numero_contacto_1' => 'required'
         ], ['email.unique' => "El correo ya está registrado"]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
         }
         $input = $request->all();
@@ -180,56 +221,61 @@ class LoginController extends Controller
             $profile->fill($request->except(['_token']));
             $profile->save();
 
-            if($profile->code){
+            if ($profile->code) {
                 $code = Code::set_used($profile->code);
             }
 
             $success['token'] =  $user->createToken('MyApp')->accessToken;
             $success['name'] =  $user->name;
-            
 
-            if($input['is_empresario'] != 1){
-                $perfil_laboral = new ProfilePerfilLaboral();
-                $perfil_laboral->fill($request->except(['_token']));
-                $perfil_laboral->profile_id = $profile->id;
-                $perfil_laboral->save();
 
-                $client = new Client();
-                 // creacion de usuario en Sunos
-                $response = $client->post(config('suonos.base_url').'business/api/v1/create_account', [
-                    'json' => [
-                        'email' => $request->email,
-                        'country' => 'Colombia',
-                        'name' => $request->name,
-                        'password' => $request->password,
-                        'organization_code'=> "YOSOY"
-                        
-                    ],  
-                    'headers' => [
-                        'Authorization' => 'Token ' .config('suonos.token'),
-                        'Content-Type' => 'application/json',
-                        'Accept' => 'application/json',  
-                    ]
+            if ($input['is_empresario'] != 1) {
+                // $perfil_laboral = new ProfilePerfilLaboral();
+                // $perfil_laboral->fill($request->except(['_token']));
+                // $perfil_laboral->profile_id = $profile->id;
+                // $perfil_laboral->save();
+
+                try {
+
+                    $client = new Client();
+
+                    $response = $client->post(config('suonos.base_url') . 'business/api/v1/create_account', [
+                        'json' => [
+                            'email' => $request->email,
+                            'country' => 'Colombia',
+                            'name' => $request->name,
+                            'password' => $request->password,
+                            'organization_code' => "YOSOY"
+
+                        ],
+                        'headers' => [
+                            'Authorization' => 'Token ' . config('suonos.token'),
+                            'Content-Type' => 'application/json',
+                            'Accept' => 'application/json',
+                        ]
                     ]);
+                } catch (\Throwable $th) {
+                    Log::error($th);
+                }
             }
-            if($request->has('is_lideresa')){
-                    $user->setRoleLidereza();
+            if ($request->has('is_lideresa')) {
+                $user->setRoleLidereza();
             }
-            if($input['is_empresario'] == 1){
+            if ($input['is_empresario'] == 1) {
                 $user->setRoleEmpresario();
             }
-        
-           
-            
-            
+
+            // Enviar correo de verificación
+            Mail::to($user->email)->send(new VerificarCorreo($user));
+
             // DB::commit();
 
         } catch (\Exception $e) {
             // DB::rollBack();
             // dd($e->getMessage());
         }
-            
-        return redirect()->route('login')->with('success', 'Cuenta creada con éxito, Puedes Iniciar Sesión!');
+
+        return redirect()->route('login')->with('success', 'Cuenta creada con éxito, Puedes Iniciar Sesión! Por favor verifica tu correo electrónico.');
     }
     public function forgot()
     {
@@ -246,7 +292,7 @@ class LoginController extends Controller
         $data = $response->json()['data'];
         $message = $response->json()['message'];
 
-        if($message == "passwords.sent"){
+        if ($message == "passwords.sent") {
             return redirect()->back()->with('success', 'Revisa tu bandeja de entrada para continuar el proceso. Si no logras encontrarlo, revisa tu bandeja de spam.');
         } else {
             return redirect()->back()->withInput($request->only('email'))->with('status', 'Error al enviar el correo');
@@ -278,6 +324,4 @@ class LoginController extends Controller
     {
         return view('suonos');
     }
-
-
 }
