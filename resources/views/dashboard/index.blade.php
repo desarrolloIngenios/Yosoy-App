@@ -66,26 +66,7 @@
     </div>
 </div> --}}
 <div class="row">
-    <div class="col-md-4">
-        <div class="card bg-primary text-white">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="icon1 mt-2 text-center">
-                            <i class="fa fa fa-industry tx-40"></i>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="mt-0 text-center">
-                            <span class="text-white">EMPRESAS</span>
-                            <h2 class="text-white mb-0">{{ $empresas }}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="card bg-warning text-white">
             <div class="card-body">
                 <div class="row">
@@ -104,7 +85,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="card bg-primary text-white">
             <div class="card-body">
                 <div class="row">
@@ -157,15 +138,6 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12 mb-4 pb-5">
-        <div class="card">
-            <div class="card-body">
-                <div id="chart-cargos"></div>
-            </div>
-        </div>
-    </div>
-</div>
 
 @endsection
 
@@ -176,7 +148,7 @@
 
         
         var ageGroups = @json($edades);
-        var cargosData = @json($ultimosCargos);
+        var cargosData = [];
         var perCompletados = @json($per_completados); 
         var perNoCompletados = @json($per_nocompletados);
 
@@ -223,38 +195,6 @@
         chart1.render();
 
 
-        //gradico cargos mas resgistrados
-        var options2 = {
-            chart: {
-                type: 'bar', 
-                height: 500
-            },
-            series: [{
-                name: 'Cantidad',
-                data: cargosData.map(cargo => cargo.count)
-            }],
-            xaxis: {
-                categories: cargosData.map(cargo => cargo.cargo),
-                labels: {
-                    style: {
-                        fontSize: '0px', // Reduce el tamaño de la fuente
-                        fontFamily: 'Helvetica, Arial, sans-serif',
-                        cssClass: 'apexcharts-xaxis-label'
-                    }
-                }
-            },
-            title: {
-                text: 'Los 5 Cargos Más Registrados'
-            },
-            colors: ['#5D1D88'],
-            grid: {
-                padding: {
-                    bottom: 100 // Aumenta el margen inferior
-                }
-            } 
-        };
-        var chart2 = new ApexCharts(document.querySelector("#chart-cargos"), options2);
-        chart2.render();
 
         //perfiles completados
         var options3 = {

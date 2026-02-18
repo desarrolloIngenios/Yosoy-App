@@ -14,3 +14,9 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+
+/storage/logs
+/last_logs.txt
+/test_mail.php
+/test_passport.php
+/docker-compose.yaml

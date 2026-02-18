@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: yosoyapp
-          image: us-central1-docker.pkg.dev/authentic-prod-464216/authenticfarma-microservices-test/yo-soy:v2
+          image: us-central1-docker.pkg.dev/authentic-prod-464216/authenticfarma-microservices-test/yo-soy:v4
           env:
             - name: APP_NAME
               value: "Laravel"
@@ -98,6 +98,16 @@ spec:
                 secretKeyRef:
                   name: yosoy-secrets
                   key: RECAPTCHA_SECRET_KEY
+            - name: PASSPORT_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: yosoy-secrets
+                  key: PASSPORT_PRIVATE_KEY
+            - name: PASSPORT_PUBLIC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: yosoy-secrets
+                  key: PASSPORT_PUBLIC_KEY
           ports:
             - name: web
               containerPort: 80

@@ -30,12 +30,12 @@
 			</div>
 			 <ul class="side-menu">
 				<li class="side-item side-item-category">Empresario</li>
-				<li class="slide">
+				{{-- <li class="slide">
 					<a class="side-menu__item" href="{{ route('dashboard.empresario') }}"><i class=" side-menu__icon fa fa-home"></i><span class="side-menu__label">Dashboard</span></a>
-				</li>
-				<li class="slide">
+				</li> --}}
+				{{-- <li class="slide">
 					<a class="side-menu__item" href="{{ route('empresa.empresario') }}"><i class=" side-menu__icon fa fa-industry"></i><span class="side-menu__label">Mi Empresa</span></a>
-				</li>
+				</li> --}}
 				{{-- <li class="slide">
 					<a class="side-menu__item" href="{{ route('offer.index') }}"><i class=" side-menu__icon fa fa-align-justify"></i><span class="side-menu__label">Mis Ofertas</span></a>
 				</li> --}}
