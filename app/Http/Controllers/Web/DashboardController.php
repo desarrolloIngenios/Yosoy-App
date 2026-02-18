@@ -4,7 +4,6 @@ namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
-use App\Models\ProfilePerfilLaboral;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -15,7 +14,6 @@ class DashboardController extends Controller
     public function index()
     {
         //conteo por roles
-        $data['empresas'] = User::whereHas('roles', function ($query) { $query->where('role_id', 2); })->count();
         $data['lideresas'] = User::whereHas('roles', function ($query) { $query->where('role_id', 3); })->count();
         $data['candidatas'] = User::doesntHave('roles')->count();
 
@@ -43,14 +41,7 @@ class DashboardController extends Controller
         $data['otro'] = Profile::whereHas('tipo_documento', function ($query) { $query->where('nombre', 'Otro'); })->count();
         $data['tarjeta_extrajera'] = Profile::whereHas('tipo_documento', function ($query) { $query->where('nombre', 'Tarjeta de extranjería'); })->count();
 
-        //5 cargos mas registrados
-        $data['ultimosCargos'] = ProfilePerfilLaboral::with('cargo')->get()->groupBy('cargo_id')->map(function ($group) {
-            $cargo = $group->first()->cargo; 
-            return [
-                'cargo' => $cargo ? $cargo->nombre : 'Sin nombre', 
-                'count' => $group->count(),  
-            ];
-        })->sortByDesc('count')->take(5)->values(); 
+        $data['ultimosCargos'] = [];
 
         $data['edades'] = User::with('profile')
             ->whereHas('profile', function($query) {

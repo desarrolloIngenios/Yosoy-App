@@ -15,18 +15,15 @@ class ProfileController extends Controller
 
     public function validar_success($response)
     {
-        if (!is_null($response)) {
-            if (!is_array($response->json()) && !array_key_exists('success', $response->json())) {
-                // $debugInfo = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1)[0];
-                // Log::info($debugInfo);
-                Log::info('Contenido de la sesión: ' . json_encode(session()->all()));
-                Log::info("Método " . __METHOD__ . " en linea " . __LINE__);
-                return redirect(\Request::url());
-                //return redirect()->back();
+        if ($response && $response->successful()) {
+            $json = $response->json();
+            if (is_array($json) && isset($json['success']) && $json['success']) {
+                return true;
             }
-        } else {
-            return redirect()->back();
         }
+
+        Log::error('API Error in ProfileController: ' . ($response ? $response->body() : 'No response'));
+        return false;
     }
 
     public function index(Request $request)
@@ -111,20 +108,18 @@ class ProfileController extends Controller
         $cache_keys = [
             'bancarizaciones',
             'cargos',
-            'tiempo_experiencia',
-            'nivel_experiencia',
             'tipo_contrato',
             'sector',
-            'empleador',
             'nivel_educativo',
             'titulo_educativo',
             'institucion_educativa',
-            'star_rating',
             'banco',
             'billetera',
             'eps',
-
         ];
+
+
+
 
         foreach ($cache_keys as $key) {
             if (Cache::has($key)) {

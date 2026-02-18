@@ -12,24 +12,14 @@ class CandidateController extends BaseController
 
     public function index()
     {
-        $candidatas = User::with(
-            'profile.perfiles_laborales.nivel_experiencia',
-            'profile.perfiles_laborales.tiempo_experiencia',
-            'profile.perfiles_laborales.cargo',
-            'profile.experiencias_laborales.contrato'
-        )->where('id_lideresa', auth()->user()->id)->get();
+        $candidatas = User::with('profile')->where('id_lideresa', auth()->user()->id)->get();
 
         return $this->sendResponse($candidatas, 'candidatas');
     }
 
     public function index_lideresas()
     {
-        $candidatas = User::with(
-            'profile.perfiles_laborales.nivel_experiencia',
-            'profile.perfiles_laborales.tiempo_experiencia',
-            'profile.perfiles_laborales.cargo',
-            'profile.experiencias_laborales.contrato'
-        )
+        $candidatas = User::with('profile')
             ->whereHas('profile', function ($query) {
                 $query->whereNotNull('name')
                     ->where('name', '!=', '')

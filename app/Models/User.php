@@ -9,8 +9,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use App\Models\Profile;
 use App\Models\Role;
-use App\Models\Empresa;
-use App\Models\StarRating;
 use Illuminate\Contracts\Auth\CanResetPassword;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -43,24 +41,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id');
     }
 
-    public function offers()
-    {
-        return $this->belongsToMany(Offer::class, 'offer_user', 'user_id', 'offer_id');
-    }
-
-    public function contratos()
-    {
-        return $this->belongsToMany(Offer::class, 'profile_contrato', 'user_id', 'offer_id')
-            ->withPivot(['tipo_contrato_id', 'fecha_contrato'])
-            ->withTimestamps();
-    }
-
-    public static function getStarRating($user_id)
-    {
-        $rating = StarRating::where('user_id', $user_id)->avg('rating');
-        $rating = ($rating + 5.0) / 2;
-        return $rating;
-    }
 
     public function setRoleEmpresario()
     {
@@ -78,10 +58,6 @@ class User extends Authenticatable implements MustVerifyEmail
         }
     }
 
-    public function empresa()
-    {
-        return $this->hasOne(Empresa::class);
-    }
 
     /**
      * Comentarios recibidos por este usuario (como mentee).

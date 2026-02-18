@@ -10,9 +10,6 @@ use App\Models\User;
 use App\Models\PoliticaLog;
 use App\Models\PoliticaActual;
 use App\Models\Profile;
-use App\Models\ProfilePerfilLaboral;
-use App\Models\Base\TiempoExperiencia;
-use App\Models\Base\NivelExperiencia;
 use App\Models\Code;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
@@ -40,6 +37,13 @@ class LoginController extends Controller
         // Validar si el usuario existe y si ha verificado su correo
         $user = User::where('email', $request->input('email'))->first();
 
+        if (!$user) {
+
+            return redirect()->back()
+                ->withInput($request->only('email'))
+                ->with('status', 'El correo electrónico no está registrado.');
+        }
+
         if ($user->email_verified_at == null && $user->created_at < '2026-01-13 00:00:00') {
             $user->email_verified_at = now();
             $user->save();
@@ -61,8 +65,17 @@ class LoginController extends Controller
 
 
 
-        $success = $response->json()['success'];
-        $data = $response->json()['data'];
+        $jsonResponse = $response->json();
+
+        if (!$response->successful() || !isset($jsonResponse['success'])) {
+            Log::error('API Login Error: ' . $response->body());
+            $errorMessage = isset($jsonResponse['message']) ? $jsonResponse['message'] : 'Hubo un problema al conectar con el servidor.';
+            return redirect()->back()->withInput($request->only('email'))->with('status', 'Error al acceder a la cuenta! ' . $errorMessage);
+        }
+
+        $success = $jsonResponse['success'];
+        $data = $jsonResponse['data'] ?? [];
+
 
         if (!$success) {
             return redirect()->back()->withInput($request->only('email'))->with('status', 'Error al acceder a la cuenta!' . $response->json()['message']);
@@ -131,9 +144,6 @@ class LoginController extends Controller
         session(['politica_actual' => $politica_actual->version]);
         session(['user_politica_aceptada' => $politica_aceptada]);
 
-        if ($role == 'EMPRESARIO') {
-            session(['empresa' => $data['empresa']]);
-        }
 
         return redirect()->route('profile.get');
     }
@@ -177,8 +187,8 @@ class LoginController extends Controller
 
 
         $data['cargos'] = Cargo::orderBy('nombre')->get();
-        $data['tiempo_experiencia'] = TiempoExperiencia::all();
-        $data['nivel_experiencia'] = NivelExperiencia::all();
+        $data['tiempo_experiencia'] = [];
+        $data['nivel_experiencia'] = [];
 
 
         return view('singup', $data);
@@ -225,8 +235,13 @@ class LoginController extends Controller
                 $code = Code::set_used($profile->code);
             }
 
-            $success['token'] =  $user->createToken('MyApp')->accessToken;
-            $success['name'] =  $user->name;
+            // El token de Passport es opcional en el flujo web. Se envuelve en try-catch 
+            // para que si Passport no está configurado, el proceso continúe.
+            try {
+                $user->createToken('MyApp')->accessToken;
+            } catch (\Exception $e) {
+                Log::warning('No se pudo crear el token de Passport en registro web: ' . $e->getMessage());
+            }
 
 
             if ($input['is_empresario'] != 1) {
@@ -266,16 +281,20 @@ class LoginController extends Controller
             }
 
             // Enviar correo de verificación
-            Mail::to($user->email)->send(new VerificarCorreo($user));
+            try {
+                Mail::to($user->email)->send(new VerificarCorreo($user));
+            } catch (\Exception $e) {
+                Log::error('Error al enviar correo de verificación: ' . $e->getMessage());
+            }
 
             // DB::commit();
 
         } catch (\Exception $e) {
-            // DB::rollBack();
-            // dd($e->getMessage());
+            Log::error('Error crítico en el registro de usuario: ' . $e->getMessage());
+            return redirect()->back()->withInput($request->all())->withErrors(['error' => 'Hubo un error al crear la cuenta. Por favor intenta de nuevo.']);
         }
 
-        return redirect()->route('login')->with('success', 'Cuenta creada con éxito, Puedes Iniciar Sesión! Por favor verifica tu correo electrónico.');
+        return redirect()->route('login')->with('success', 'Cuenta creada con éxito. Por favor verifica tu correo electrónico para activar tu cuenta.');
     }
     public function forgot()
     {
@@ -288,9 +307,10 @@ class LoginController extends Controller
             'email' => $email,
         ]);
         //dd($response->json());
-        $success = $response->json()['success'];
-        $data = $response->json()['data'];
-        $message = $response->json()['message'];
+        $jsonResponse = $response->json();
+        $success = $jsonResponse['success'] ?? false;
+        $data = $jsonResponse['data'] ?? [];
+        $message = $jsonResponse['message'] ?? '';
 
         if ($message == "passwords.sent") {
             return redirect()->back()->with('success', 'Revisa tu bandeja de entrada para continuar el proceso. Si no logras encontrarlo, revisa tu bandeja de spam.');

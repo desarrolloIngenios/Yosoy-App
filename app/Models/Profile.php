@@ -79,15 +79,6 @@ class Profile extends Model
         }
     }
 
-    public function perfiles_laborales()
-    {
-        return $this->hasMany(ProfilePerfilLaboral::class, 'profile_id');
-    }
-
-    public function experiencias_laborales()
-    {
-        return $this->hasMany(ProfileExperienciaLaboral::class, 'profile_id');
-    }
 
     public function educaciones()
     {

@@ -36,13 +36,10 @@ class UserController extends Controller
         $message = $response->json()['message'];
         $data['users'] = $users;
 
-        $users =  $profile = Profile::with(
+        $users = Profile::with(
             'ciudad_residencia', 
             'genero', 
             'tipo_documento', 
-            'perfiles_laborales.nivel_experiencia', 
-            'perfiles_laborales.cargo',
-            'perfiles_laborales.tiempo_experiencia',
             'user'
             )->get();
 

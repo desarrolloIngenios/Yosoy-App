@@ -52,17 +52,27 @@ class LoginController extends BaseController
         $profile->fill($request->except(['_token']));
         $profile->save();
 
-        $success['token'] =  $user->createToken('MyApp')->accessToken;
+        // Passport Token
         $success['name'] =  $user->name;
+        $success['token'] = null;
+        try {
+            $success['token'] = $user->createToken('MyApp')->accessToken;
+        } catch (\Exception $e) {
+            \Log::warning('No se pudo crear el token de Passport en registro API: ' . $e->getMessage());
+        }
 
         // si en el formulario viene el campo is_empresario verdadero, 
         // se asigna el rol de empresario al Usuario
-        if ($input['is_empresario'] == 1) {
+        if (isset($input['is_empresario']) && $input['is_empresario'] == 1) {
             $user->setRoleEmpresario();
         }
 
         // Enviar correo de verificación
-        Mail::to($user->email)->send(new VerificarCorreo($user));
+        try {
+            Mail::to($user->email)->send(new VerificarCorreo($user));
+        } catch (\Exception $e) {
+            \Log::error('Error al enviar correo de verificación API: ' . $e->getMessage());
+        }
 
         return $this->sendResponse($success, 'User register successfully. Please verify your email.');
     }
@@ -98,11 +108,16 @@ class LoginController extends BaseController
                 return $this->sendError('Email not verified.', ['error' => 'Please verify your email before logging in.']);
             }
 
-            $success['token'] =  $user->createToken('MyApp')->accessToken;
             $success['name'] =  $user->name;
             $success['user_id'] =  $user->id;
             $success['role'] =  $user->roles->first() ? $user->roles->first()->name : '';
-            $success['empresa'] =  $user->empresa ? $user->empresa->id : '';
+            $success['token'] = null;
+
+            try {
+                $success['token'] = $user->createToken('MyApp')->accessToken;
+            } catch (\Exception $e) {
+                \Log::warning('No se pudo crear el token de Passport en login API: ' . $e->getMessage());
+            }
 
             return $this->sendResponse($success, 'User login successfully.');
         } else {

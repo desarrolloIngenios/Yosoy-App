@@ -36,9 +36,10 @@
 				{{-- <li class="slide">
 					<a class="side-menu__item" href="{{ route('user_list') }}"><i class=" side-menu__icon fa fa-users"></i><span class="side-menu__label">Usuarios</span></a>
 				</li> --}}
-				<li class="slide">
+				{{-- <li class="slide">
 					<a class="side-menu__item" href="{{ route('empresa.index') }}"><i class=" side-menu__icon fa fa-industry"></i><span class="side-menu__label">Empresas</span></a>
-				</li>
+				</li> --}}
+
 				{{-- <li class="slide">
 					<a class="side-menu__item" href="{{ route('offer.index') }}"><i class=" side-menu__icon fa fa-align-justify"></i><span class="side-menu__label">Ofertas</span></a>
 				</li> --}}
@@ -69,9 +70,9 @@
 				{{-- <li class="slide">
 					<a class="side-menu__item" href="{{ route('analitics.index') }}"><i class=" side-menu__icon fa fa-chart-line"></i><span class="side-menu__label">Analiticas Suonos</span></a>
 				</li> --}}
-				<li class="slide">
+				{{-- <li class="slide">
 					<a class="side-menu__item" href="{{ route('user_list') }}"><i class=" side-menu__icon fa fa-users"></i><span class="side-menu__label">Usuarias</span></a>
-				</li>
+				</li> --}}
 				<li class="slide">
 					<a class="side-menu__item" href="{{ route('candidate.index_lideresas') }}"><i class=" side-menu__icon fa fa-users"></i><span class="side-menu__label">Mentee</span></a>
 				</li>
